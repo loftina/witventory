@@ -1,0 +1,44 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  mongo:
+    build: ./MongoDB
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      #MONGODB_USERNAME: admin
+      #MONGODB_PASSWORD: pass
+      #MONGODB_DATABASE: mongo
+      MONGO_INITDB_DATABASE: Witventory
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+    depends_on:
+      - mongo
+
+  express:
+    build: ./Express
+    command: node server.js
+    ports:
+      - 8080:8080
+    links:
+      - mongo
+
+  angular:
+    build: ./Angular
+    ports: 
+      - 4200:4200
+    command: npm start
+    depends_on:
+      - express

@@ -1,0 +1,14 @@
+{
+  "name": "Witventory",
+  "description": "packages for witventory backend using express",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.1"
+  },
+  "author": "Avery Loftin <loftina@wit.edu>",
+  "license": "ISC"
+}
