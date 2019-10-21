@@ -1,16 +1,18 @@
-'use strict';
+const http = require('http');
+const app = require('./app');
 
-const express = require('express');
+/**
+ **_ Get port from environment and store in Express.
+ _**/
+const port = process.env.PORT || '3000';
+app.set('port', port);
 
-// Constants
-const PORT = 8080;
-const HOST = '0.0.0.0';
+/**
+ _ Create HTTP server.
+ _**/
+const server = http.createServer(app);
 
-// App
-const app = express();
-app.get('/', (req, res) => {
-  res.send('Hello world\n');
-});
-
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+/*_
+ _ Listen on provided port, on all network interfaces.
+ */
+server.listen(port, () => console.log(`API running on localhost:${port}`));
