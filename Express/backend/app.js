@@ -15,6 +15,8 @@ mongoose.connect(dbHost, { useNewUrlParser: true, useUnifiedTopology: true });
 const api = require('./api/routes/api');
 const items = require('./api/routes/items');
 const reservations = require('./api/routes/reservations');
+const users = require('./api/routes/users');
+
 
 const app = express();
 
@@ -39,8 +41,10 @@ app.use(function(req, res, next) {
 // Set our api routes
 app.use('/', api);
 
-app.use('/items', items)
+app.use('/items', items);
 
-app.use('/reservations', reservations)
+app.use('/reservations', reservations);
+
+app.use('/users', users);
 
 module.exports = app;

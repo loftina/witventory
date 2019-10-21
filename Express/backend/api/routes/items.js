@@ -2,8 +2,9 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const multer = require('multer');
-const path = require('path')
+const path = require('path');
 const router = express.Router();
+const checkAuth = require('../middleware/check-auth');
 
 const UPLOAD_PATH = path.resolve(__dirname, '../../images/item_images')
 
@@ -98,6 +99,10 @@ router.get('/:id', (req, res, next) => {
               url: 'http://localhost:3000/items'
             }
           })
+        } else {
+          res.status(404).json({
+            message: "item not found"
+          });
         }
       })
       .catch(err => {
@@ -106,7 +111,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 /_ POST an item. _/
-router.post('/', upload.single('image'), (req, res, next) => {
+router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
     // const images = req.files.map((file) => {
     //     return {
     //         filename: file.filename,
@@ -154,8 +159,9 @@ router.post('/', upload.single('image'), (req, res, next) => {
       });
 });
 
+// should restrict fields you can update
 /_ PATCH an item. _/
-router.patch('/:id', (req, res, next) => {
+router.patch('/:id', checkAuth, (req, res, next) => {
     const updateOps = {};
     for (const ops of req.body) {
       updateOps[ops.propName] = ops.value;
@@ -185,7 +191,7 @@ router.patch('/:id', (req, res, next) => {
 });
 
 /_ DELETE an item. _/
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', checkAuth, (req, res, next) => {
     Item.deleteOne({ _id: req.params.id })
       .exec()
       .then(result => {

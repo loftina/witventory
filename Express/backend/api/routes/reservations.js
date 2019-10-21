@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const checkAuth = require('../middleware/check-auth');
 
 const Reservation = require('../models/reservation');
 const Item = require('../models/item');
@@ -35,7 +36,7 @@ router.get('/', (req, res, next) => {
 		});
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth, (req, res, next) => {
 	Item.findById(req.body.item)
 		.then(item => {
 			if (!item) {
@@ -98,7 +99,7 @@ router.get('/:id', (req, res, next) => {
 		});
 })
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', checkAuth, (req, res, next) => {
 	Reservation.deleteOne({ _id: req.params.id })
 		.exec()
 		.then(result => {
