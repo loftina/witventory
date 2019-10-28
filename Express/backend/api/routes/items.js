@@ -16,41 +16,65 @@ const upload = multer({
 
 const Item = require('../models/item');
 
+
 /_ GET all items. _/
 router.get('/', (req, res, next) => {
-    Item.find()
-      .select("name location damaged_status _id")
-      .exec()
-      .then(items => {
-        const response = {
-          count: items.length,
-          items: items.map(item => {
-            return {
-              name: item.name,
-              location: item.location,
-              damaged_status: item.damaged_status,
-              _id: item._id,
-              request: {
-                type: 'GET',
-                description: 'get item details',
-                url: 'http://localhost:3000/items/' + item._id 
-              }
+
+  filter = req.query
+
+  fields = "name location damaged_status _id"
+  if (typeof filter.fields != 'undefined'){
+    fields = filter.fields;
+    delete filter.fields;
+  }
+
+  var regexFilter = function(filter){
+    return_filter = {}
+    Object.keys(filter).map(function(key){ return_filter[key] =  new RegExp('.*'+filter[key]+'.*', "i")});
+    return return_filter;
+  }
+
+  Item.find(regexFilter(filter))
+    .select(fields)
+    .exec()
+    .then(items => {
+      const response = {
+        count: items.length,
+        items: items.map(item => {
+          return {
+            name: item.name,
+            location: item.location,
+            damaged_status: item.damaged_status,
+            _id: item._id,
+            request: {
+              type: 'GET',
+              description: 'get item details',
+              url: 'http://localhost:3000/items/' + item._id 
             }
-          })
-        };
-        res.status(200).json(response);
-      })
-      .catch(err => {
-        res.status(500).json({
-          error: err
-        });
+          }
+        })
+      };
+      res.status(200).json(response);
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: err
       });
+    });
 });
 
 /_ GET one item. _/
 router.get('/:id', (req, res, next) => {
+
+    filter = req.query
+
+    fields = "name location description damaged_status notes image _id"
+    if (typeof filter.fields != 'undefined'){
+      fields = filter.fields;
+    }
+
     Item.findById(req.params.id)
-      .select('name location description damaged_status notes image _id')
+      .select(fields)
       .exec()
       .then(item => {
         if (item) {
