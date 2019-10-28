@@ -9,11 +9,11 @@ services:
     ports:
       - "27017:27017"
 
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
+  # mongo-express:
+  #   image: mongo-express
+  #   restart: always
+  #   ports:
+  #     - 8081:8081
 
   express:
     build: ./Express
@@ -22,22 +22,22 @@ services:
     links:
       - mongo
 
-  angular:
-    build: ./Angular
-    ports: 
-      - 4200:4200
-    depends_on:
-      - express
+#   angular:
+#     build: ./Angular
+#     ports: 
+#       - 4200:4200
+#     depends_on:
+#       - express
 
-  portainer:
-    image: portainer/portainer
-    command: -H unix:///var/run/docker.sock
-    restart: always
-    ports:
-      - 9000:9000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+#   portainer:
+#     image: portainer/portainer
+#     command: -H unix:///var/run/docker.sock
+#     restart: always
+#     ports:
+#       - 9000:9000
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock
+#       - portainer_data:/data
 
-volumes:
-  portainer_data:
+# volumes:
+#   portainer_data:
