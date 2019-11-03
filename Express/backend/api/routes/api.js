@@ -4,7 +4,7 @@ const router = express.Router();
 
 /_ GET api listing. _/
 router.get('/', (req, res) => {
-        res.send('api worksss');
+        res.send('api works');
 });
 
 module.exports = router;
