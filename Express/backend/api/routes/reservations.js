@@ -75,60 +75,60 @@ router.post('/', checkAuth, (req, res, next) => {
 				return res.status(409).json({
 					message: 'Item already reserved for this period'
 				});
-			}
-		})
-		.catch(err => {
-			res.status(500).json({
-				error: err
-			})
-		});
-
-	Item.findById(req.body.item)
-		.then(item => {
-			if (!item) {
-				return res.status(404).json({
-					message: 'Item not found'
-				});
-			}
-			User.findById(req.userData.id)
-				.then(user => {
-					if (!user) {
-						return res.status(404).json({
-							message: 'Contact not found'
-						});
-					}
-
-					const reservation = new Reservation({
-						_id: mongoose.Types.ObjectId(),
-						user: req.userData.id,
-						item: req.body.item,
-						start_date: req.body.start_date,
-						end_date: req.body.end_date
-					});
-
-					return reservation.save();
-				})
-				.then(result => {
-					res.status(201).json({
-						message: 'Reservation successfully created',
-						createdReservation: {
-							_id: result._id,
-							user: result.user,
-							item: result.item,
-							start_date: result.start_date,
-							end_date: result.end_date
-						},
-						request: {
-							type: 'GET',
-							url: 'http://localhost:3000/reservations/' + result._id
+			} else {
+				Item.findById(req.body.item)
+					.then(item => {
+						if (!item) {
+							return res.status(404).json({
+								message: 'Item not found'
+							});
 						}
+						User.findById(req.userData.id)
+							.then(user => {
+								if (!user) {
+									return res.status(404).json({
+										message: 'Contact not found'
+									});
+								}
+
+								const reservation = new Reservation({
+									_id: mongoose.Types.ObjectId(),
+									user: req.userData.id,
+									item: req.body.item,
+									start_date: req.body.start_date,
+									end_date: req.body.end_date
+								});
+
+								return reservation.save();
+							})
+							.then(result => {
+								res.status(201).json({
+									message: 'Reservation successfully created',
+									createdReservation: {
+										_id: result._id,
+										user: result.user,
+										item: result.item,
+										start_date: result.start_date,
+										end_date: result.end_date
+									},
+									request: {
+										type: 'GET',
+										url: 'http://localhost:3000/reservations/' + result._id
+									}
+								})
+							})
+							.catch(err => {
+								res.status(500).json({
+									error: err
+								})
+							});
 					})
-				})
-				.catch(err => {
-					res.status(500).json({
-						error: err
-					})
-				});
+					.catch(err => {
+						res.status(500).json({
+							error: err
+						})
+					});
+			}
 		})
 		.catch(err => {
 			res.status(500).json({
@@ -173,10 +173,27 @@ router.delete('/:id', checkAuth, (req, res, next) => {
 						message: 'Reservation not found'
 					});
 				}
-				if (reservation.user != req.userData.id){
+				else if (reservation.user != req.userData.id){
 					return res.status(401).json({
 						message: 'Auth failed'
 					});
+				} else {
+					Reservation.deleteOne({ _id: req.params.id })
+						.exec()
+						.then(result => {
+							res.status(200).json({
+								message: 'Order successfully deleted',
+								request: {
+									type: 'GET',
+									url: 'http://localhost:3000/reservations'
+								}
+							});
+						})
+						.catch(err => {
+							res.status(500).json({
+								error: err
+							});
+						});
 				}
 			})
 			.catch(err => {
@@ -184,24 +201,24 @@ router.delete('/:id', checkAuth, (req, res, next) => {
 					error: err
 				});
 			});
+	} else {
+		Reservation.deleteOne({ _id: req.params.id })
+			.exec()
+			.then(result => {
+				res.status(200).json({
+					message: 'Order successfully deleted',
+					request: {
+						type: 'GET',
+						url: 'http://localhost:3000/reservations'
+					}
+				});
+			})
+			.catch(err => {
+				res.status(500).json({
+					error: err
+				});
+			});
 	}
-
-	Reservation.deleteOne({ _id: req.params.id })
-		.exec()
-		.then(result => {
-			res.status(200).json({
-				message: 'Order successfully deleted',
-				request: {
-					type: 'GET',
-					url: 'http://localhost:3000/reservations'
-				}
-			});
-		})
-		.catch(err => {
-			res.status(500).json({
-				error: err
-			});
-		});
 })
 
 module.exports = router;
