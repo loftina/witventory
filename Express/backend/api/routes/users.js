@@ -3,6 +3,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const checkAuth = require('../middleware/check-auth');
+
 
 const User = require('../models/user');
 
@@ -24,7 +26,8 @@ router.post('/signup', (req, res, next) => {
 						const user = new User({
 							_id: new mongoose.Types.ObjectId(),
 							email: req.body.email,
-							password: hash
+							password: hash,
+							admin: "false"
 						});
 						user
 						.save()
@@ -65,7 +68,8 @@ router.post('/login', (req, res, next) => {
 					const token = jwt.sign(
 						{
 							email: user[0].email,
-							id: user[0]._id
+							id: user[0]._id,
+							admin: user[0].admin
 						},
 						"secret", //CHANGE TO ENV VAR
 						{
@@ -74,7 +78,9 @@ router.post('/login', (req, res, next) => {
 					);
 					return res.status(200).json({
 						message: 'Auth successful',
-						token: token
+						token: token,
+						admin: user[0].admin,
+						expiration: Math.floor(Date.now() / 1000) + (60 * 60)
 					});
 				}
 				return res.status(401).json({
@@ -91,7 +97,12 @@ router.post('/login', (req, res, next) => {
 		})
 })
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', checkAuth, (req, res, next) => {
+	if (!req.userData.admin) {
+		return res.status(401).json({
+			message: 'Auth failed'
+		});
+    }
 	User.remove({ _id: req.params.id })
 		.exec()
 		.then(result => {

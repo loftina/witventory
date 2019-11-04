@@ -99,6 +99,12 @@ router.get('/:id', (req, res, next) => {
 
 /_ POST an item. _/
 router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
+    // only admins can create item
+    if (!req.userData.admin) {
+      return res.status(401).json({
+        message: 'Auth failed'
+      });
+    }
     let item = new Item({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -134,6 +140,13 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
 // should restrict fields you can update
 /_ PATCH an item. _/
 router.patch('/:id', checkAuth, (req, res, next) => {
+    // only admins can update item
+    if (!req.userData.admin) {
+      return res.status(401).json({
+        message: 'Auth failed'
+      });
+    }
+
     const updateOps = {};
     for (const ops of req.body) {
       updateOps[ops.propName] = ops.value;
@@ -158,6 +171,13 @@ router.patch('/:id', checkAuth, (req, res, next) => {
 
 /_ DELETE an item. _/
 router.delete('/:id', checkAuth, (req, res, next) => {
+    // only admins can delete item
+    if (!req.userData.admin) {
+      return res.status(401).json({
+        message: 'Auth failed'
+      });
+    }
+
     Item.deleteOne({ _id: req.params.id })
       .exec()
       .then(result => {

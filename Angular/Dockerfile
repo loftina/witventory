@@ -8,6 +8,8 @@ COPY ./frontend /usr/src/app
 
 RUN npm cache clean --force
 
+RUN npm link @angular/cli
+
 EXPOSE 4200
 
 CMD ["npm", "start"]
