@@ -17,8 +17,6 @@ export class ItemListComponent implements OnInit {
 
 	ngOnInit() {
 		this.route.queryParams.subscribe(params => {
-			console.log(params);
-			console.log(String(params));
 			this.http.get(`${this.API}/items`, {params: params})
 				.subscribe((itemsResp: any) => {
 					console.log(itemsResp.items)

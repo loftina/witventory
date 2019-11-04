@@ -30,6 +30,7 @@ export class SignInFormComponent implements OnInit {
 	private setSession(authResult) {
 		const expiresAt = moment().add(authResult.expiration, 'second');
 
+		localStorage.setItem('id', authResult.id);
 		localStorage.setItem('admin', authResult.admin);
         localStorage.setItem('token', authResult.token);
         localStorage.setItem('expiration', JSON.stringify(expiresAt.valueOf()));

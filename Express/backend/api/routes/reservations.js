@@ -10,19 +10,29 @@ const User = require('../models/user');
 router.get('/', (req, res, next) => {
 	// filter for greater than start param and less than end param
 	filter = req.query
-	return_filter = {}
+	temp_filter = {}
 	if ((typeof filter.start != 'undefined') & (typeof filter.end != 'undefined')){
-		return_filter.start_date = { $gte: filter.start, $lte: filter.end };
+		temp_filter.start_date = { $gte: filter.start, $lte: filter.end };
+		delete filter.start;
+		delete filter.end;
 	}
 	else if (typeof filter.start != 'undefined'){
-		return_filter.start_date = { $gte: filter.start };
+		temp_filter.start_date = { $gte: filter.start };
+		delete filter.start;
 	}
 	else if (typeof filter.end != 'undefined'){
-		return_filter.start_date = { $lte: filter.end };
+		temp_filter.start_date = { $lte: filter.end };
+		delete filter.end;
+	}
+
+	var regexFilter = function(filter){
+		return_filter = temp_filter
+		Object.keys(filter).map(function(key){ return_filter[key] = filter[key]});
+		return return_filter;
 	}
 
 	Reservation
-		.find(return_filter)
+		.find(regexFilter(filter))
 		.select('user item start_date end_date _id')
 		.populate('item', 'name location _id')
 		.populate('user', 'email _id')

@@ -7,6 +7,7 @@ import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
 import { ItemInfoComponent } from './item-info/item-info.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
+import { ReservationListComponent } from './reservation-list/reservation-list.component';
 
 const routes: Routes = [
 	{ path: '', pathMatch: 'full', component: SignInFormComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
 	{ path: 'createitem', pathMatch: 'full', component: CreateItemFormComponent },
 	{ path: 'item/:id', pathMatch: 'full', component: ItemInfoComponent },
 	{ path: 'items', pathMatch: 'prefix', component: ItemListComponent },
-	{ path: 'reservation/:id', pathMatch: 'full', component: ReservationInfoComponent }
+	{ path: 'reservation/:id', pathMatch: 'full', component: ReservationInfoComponent },
+	{ path: 'reservations', pathMatch: 'prefix', component:  ReservationListComponent }
 ];
 
 @NgModule({

@@ -1,6 +1,12 @@
+<img src="{{item?.image}}" height="100px" width="100px"/>
 <h1> {{item?.name}} </h1>
 <hr/>
-<img src="{{item?.image}}" height="100px" width="100px"/>
+<ul>
+	<li> {{ item?.location }} </li>
+	<li> {{ item?.description }} </li>
+	<li> {{ item?.damaged_status }} </li>
+	<li> {{ item?.notes }} </li>
+</ul>
 
 <h3>Reserve Item</h3>
 <form>
@@ -14,3 +20,8 @@
 	</div>
 	<button type="button" (click)="createReservation(start.value, end.value, item._id)" class="btn btn-primary">Reserve Item</button>
 </form>
+
+<h3>Reservations</h3>
+<ul *ngFor="let reservation of reservations">
+	<li [routerLink]="['/reservation', reservation._id]"> {{reservation.start_date}}, {{reservation.end_date}} </li>
+</ul>

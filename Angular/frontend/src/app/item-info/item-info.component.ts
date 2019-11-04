@@ -27,6 +27,7 @@ interface ReservationPostResponse
 export class ItemInfoComponent implements OnInit {
 
 	item: {};
+	reservations = [];
 
 	API = 'http://localhost:3000';
 
@@ -35,11 +36,16 @@ export class ItemInfoComponent implements OnInit {
 	ngOnInit() {
 		this.route.paramMap.subscribe(params => {
 		 		this.http.get(`${this.API}/items/` + params.get('id'))
-				.subscribe((itemResp: any) => {
-					console.log(itemResp.item)
-					this.item = itemResp.item
-				})
-	    }) 
+					.subscribe((itemResp: any) => {
+						console.log(itemResp.item)
+						this.item = itemResp.item
+					})
+				this.http.get(`${this.API}/reservations`, {params: {item: params.get('id')}})
+					.subscribe((reservationsResp: any) => {
+						console.log(reservationsResp.reservations)
+						this.reservations = reservationsResp.reservations;
+					})
+	    });
 	}
 
 	// Reserve Item

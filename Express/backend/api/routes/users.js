@@ -80,6 +80,7 @@ router.post('/login', (req, res, next) => {
 						message: 'Auth successful',
 						token: token,
 						admin: user[0].admin,
+						id: user[0]._id,
 						expiration: Math.floor(Date.now() / 1000) + (60 * 60)
 					});
 				}

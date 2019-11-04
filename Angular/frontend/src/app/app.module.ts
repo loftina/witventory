@@ -12,6 +12,7 @@ import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
 import { ItemInfoComponent } from './item-info/item-info.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
+import { ReservationListComponent } from './reservation-list/reservation-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ReservationInfoComponent } from './reservation-info/reservation-info.co
     SignInFormComponent,
     ItemInfoComponent,
     ItemListComponent,
-    ReservationInfoComponent
+    ReservationInfoComponent,
+    ReservationListComponent
   ],
   imports: [
     BrowserModule,

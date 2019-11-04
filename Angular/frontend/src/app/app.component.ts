@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
   }
 
   public logout() {
+    localStorage.removeItem("id");
     localStorage.removeItem("admin");
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
@@ -40,5 +41,9 @@ export class AppComponent implements OnInit {
 
   searchItems(term) {
     this.router.navigate(['/items'], { queryParams: {name: term}});
+  }
+
+  userReservations() {
+    this.router.navigate(['/reservations'], { queryParams: {user: localStorage.getItem("id")}});
   }
 }

@@ -17,6 +17,7 @@
         <ul class="nav navbar-nav">
             <li><a href="#" (click)="logout()">Sign Out</a></li>
             <li><a [routerLink]="'/items'">Items</a></li>
+            <li><a (click)="userReservations()">My Reservations</a></li>
             <li *ngIf="isAdmin()"><a [routerLink]="'/createitem'">Create Item</a></li>
         </ul>
 
@@ -36,20 +37,3 @@
 <div class="container">
   <router-outlet></router-outlet>
 </div>
-
-<!-- <div class="container">
-    <div *ngIf="isLoggedOut()">
-      <h3>Sign Up</h3>
-      <app-create-user-form>loading...</app-create-user-form>
-      <h3>Sign In</h3>
-      <app-sign-in-form>Loading...</app-sign-in-form>
-    </div>
-
-    <div *ngIf="isLoggedIn()">
-      <h3 *ngIf="isLoggedIn()">Create Item</h3>
-      <app-create-item-form *ngIf="isLoggedIn()">loading...</app-create-item-form>
-      <br>
-      <br>
-      <button type="button" (click)="logout()" class="btn btn-primary">Log Out</button>
-    </div>
-</div> -->
