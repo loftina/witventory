@@ -1,0 +1,3 @@
+<ul *ngFor="let reservation of reservations">
+	<li [routerLink]="['/reservation', reservation._id]">{{reservation.item.name}}, {{reservation.start_date}}, {{reservation.end_date}}</li>
+</ul>

@@ -6,7 +6,7 @@ const itemSchema = new mongoose.Schema({
   name: { type: String, required: true },
   location: { type: String, required: true },
   description: { type: String, required: true },
-  damaged_status: { type: String, required: true },
+  damaged_status: { type: Boolean, required: true },
   notes: { type: String, required: false },
   image: { type: String, required: false }
 });
