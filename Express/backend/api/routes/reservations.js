@@ -7,8 +7,13 @@ const Reservation = require('../models/reservation');
 const Item = require('../models/item');
 const User = require('../models/user');
 
-router.get('/', (req, res, next) => {
+router.get('/:page', (req, res, next) => {
 	// filter for greater than start param and less than end param
+
+	const resPerPage = 9;
+  	const page = req.params.page || 1;
+
+
 	filter = req.query
 	temp_filter = {}
 	if ((typeof filter.start != 'undefined') & (typeof filter.end != 'undefined')){
@@ -33,26 +38,39 @@ router.get('/', (req, res, next) => {
 
 	Reservation
 		.find(regexFilter(filter))
+		.skip((resPerPage * page) - resPerPage)
+		.limit(resPerPage)
 		.select('user item start_date end_date _id')
-		.populate('item', 'name location _id')
+		.populate('item', 'image name location _id')
 		.populate('user', 'email _id')
 		.exec()
 		.then(reservations => {
-			res.status(200).json({
-				count: reservations.length,
-				reservations: reservations.map(reservation => {
-					return {
-						_id: reservation._id,
-						user: reservation.user,
-						item: reservation.item,
-						start_date: reservation.start_date,
-						end_date: reservation.end_date,
-						request: {
-							type: 'GET',
-							url: 'http://localhost:3000/reservations/' + reservation._id
-						}
-					}
-				}),
+			Item.count(regexFilter(filter), function (err, count) {
+			    if (err) {
+			      	res.status(500).json({
+			          	error: err
+			        });
+			    } else {
+			      	res.status(200).json({
+						total_count: count,
+            			total_pages: Math.ceil(count / resPerPage),
+            			current_count: reservations.length,
+            			current_page: parseInt(page),
+						reservations: reservations.map(reservation => {
+							return {
+								_id: reservation._id,
+								user: reservation.user,
+								item: reservation.item,
+								start_date: reservation.start_date,
+								end_date: reservation.end_date,
+								request: {
+									type: 'GET',
+									url: 'http://localhost:3000/reservations/' + reservation._id
+								}
+							}
+						}),
+					});
+			    }
 			});
 		})
 		.catch(err => {
@@ -137,7 +155,7 @@ router.post('/', checkAuth, (req, res, next) => {
 		});
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/reservation/:id', (req, res, next) => {
 	Reservation.findById(req.params.id)
 		.populate('item')
 		.populate('user')
@@ -163,7 +181,7 @@ router.get('/:id', (req, res, next) => {
 		});
 })
 
-router.delete('/:id', checkAuth, (req, res, next) => {
+router.delete('reservation/:id', checkAuth, (req, res, next) => {
 	// can only delete if admin or owner of reservation
 	if (!req.userData.admin){
 		Reservation.findById(req.params.id)
