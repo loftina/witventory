@@ -1,69 +1,39 @@
-<!-- Bootstrap Navbar -->
-<nav class="navbar navbar-light bg-faded">
-  <div class="container">
-    <a class="navbar-brand" href="#">WITventory</a>
-  </div>
-</nav>
 
-<div class="container">
-    <h3>Add new item</h3>
-    <form>
-      <div class="form-group">
-        <label for="name">Item Name</label>
-        <input type="text" class="form-control" id="name" #name>
-      </div>
-      <div class="form-group">
-        <label for="location">Location</label>
-        <input type="text" class="form-control" id="location" #location>
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <input type="text" class="form-control" id="description" #description>
-      </div>
-      <div class="form-group">
-        <label for="damaged_status">Damaged</label>
-        <input type="text" class="form-control" id="damaged_status" #damaged_status>
-      </div>
-      <div class="form-group">
-        <label for="notes">Notes</label>
-        <input type="text" class="form-control" id="notes" #notes>
-      </div>
-      <div class="form-group">
-        <label for="image">Image</label>
-        <input type="file" class="form-control" id="image" accept="image/*" #image>
-      </div>
-      <button type="button" (click)="addItem(name.value, location.value, description.value, damaged_status.value, notes.value, image.files)" class="btn btn-primary">Add Item</button>
-    </form>
+<!-- Navbar -->
+<div class="navbar navbar-inverse navbar-static-top" role="navigation">
 
-    <h3>Items</h3>
-    <!-- Bootstrap Card -->
-    <div class="card card-block col-md-3" *ngFor="let item of items">
-      <h4 class="card-title">{{item.name}}  {{item.location}}  {{item.description}}  {{item.damaged_status}}  {{item.notes}}  {{item.image}}</h4>
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" title="WITventory">WITventory</a>
     </div>
 
-    <!-- <h3>Add new User</h3>
-    <form>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" #email>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="text" class="form-control" id="password" #password>
-      </div>
-      <button type="button" (click)="createUser(email.value, password.value)" class="btn btn-primary">Create User</button>
-    </form> -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
 
-    <h3>Login User</h3>
-    <form>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" #email>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="text" class="form-control" id="password" #password>
-      </div>
-      <button type="button" (click)="loginUser(email.value, password.value)" class="btn btn-primary">Login User</button>
-    </form>
+        <ul class="nav navbar-nav">
+            <li><a *ngIf="isLoggedIn()" (click)="logout()">Sign Out</a></li>
+            <li><a [routerLink]="'/items'">Items</a></li>
+            <li><a *ngIf="isLoggedIn()" (click)="userReservations()">My Reservations</a></li>
+            <li *ngIf="isAdmin()"><a [routerLink]="'/createitem'">Create Item</a></li>
+        </ul>
+
+        <div class="col-sm-3 col-md-3 pull-right">
+          <form class="navbar-form" role="search">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="term" id="term" #term>
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="searchItems(term.value)"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
