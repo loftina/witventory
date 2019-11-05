@@ -1,0 +1,49 @@
+<!-- <div *ngFor="let reservation of reservations">
+	<div [routerLink]="['/reservation', reservation._id]" class="media">
+		<div class="media border p-3">
+		 	<div class="media-left">
+		    	<img class="media-object" src="{{ reservation.item.image }}" alt="{{ reservation.item.name }}" height="100px" width="100px">
+			</div>
+		  	<div class="media-body">
+		    	<h4 class="media-heading">{{ reservation.item.name }} <small><i>{{ reservation.item.location }}</i></small></h4>
+		    	<p>{{ reservation.start_date }} - {{ reservation.end_date }}</p>
+		  	</div>
+		</div>
+	</div>
+	<br/>
+</div> -->
+
+<div class="row">
+	<div *ngFor="let reservation of reservations" class="col-sm-6 col-lg-4 py-2">
+		<div class="card h-100">
+		  <img src="{{ reservation.item.image }}" class="card-img-top" alt="{{ reservation.item.name }}">
+		  <div class="text-center">
+			  <div class="card-body">
+				    <h5 class="card-title">{{ reservation.item.name }}</h5>
+			  </div>
+			  <ul class="list-group list-group-flush">
+			  	<li class="list-group-item">{{ reservation.item.location }}</li>
+			  	<li class="list-group-item">{{ reservation.start_date }}</li>
+			    <li class="list-group-item">{{ reservation.end_date }}</li>
+			  </ul>
+			  <div class="card-body">
+			    <a [routerLink]="['/reservation', reservation._id]" class="card-link">View</a>
+			  </div>
+		  </div>
+		</div>
+	</div>
+</div>
+
+<nav *ngIf="pagination.length > 0" aria-label="Page navigation" class="text-center">
+ 	<ul class="pagination">
+    	<li class="page-item">
+    		<a class="page-link" (click)="newPage(page - 1)">Previous</a>
+    	</li>
+    	<li *ngFor="let page_num of pagination" class="page-item">
+    		<a class="page-link" (click)="newPage(page_num)">{{ page_num }}</a>
+    	</li>
+    	<li class="page-item">
+      		<a class="page-link" (click)="newPage(page + 1)">Next</a>
+    	</li>
+  	</ul>
+</nav>

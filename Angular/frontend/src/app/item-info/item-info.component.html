@@ -1,0 +1,14 @@
+<img src="{{item?.image}}" height="100px" width="100px"/>
+<h1> {{item?.name}} </h1>
+<hr/>
+<ul>
+	<li> {{ item?.location }} </li>
+	<li> {{ item?.description }} </li>
+	<li> {{ item?.damaged_status }} </li>
+	<li> {{ item?.notes }} </li>
+</ul>
+
+<h3>Reservations</h3>
+<ul *ngFor="let reservation of reservations">
+	<li [routerLink]="['/reservation', reservation._id]"> {{reservation.start_date}}, {{reservation.end_date}} </li>
+</ul>

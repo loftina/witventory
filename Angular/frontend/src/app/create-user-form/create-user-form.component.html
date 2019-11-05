@@ -1,0 +1,12 @@
+<h3>Sign Up</h3>
+<form>
+	<div class="form-group">
+		<label for="email">Email</label>
+		<input type="text" class="form-control" id="email" #email>
+	</div>
+	<div class="form-group">
+		<label for="password">Password</label>
+		<input type="password" class="form-control" id="password" #password>
+	</div>
+	<button type="button" (click)="createUser(email.value, password.value)" class="btn btn-primary">Create User</button>
+</form>

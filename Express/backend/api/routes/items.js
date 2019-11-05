@@ -1,3 +1,5 @@
+//add next field for pagination
+
 // Import dependencies
 const mongoose = require('mongoose');
 const express = require('express');
@@ -16,9 +18,11 @@ const upload = multer({
 
 const Item = require('../models/item');
 
-
 /_ GET all items. _/
-router.get('/', (req, res, next) => {
+router.get('/:page', (req, res, next) => {
+
+  const resPerPage = 9;
+  const page = req.params.page || 1;
 
   filter = req.query
 
@@ -35,26 +39,42 @@ router.get('/', (req, res, next) => {
   }
 
   Item.find(regexFilter(filter))
+    .skip((resPerPage * page) - resPerPage)
+    .limit(resPerPage)
     .select(fields)
     .exec()
     .then(items => {
-      const response = {
-        count: items.length,
-        items: items.map(item => {
-          return {
-            name: item.name,
-            location: item.location,
-            damaged_status: item.damaged_status,
-            _id: item._id,
-            request: {
-              type: 'GET',
-              description: 'get item details',
-              url: 'http://localhost:3000/items/' + item._id 
-            }
+      Item.count(regexFilter(filter), function (err, count) {
+        if (err) {
+          res.status(500).json({
+              error: err
+            });
+        } else {
+          const response = {
+            total_count: count,
+            total_pages: Math.ceil(count / resPerPage),
+            current_count: items.length,
+            current_page: parseInt(page),
+            items: items.map(item => {
+              return {
+                name: item.name,
+                location: item.location,
+                description: item.description,
+                notes: item.notes,
+                image: item.image,
+                damaged_status: item.damaged_status,
+                _id: item._id,
+                request: {
+                  type: 'GET',
+                  description: 'get item details',
+                  url: 'http://localhost:3000/items/' + item._id 
+                }
+              }
+            })
           }
-        })
-      };
-      res.status(200).json(response);
+          res.status(200).json(response);
+        }
+      });
     })
     .catch(err => {
       res.status(500).json({
@@ -64,7 +84,7 @@ router.get('/', (req, res, next) => {
 });
 
 /_ GET one item. _/
-router.get('/:id', (req, res, next) => {
+router.get('/item/:id', (req, res, next) => {
 
     filter = req.query
 
@@ -99,6 +119,12 @@ router.get('/:id', (req, res, next) => {
 
 /_ POST an item. _/
 router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
+    // only admins can create item
+    if (!req.userData.admin) {
+      return res.status(401).json({
+        message: 'Auth failed'
+      });
+    }
     let item = new Item({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -133,7 +159,14 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
 
 // should restrict fields you can update
 /_ PATCH an item. _/
-router.patch('/:id', checkAuth, (req, res, next) => {
+router.patch('/item/:id', checkAuth, (req, res, next) => {
+    // only admins can update item
+    if (!req.userData.admin) {
+      return res.status(401).json({
+        message: 'Auth failed'
+      });
+    }
+
     const updateOps = {};
     for (const ops of req.body) {
       updateOps[ops.propName] = ops.value;
@@ -157,7 +190,14 @@ router.patch('/:id', checkAuth, (req, res, next) => {
 });
 
 /_ DELETE an item. _/
-router.delete('/:id', checkAuth, (req, res, next) => {
+router.delete('/item/:id', checkAuth, (req, res, next) => {
+    // only admins can delete item
+    if (!req.userData.admin) {
+      return res.status(401).json({
+        message: 'Auth failed'
+      });
+    }
+
     Item.deleteOne({ _id: req.params.id })
       .exec()
       .then(result => {
