@@ -41,10 +41,6 @@ export class CreateItemFormComponent implements OnInit {
   // Add one item to the API
   addItem(name, location, description, damaged_status, notes, image) {
   	if (this.isLoggedIn()){
-	  	var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("token"));
-	  	const httpOptions = {
-	    	headers: headers_object
-	    };
 	    let formData: FormData = new FormData();
 	    formData.append('name', name);
 	    formData.append('location', location);
@@ -53,7 +49,7 @@ export class CreateItemFormComponent implements OnInit {
 	    formData.append('notes', notes);
 	    formData.append('image', image[0]);
 
-	    this.http.post<ItemPostResponse>(`${this.API}/items`, formData, httpOptions)
+	    this.http.post<ItemPostResponse>(`${this.API}/items`, formData)
 			.subscribe(resp => {
 				console.log('item created', resp.created_item._id);
 				this.router.navigate(['/item/', resp.created_item._id]);
