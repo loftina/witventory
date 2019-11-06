@@ -54,7 +54,7 @@ export class ItemListComponent implements OnInit {
 
 	openReservationModal(itemId) {
 		console.log('trying to open reservation modal');
-	    const modalRef = this.modalService.open(CreateReservationFormComponent, { centered: true });
+	    const modalRef = this.modalService.open(CreateReservationFormComponent, { centered: true, windowClass: 'custom-class' });
 	    modalRef.componentInstance.itemId = itemId;
 	}
 }

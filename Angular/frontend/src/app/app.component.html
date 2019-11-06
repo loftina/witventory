@@ -1,38 +1,28 @@
-
 <!-- Navbar -->
-<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item"><li class="navbar-brand">WITventory</li>
+  </ul>
 
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" title="WITventory">WITventory</a>
-    </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"><a *ngIf="isLoggedIn()" (click)="logout()" class="nav-link">Sign Out</a></li>
+      <li class="nav-item"><a *ngIf="isLoggedOut()" [routerLink]="'/signin'" class="nav-link">Sign In</a></li>
+      <li class="nav-item"><a [routerLink]="'/items'" class="nav-link">Items</a></li>
+      <li class="nav-item"><a *ngIf="isLoggedIn()" (click)="userReservations()" class="nav-link">My Reservations</a></li>
+      <li *ngIf="isAdmin()" class="nav-item"><a [routerLink]="'/createitem'" class="nav-link">Create Item</a></li>
+    </ul>
 
-        <ul class="nav navbar-nav">
-            <li><a *ngIf="isLoggedIn()" (click)="logout()">Sign Out</a></li>
-            <li><a [routerLink]="'/items'">Items</a></li>
-            <li><a *ngIf="isLoggedIn()" (click)="userReservations()">My Reservations</a></li>
-            <li *ngIf="isAdmin()"><a [routerLink]="'/createitem'">Create Item</a></li>
-        </ul>
-
-        <div class="col-sm-3 col-md-3 pull-right">
-          <form class="navbar-form" role="search">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" name="term" id="term" #term>
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default" (click)="searchItems(term.value)"><i class="glyphicon glyphicon-search"></i></button>
-                </div>
-            </div>
-          </form>
-        </div>
-    </div>
-</div>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Item Name" aria-label="Search" #term>
+      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" (click)="searchItems(term.value)">Search</button>
+    </form>
+  </div>
+</nav>
 
 <div class="container">
   <router-outlet></router-outlet>
