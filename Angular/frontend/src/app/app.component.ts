@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
     localStorage.removeItem("admin");
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
+    this.router.navigate(['/signin']);
   }
 
   getExpiration() {

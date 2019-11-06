@@ -1,6 +1,6 @@
 
 <!-- Navbar -->
-<div *ngIf="isLoggedIn()" class="navbar navbar-inverse navbar-static-top" role="navigation">
+<div class="navbar navbar-inverse navbar-static-top" role="navigation">
 
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -9,15 +9,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" [routerLink]="'/items'" title="WITventory - Homepage">WITventory</a>
+        <a class="navbar-brand" title="WITventory">WITventory</a>
     </div>
 
     <div class="collapse navbar-collapse navbar-ex1-collapse">
 
         <ul class="nav navbar-nav">
-            <li><a href="#" (click)="logout()">Sign Out</a></li>
+            <li><a *ngIf="isLoggedIn()" (click)="logout()">Sign Out</a></li>
             <li><a [routerLink]="'/items'">Items</a></li>
-            <li><a (click)="userReservations()">My Reservations</a></li>
+            <li><a *ngIf="isLoggedIn()" (click)="userReservations()">My Reservations</a></li>
             <li *ngIf="isAdmin()"><a [routerLink]="'/createitem'">Create Item</a></li>
         </ul>
 

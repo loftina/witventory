@@ -35,34 +35,19 @@ export class ItemInfoComponent implements OnInit {
 
 	ngOnInit() {
 		this.route.paramMap.subscribe(params => {
-		 		this.http.get(`${this.API}/items/` + params.get('id'))
+		 		this.http.get(`${this.API}/items/item/` + params.get('id'))
 					.subscribe((itemResp: any) => {
 						console.log(itemResp.item)
 						this.item = itemResp.item
 					})
-				this.http.get(`${this.API}/reservations`, {params: {item: params.get('id')}})
+				// should move reservations to another component
+				// will not show reservations past first page
+				this.http.get(`${this.API}/reservations/1`, {params: {item: params.get('id')}})
 					.subscribe((reservationsResp: any) => {
 						console.log(reservationsResp.reservations)
 						this.reservations = reservationsResp.reservations;
 					})
 	    });
-	}
-
-	// Reserve Item
-	createReservation(start, end, id) {
-		console.log('creating reservation');
-		if (this.isLoggedIn()) {
-			var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("token"));
-		  	const httpOptions = {
-		    	headers: headers_object
-		    };
-		    this.http.post<ReservationPostResponse>(`${this.API}/reservations`, {"item": id, "start_date": start, "end_date": end}, httpOptions)
-				.subscribe(res => {
-					console.log('reservation created');
-					console.log(res);
-					this.router.navigate(['/reservation/', res.createdReservation._id]);
-				})
-		}
 	}
 
 	public isLoggedIn() {

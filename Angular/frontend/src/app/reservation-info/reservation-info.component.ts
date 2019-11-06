@@ -17,7 +17,7 @@ export class ReservationInfoComponent implements OnInit {
 
 	ngOnInit() {
 		this.route.paramMap.subscribe(params => {
-		 		this.http.get(`${this.API}/reservations/` + params.get('id'))
+		 		this.http.get(`${this.API}/reservations/reservation/` + params.get('id'))
 					.subscribe((reservationResp: any) => {
 						console.log(reservationResp.reservation)
 						this.reservation = reservationResp.reservation;
