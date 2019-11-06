@@ -12,7 +12,7 @@ import { ReservationListComponent } from './reservation-list/reservation-list.co
 
 
 const routes: Routes = [
-	{ path: '', pathMatch: 'full', component: SignInFormComponent },
+	{ path: '', pathMatch: 'full', component: ItemListComponent },
 	{ path: 'signin', pathMatch: 'full', component: SignInFormComponent },
 	{ path: 'signup', pathMatch: 'full', component: CreateUserFormComponent },
 	{ path: 'createitem', pathMatch: 'full', component: CreateItemFormComponent },

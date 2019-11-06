@@ -34,21 +34,16 @@ export class CreateReservationFormComponent implements OnInit {
   	constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public activeModal: NgbActiveModal) { }
 
   	ngOnInit() {
-  		console.log('init reservation modal');
   	}
 
  	// Reserve Item
 	createReservation(start, end) {
-		console.log('creating reservation');
 		if (this.isLoggedIn()) {
-			this.route.paramMap.subscribe(params => {
-			    this.http.post<ReservationPostResponse>(`${this.API}/reservations`, {"item": + this.itemId, "start_date": start, "end_date": end})
-					.subscribe(res => {
-						console.log('reservation created');
-						console.log(res);
-						this.router.navigate(['/reservation/', res.createdReservation._id]);
-					})
-			});
+		    this.http.post<ReservationPostResponse>(`${this.API}/reservations`, {"item": this.itemId, "start_date": start, "end_date": end})
+				.subscribe(res => {
+					this.router.navigate(['/reservation/', res.createdReservation._id]);
+				});
+			this.activeModal.close('Reservation Submitted');
 		}
 	}
 
