@@ -1,4 +1,9 @@
-<!-- Bootstrap Navbar -->
+
+<router-outlet></router-outlet>
+
+
+
+Bootstrap Navbar 
 <nav class="navbar navbar-light bg-faded">
   <div class="container">
     <a class="navbar-brand" href="#">WITventory</a>
@@ -35,8 +40,10 @@
       <button type="button" (click)="addItem(name.value, location.value, description.value, damaged_status.value, notes.value, image.files)" class="btn btn-primary">Add Item</button>
     </form>
 
+
+<!--
     <h3>Items</h3>
-    <!-- Bootstrap Card -->
+     Bootstrap Card 
     <div class="card card-block col-md-3" *ngFor="let item of items">
       <h4 class="card-title">{{item.name}}  {{item.location}}  {{item.description}}  {{item.damaged_status}}  {{item.notes}}  {{item.image}}</h4>
     </div>
