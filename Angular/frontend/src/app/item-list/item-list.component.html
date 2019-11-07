@@ -1,0 +1,41 @@
+<div class="row">
+	<div *ngFor="let item of items" class="col-sm-6 col-lg-4 py-2">
+		<div class="card h-100">
+		  <img src="{{ item.image }}" class="card-img-top" alt="{{ item.name }}">
+		  <div class="text-center">
+			  <div class="card-body">
+				    <h5 class="card-title">{{ item.name }}</h5>
+			  </div>
+			  <ul class="list-group list-group-flush">
+			  	<li class="list-group-item">{{ item.description }}</li>
+			    <li class="list-group-item">{{ item.location }}</li>
+			    <li class="list-group-item">{{ item.notes }}</li>
+			  </ul>
+			  <div class="card-body">
+			    <a [routerLink]="['/item', item._id]" class="card-link">View</a>
+			    <a (click)="openReservationModal(item._id)" class="card-link">Quick Reserve</a>
+			  </div>
+		  </div>
+		</div>
+	</div>
+</div>
+
+<nav *ngIf="pagination.length > 1" aria-label="Page navigation" class="text-center">
+ 	<ul class="pagination justify-content-center">
+    	<li *ngIf="page == pagination[0]" class="page-item disabled">
+    		<a class="page-link" (click)="newPage(page - 1)">Previous</a>
+    	</li>
+    	<li *ngIf="page != pagination[0]" class="page-item">
+    		<a class="page-link" (click)="newPage(page - 1)">Previous</a>
+    	</li>
+    	<li *ngFor="let page_num of pagination" class="page-item">
+    		<a class="page-link" (click)="newPage(page_num)">{{ page_num }}</a>
+    	</li>
+    	<li *ngIf="page == pagination[pagination?.length-1]" class="page-item disabled">
+      		<a class="page-link" (click)="newPage(page + 1)">Next</a>
+    	</li>
+    	<li *ngIf="page != pagination[pagination?.length-1]" class="page-item">
+      		<a class="page-link" (click)="newPage(page + 1)">Next</a>
+    	</li>
+  	</ul>
+</nav>
