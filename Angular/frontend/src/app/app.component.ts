@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import * as moment from "moment";
+import { HttpClient } from '@angular/common/http';
+//import { axios } from 'axios';
 
 @Component({
   selector: 'app-root',
@@ -10,41 +10,60 @@ import * as moment from "moment";
 export class AppComponent implements OnInit {
   title = 'app works!';
 
-  constructor(private router: Router) {}
+  // Link to our api, pointing to localhost
+  API = 'http://localhost:3000';
 
-  ngOnInit() {}
+  // Declare empty list of people
+  items: any[] = [];
 
-  public isAdmin() {
-    return localStorage.getItem("admin") === "true";
+  constructor(private http: HttpClient) {}
+
+  // Angular 2 Life Cycle event when component has been initialized
+  ngOnInit() {
+    this.getAllItems();
   }
 
-  public isLoggedIn() {
-    return moment().isBefore(this.getExpiration());
+  // Add User
+  createUser(email, password) {
+    console.log('creating user')
+    this.http.post(`${this.API}/users/signup`, {email, password})
+      .subscribe(res => {
+        console.log(res)
+      })
   }
 
-  public isLoggedOut() {
-    return !this.isLoggedIn();
+  // Login User
+  loginUser(email, password) {
+    console.log('creating user')
+    this.http.post(`${this.API}/users/login`, {email, password})
+      .subscribe(res => {
+        console.log(res)
+      })
   }
 
-  public logout() {
-    localStorage.removeItem("id");
-    localStorage.removeItem("admin");
-    localStorage.removeItem("token");
-    localStorage.removeItem("expiration");
-    this.router.navigate(['/signin']);
+  // Add one item to the API
+  addItem(name, location, description, damaged_status, notes, image) {
+    this.http.post(`${this.API}/items`, {name, location, description, damaged_status, notes, image})
+      .subscribe(() => {
+        this.getAllItems();
+      })
   }
 
-  getExpiration() {
-    const expiration = localStorage.getItem("expiration");
-    const expiresAt = JSON.parse(expiration);
-    return moment(expiresAt);
+  uploadImage (files) {
+    console.log(files)
+    console.log(files[0])
+    const formData = new FormData()
+    formData.append('images', files)
+    console.log(formData)
+    this.http.post(`${this.API}/images`, formData)
   }
 
-  searchItems(term) {
-    this.router.navigate(['/items'], { queryParams: {name: term}});
-  }
-
-  userReservations() {
-    this.router.navigate(['/reservations'], { queryParams: {user: localStorage.getItem("id")}});
+  // Get all items from the API
+  getAllItems() {
+    this.http.get(`${this.API}/items`)
+      .subscribe((items: any) => {
+        console.log(items)
+        this.items = items
+      })
   }
 }
