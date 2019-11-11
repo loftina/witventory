@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'reserve_modal',
-  templateUrl: './reserve_modal.component.html',
-  styleUrls: ['./reserve_modal.component.css']
+  selector: 'reservemodal',
+  templateUrl: './reservemodal.component.html',
+  styleUrls: ['./reservemodal.component.css']
 })
 
 export class ReserveComponent {

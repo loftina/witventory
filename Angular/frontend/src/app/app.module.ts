@@ -6,7 +6,8 @@ import { HttpClientModule } from '@angular/common/http'; // add http client modu
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { ReserveComponent } from './reserve_modal/reserve_modal.component';
+import { ReserveComponent } from './reservemodal/reservemodal.component';
+//import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     AppComponent,
     LoginFormComponent,
     ReserveComponent
+    //PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
