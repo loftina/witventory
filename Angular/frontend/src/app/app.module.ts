@@ -7,15 +7,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { ReserveComponent } from './reservemodal/reservemodal.component';
-//import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+import { PasswordReset } from './password-reset/password-reset.component';
+
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
-    ReserveComponent
-    //PageNotFoundComponent
+    ReserveComponent,
+    PageNotFoundComponent,
+    PasswordReset
   ],
   imports: [
     BrowserModule,
