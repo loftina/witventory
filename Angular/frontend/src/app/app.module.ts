@@ -12,6 +12,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { PasswordReset } from './password-reset/password-reset.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
+import { AdminPageComponent } from './adminpage/adminpage.component';
+import { ItemListComponent } from './item-list/item-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { RegisterComponent } from './register/register.component';
     PageNotFoundComponent,
     PasswordReset,
     HomepageComponent,
-    RegisterComponent
+    RegisterComponent,
+    AdminPageComponent,
+    ItemListComponent
   ],
   imports: [
     BrowserModule,
