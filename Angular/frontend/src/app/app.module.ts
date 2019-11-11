@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { ReserveComponent } from './reservemodal/reservemodal.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+import { HomepageComponent } from './homepage/homepage.component';
 import { PasswordReset } from './password-reset/password-reset.component';
-
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     LoginFormComponent,
     ReserveComponent,
     PageNotFoundComponent,
-    PasswordReset
+    PasswordReset,
+    HomepageComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
