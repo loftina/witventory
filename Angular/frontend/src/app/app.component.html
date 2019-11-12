@@ -1,71 +1,29 @@
-<!-- Bootstrap Navbar -->
-<nav class="navbar navbar-light bg-faded">
-  <div class="container">
-    <a class="navbar-brand" href="#">WITventory</a>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item"><li class="navbar-brand">WITventory</li>
+  </ul>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"><a *ngIf="isLoggedIn()" (click)="logout()" class="nav-link">Sign Out</a></li>
+      <li class="nav-item"><a *ngIf="isLoggedOut()" [routerLink]="'/signin'" class="nav-link">Sign In</a></li>
+      <li class="nav-item"><a [routerLink]="'/items'" class="nav-link">Items</a></li>
+      <li class="nav-item"><a *ngIf="isLoggedIn()" (click)="userReservations()" class="nav-link">My Reservations</a></li>
+      <li *ngIf="isAdmin()" class="nav-item"><a [routerLink]="'/createitem'" class="nav-link">Create Item</a></li>
+    </ul>
+
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Item Name" aria-label="Search" #term>
+      <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" (click)="searchItems(term.value)">Search</button>
+    </form>
   </div>
 </nav>
 
 <div class="container">
-    <h3>Add new item</h3>
-    <form>
-      <div class="form-group">
-        <label for="name">Item Name</label>
-        <input type="text" class="form-control" id="name" #name>
-      </div>
-      <div class="form-group">
-        <label for="location">Location</label>
-        <input type="text" class="form-control" id="location" #location>
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <input type="text" class="form-control" id="description" #description>
-      </div>
-      <div class="form-group">
-        <label for="damaged_status">Damaged</label>
-        <input type="text" class="form-control" id="damaged_status" #damaged_status>
-      </div>
-      <div class="form-group">
-        <label for="notes">Notes</label>
-        <input type="text" class="form-control" id="notes" #notes>
-      </div>
-      <div class="form-group">
-        <label for="image">Image</label>
-        <input type="file" class="form-control" id="image" accept="image/*" #image>
-      </div>
-      <button type="button" (click)="addItem(name.value, location.value, description.value, damaged_status.value, notes.value, image.files)" class="btn btn-primary">Add Item</button>
-    </form>
-
-    <h3>Items</h3>
-    <!-- Bootstrap Card -->
-    <div class="card card-block col-md-3" *ngFor="let item of items">
-      <h4 class="card-title">{{item.name}}  {{item.location}}  {{item.description}}  {{item.damaged_status}}  {{item.notes}}  {{item.image}}</h4>
-    </div>
-
-    <!-- <h3>Add new User</h3>
-    <form>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" #email>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="text" class="form-control" id="password" #password>
-      </div>
-      <button type="button" (click)="createUser(email.value, password.value)" class="btn btn-primary">Create User</button>
-    </form> -->
-
-    <h3>Login User</h3>
-    <form>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" #email>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="text" class="form-control" id="password" #password>
-      </div>
-      <button type="button" (click)="loginUser(email.value, password.value)" class="btn btn-primary">Login User</button>
-    </form>
+  <router-outlet></router-outlet>
 </div>
-
-<router-outlet></router-outlet>
