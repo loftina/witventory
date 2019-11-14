@@ -19,9 +19,10 @@
 <div class="login">
 	<h1>Login</h1>
     <form method="post">
-    	<input type="text" name="u" placeholder="Username" required="required" />
-        <input type="password" name="p" placeholder="Password" required="required" />
-        <button type="submit" class="btn btn-primary btn-block btn-large">Log In</button>
+    	<input type="text" name="u" placeholder="Email" required="required" id="email" #email/>
+        <input type="password" name="p" placeholder="Password" required="required" id="password" #password/>
+		<button type="submit" (click)="loginUser(email.value, password.value)" class="btn btn-primary btn-block btn-large">Log In</button>
+		<a [routerLink]="'/signup'">Sign Up</a>
     </form>
 </div>
 </div>
