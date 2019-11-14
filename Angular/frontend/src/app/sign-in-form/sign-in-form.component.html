@@ -22,7 +22,7 @@
     	<input type="text" name="u" placeholder="Email" required="required" id="email" #email/>
         <input type="password" name="p" placeholder="Password" required="required" id="password" #password/>
 		<button type="submit" (click)="loginUser(email.value, password.value)" class="btn btn-primary btn-block btn-large">Log In</button>
-		<a [routerLink]="'/signup'">Sign Up</a>
+		<button  [routerLink]="'/signup'" class="btn btn-primary btn-block btn-large" style="background-color: green !important;">Register</button>
     </form>
 </div>
 </div>
