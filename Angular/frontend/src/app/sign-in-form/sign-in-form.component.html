@@ -14,16 +14,22 @@
 </form>
 -->
 
-<div class="html">
-<div class="body">
-<div class="login">
-	<h1>Login</h1>
-    <form method="post">
-    	<input type="text" name="u" placeholder="Email" required="required" id="email" #email/>
-        <input type="password" name="p" placeholder="Password" required="required" id="password" #password/>
-		<button type="submit" (click)="loginUser(email.value, password.value)" class="btn btn-primary btn-block btn-large">Log In</button>
-		<button  [routerLink]="'/signup'" class="btn btn-primary btn-block btn-large" style="background-color: green !important;">Register</button>
-    </form>
-</div>
-</div>
+<div class="outter">
+<div class="login-page">
+	<div class="form">
+	  <form class="register-form">
+		<input type="text" placeholder="Name"/>
+		<input type="password" placeholder="Password" id="password" #password/>
+		<input type="text" placeholder="Email" id="email" #email/>
+		<button (click)="createUser(email.value, password.value)">create</button>
+		<p class="message">Already registered? <button class="authbutton">Sign In</button></p>
+	  </form>
+	  <form class="login-form">
+		<input type="text" placeholder="Email" id="email" #email/>
+		<input type="password" placeholder="Password" id="password" #password/>
+		<button (click)="loginUser(email.value, password.value)">Login</button>
+		<p class="message">Not registered? <button class="authbutton">Create an account</button></p>
+	  </form>
+	</div>
+  </div>
 </div>
