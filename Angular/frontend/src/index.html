@@ -4,8 +4,12 @@
   <meta charset="utf-8">
   <title>Angular Client</title>
   <base href="/">
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />	
-  </script>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+  <script>
+$('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
+            $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});  </script>
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
