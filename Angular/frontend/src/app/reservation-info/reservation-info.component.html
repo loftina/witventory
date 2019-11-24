@@ -1,8 +1,37 @@
+
+<!--
 <h1>Reservation</h1>
 <h3 [routerLink]="['/item', reservation?.item._id]"> {{ reservation?.item.name }} </h3>
 <h4> {{ reservation?.item.location }} </h4>
-<ul>
-	<li> {{ reservation?.user.email }} </li>
-	<li> {{ reservation?.start_date }} </li>
-	<li> {{ reservation?.end_date }} </li>
+<ul class="list-group">
+	<li class="list-group-item"> {{ reservation?.user.email }} </li>
+	<li class="list-group-item"> {{ reservation?.start_date }} </li>
+	<li class="list-group-item"> {{ reservation?.end_date }} </li>
 </ul>
+-->
+<div class="container">
+    <div class="row custyle">
+    <table class="table table-striped custab">
+    <thead>
+    <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new item</a>
+        <tr>
+            <th>Item Name</th>
+			<th>Item Location</th>
+			<th>User Email</th>
+			<th>Start Date</th>
+            <th>End Date</th>
+
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+            <tr>
+				<td [routerLink]="['/item', reservation?.item._id]">{{ reservation?.item.name }}</td>
+				<td>{{ reservation?.item.location }}</td>
+				<td>{{ reservation?.user.email }}</td>
+				<td>{{ reservation?.start_date }}</td>
+				<td>{{ reservation?.end_date }}</td>
+                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+            </tr>
+    </table>
+    </div>
+</div>

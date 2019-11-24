@@ -1,3 +1,4 @@
+
 <div class="row">
 	<div *ngFor="let item of items" class="col-sm-6 col-lg-4 py-2">
 		<div class="card h-100">
@@ -43,19 +44,12 @@
 <div class="container">
 		<div class="row">
 			<div class="col-lg-12 my-3">
-				<div class="pull-right">
-					<div class="btn-group">
-						<button class="btn btn-info" id="list">
-							List View
-						</button>
-						<button class="btn btn-danger" id="grid">
-							Grid View
-						</button>
-					</div>
-				</div>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+							ADD ITEM
+						  </button>				
 			</div>
 		</div> 
-		<div id="products" class="row view-group">
+		<div  id="products" class="row view-group">
 					<div class="item col-xs-4 col-lg-4">
 						<div class="thumbnail card">
 							<div class="img-event">
@@ -65,134 +59,20 @@
 								<h4 class="group card-title inner list-group-item-heading">
 									Item Name</h4>
 								<p class="group inner list-group-item-text">
-									Product description...</p>
+									Product description...  {{ item.description }}</p>
 								<div class="row">
 									<div class="col-xs-12 col-md-6">
-										QTY:
+										Location:
 										<p class="lead">
-											1</p>
+												{{ item.location }}</p>
 									</div>
 									<div class="col-xs-12 col-md-6">
-										<a class="btn btn-success" href="">Reserve Now</a>
+										<button class="btn btn-success" [routerLink]="['/item', item._id]" >View</button>
+			    						<button class="btn btn-success" (click)="openReservationModal(item._id)" >Quick Reserve</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="item col-xs-4 col-lg-4">
-						<div class="thumbnail card">
-							<div class="img-event">
-								<img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
-							</div>
-							<div class="caption card-body">
-								<h4 class="group card-title inner list-group-item-heading">
-									Item Name</h4>
-								<p class="group inner list-group-item-text">
-									Product description... </p>
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										QTY:
-										<p class="lead">
-											2</p>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<a class="btn btn-success" href="">Reserve Now</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="item col-xs-4 col-lg-4">
-						<div class="thumbnail card">
-							<div class="img-event">
-								<img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
-							</div>
-							<div class="caption card-body">
-								<h4 class="group card-title inner list-group-item-heading">
-									Item Name</h4>
-								<p class="group inner list-group-item-text">
-									Product description...</p>
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										QTY:
-										<p class="lead">
-											21.</p>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<a class="btn btn-success" href="">Reserve now</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="item col-xs-4 col-lg-4">
-						<div class="thumbnail card">
-							<div class="img-event">
-								<img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
-							</div>
-							<div class="caption card-body">
-								<h4 class="group card-title inner list-group-item-heading">
-									Item Name</h4>
-								<p class="group inner list-group-item-text">
-									Product description...</p>
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										QTY:
-										<p class="lead">
-											15</p>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<a class="btn btn-success" href="">Reserve Now</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="item col-xs-4 col-lg-4">
-						<div class="thumbnail card">
-							<div class="img-event">
-								<img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
-							</div>
-							<div class="caption card-body">
-								<h4 class="group card-title inner list-group-item-heading">
-									Item Name</h4>
-								<p class="group inner list-group-item-text">
-									Product description...</p>
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										QTY:
-										<p class="lead">
-											11</p>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<a class="btn btn-success" href="">Reserve now</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="item col-xs-4 col-lg-4">
-						<div class="thumbnail card">
-							<div class="img-event">
-								<img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
-							</div>
-							<div class="caption card-body">
-								<h4 class="group card-title inner list-group-item-heading">
-									Item Name</h4>
-								<p class="group inner list-group-item-text">
-									Product description...</p>
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										QTY:
-										<p class="lead">
-											4</p>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<a class="btn btn-success" href="">Reserve Now</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-	</div>
+
+					<app-create-item-form></app-create-item-form>

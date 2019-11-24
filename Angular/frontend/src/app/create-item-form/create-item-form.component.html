@@ -1,30 +1,52 @@
-<h3>Add new item</h3>
-    <div class="form">
-<form>
-  <div class="form-group">
-    <label for="name">Item Name</label>
-    <input type="text" class="form-control" id="name" #name>
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content form">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" style="text-align: center; ">Add item</h4>        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body" >
+                <div class="form-group">
+                  <label for="name">Item Name</label>
+                  <input type="text" class="form-control" id="name" #name>
+                </div>
+                <div class="form-group">
+                  <label for="location">Location</label>
+                  <input type="text" class="form-control" id="location" #location>
+                </div>
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <input type="text" class="form-control" id="description" #description>
+                </div>
+                <div class="form-group">
+                  <label for="damaged_status">Damaged</label>
+                  <input type="text" class="form-control" id="damaged_status" #damaged_status>
+                </div>
+                <div class="form-group">
+                  <label for="notes">Notes</label>
+                  <input type="text" class="form-control" id="notes" #notes>
+                </div>
+                <div class="form-group">
+                  <label for="image">Image</label>
+                  <input type="file" class="form-control" id="image" accept="image/*" #image>
+                </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" (click)="addItem(name.value, location.value, description.value, damaged_status.value, notes.value, image.files)" class="btn btn-primary">Add Item</button>
+            <button type="button" class="btn btn-success" style="background-color: orange !important;" aria-label="Close" (click)="hideModal()">Close</button>
+  
+          <!-- this button is hidden, used to close from typescript -->
+          <button type="button" id="close-modal" data-dismiss="modal" style="display: none">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="location">Location</label>
-    <input type="text" class="form-control" id="location" #location>
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-    <input type="text" class="form-control" id="description" #description>
-  </div>
-  <div class="form-group">
-    <label for="damaged_status">Damaged</label>
-    <input type="text" class="form-control" id="damaged_status" #damaged_status>
-  </div>
-  <div class="form-group">
-    <label for="notes">Notes</label>
-    <input type="text" class="form-control" id="notes" #notes>
-  </div>
-  <div class="form-group">
-    <label for="image">Image</label>
-    <input type="file" class="form-control" id="image" accept="image/*" #image>
-  </div>
-  <button type="button" (click)="addItem(name.value, location.value, description.value, damaged_status.value, notes.value, image.files)" class="btn btn-primary">Add Item</button>
-</form>
-</div>
+  
+
+

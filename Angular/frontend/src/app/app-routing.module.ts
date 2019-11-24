@@ -9,6 +9,7 @@ import { ItemInfoComponent } from './item-info/item-info.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
 import { ReservationListComponent } from './reservation-list/reservation-list.component';
+import { PageNotFoundComponent} from './pagenotfound/pagenotfound.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,9 @@ const routes: Routes = [
 	{ path: 'items', pathMatch: 'prefix', component: ItemListComponent },
 	{ path: 'reservation/:id', pathMatch: 'full', component: ReservationInfoComponent },
 	{ path: 'reservations', pathMatch: 'prefix', component:  ReservationListComponent },
-	{ path: 'createreservation/:id', pathMatch: 'full', component:  CreateReservationFormComponent }
+	{ path: 'createreservation/:id', pathMatch: 'full', component:  CreateReservationFormComponent },
+	{ path: '**', pathMatch: 'full', component:  PageNotFoundComponent }
+
 ];
 
 @NgModule({

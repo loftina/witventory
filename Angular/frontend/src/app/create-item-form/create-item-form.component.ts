@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Router} from '@angular/router';
 import { map } from 'rxjs/operators';
 import * as moment from "moment";
+declare var $: any;
 
 interface ItemPostResponse
 {
@@ -31,7 +32,7 @@ export class CreateItemFormComponent implements OnInit {
 
   // Declare empty list of people
   items: any[] = [];
-
+  
   constructor(private http: HttpClient, private router: Router) {}
 
   // Angular 2 Life Cycle event when component has been initialized
@@ -65,6 +66,17 @@ export class CreateItemFormComponent implements OnInit {
     const expiration = localStorage.getItem("expiration");
     const expiresAt = JSON.parse(expiration);
     return moment(expiresAt);
+  }
+
+  showModal():void {
+    $("#myModal").modal('show');
+  }
+  sendModal(): void {
+    //do something here
+    this.hideModal();
+  }
+  hideModal():void {
+    document.getElementById('close-modal').click();
   }
 
 }
