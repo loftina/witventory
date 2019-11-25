@@ -1,22 +1,31 @@
-
 <div class="row">
-	<div *ngFor="let item of items" class="col-sm-6 col-lg-4 py-2">
-		<div class="card h-100">
-		  <img src="{{ item.image }}" class="card-img-top" alt="{{ item.name }}">
-		  <div class="text-center">
-			  <div class="card-body">
-				    <h5 class="card-title">{{ item.name }}</h5>
-			  </div>
-			  <ul class="list-group list-group-flush">
-			  	<li class="list-group-item">{{ item.description }}</li>
-			    <li class="list-group-item">{{ item.location }}</li>
-			    <li class="list-group-item">{{ item.notes }}</li>
-			  </ul>
-			  <div class="card-body">
-			    <a [routerLink]="['/item', item._id]" class="card-link">View</a>
-			    <a (click)="openReservationModal(item._id)" class="card-link">Quick Reserve</a>
-			  </div>
-		  </div>
+	<div class="col-lg-12 my-3">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ADD ITEM</button>				
+	</div>
+</div>
+<div  id="products" class="row view-group">
+	<div *ngFor="let item of items" class="item col-xs-4 col-lg-4">
+		<div class="thumbnail card">
+			<div class="img-event">
+				<img class="group list-group-image img-fluid" src="{{ item.image }}" alt="{{ item.name }}"/>
+			</div>
+			<div class="caption card-body">
+				<h4 class="group card-title inner list-group-item-heading">
+					{{ item.name }}</h4>
+				<p class="group inner list-group-item-text">
+					Product description...  {{ item.description }}</p>
+				<div class="row">
+					<div class="col-xs-12 col-md-6">
+						Location:
+						<p class="lead">
+								{{ item.location }}</p>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<button class="btn btn-success" [routerLink]="['/item', item._id]" >View</button>
+						<button class="btn btn-success" (click)="openReservationModal(item._id)" >Quick Reserve</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -40,39 +49,4 @@
     	</li>
   	</ul>
 </nav>
-
-<div class="container">
-		<div class="row">
-			<div class="col-lg-12 my-3">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-							ADD ITEM
-						  </button>				
-			</div>
-		</div> 
-		<div  id="products" class="row view-group">
-					<div class="item col-xs-4 col-lg-4">
-						<div class="thumbnail card">
-							<div class="img-event">
-								<img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
-							</div>
-							<div class="caption card-body">
-								<h4 class="group card-title inner list-group-item-heading">
-									Item Name</h4>
-								<p class="group inner list-group-item-text">
-									Product description...  {{ item.description }}</p>
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										Location:
-										<p class="lead">
-												{{ item.location }}</p>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<button class="btn btn-success" [routerLink]="['/item', item._id]" >View</button>
-			    						<button class="btn btn-success" (click)="openReservationModal(item._id)" >Quick Reserve</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<app-create-item-form></app-create-item-form>
+<app-create-item-form></app-create-item-form>

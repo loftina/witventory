@@ -28,6 +28,8 @@ services:
       - 4200:4200
     depends_on:
       - express
+    volumes:
+      - ./frontend/src:/usr/src/app/src
 
   portainer:
     image: portainer/portainer
