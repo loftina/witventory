@@ -34,19 +34,17 @@
                   <label for="image">Image</label>
                   <input type="file" class="form-control" id="image" accept="image/*" #image>
                 </div>
-        </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" (click)="addItem(name.value, location.value, description.value, damaged_status.value, notes.value, image.files)" class="btn btn-primary">Add Item</button>
-            <button type="button" class="btn btn-success" style="background-color: orange !important;" aria-label="Close" (click)="hideModal()">Close</button>
-  
-          <!-- this button is hidden, used to close from typescript -->
-          <button type="button" id="close-modal" data-dismiss="modal" style="display: none">Close</button>
-        </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" (click)="addItem(name.value, location.value, description.value, damaged_status.value, notes.value, image.files)" data-dismiss="modal" data-backdrop="false" class="btn btn-primary">Add Item</button>
+              <button type="button" class="btn btn-success" style="background-color: orange !important;" aria-label="Close" data-dismiss="modal" data-backdrop="false" (click)="hideModal()">Close</button>
+    
+              <!-- this button is hidden, used to close from typescript -->
+              <button type="button" id="close-modal" data-dismiss="modal" style="display: none">Close</button>
+          </div>
       </div>
     </div>
-  </div>
+    </div>
   
 
 
