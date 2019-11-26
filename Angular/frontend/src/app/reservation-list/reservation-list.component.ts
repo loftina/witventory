@@ -42,7 +42,7 @@ export class ReservationListComponent implements OnInit {
 			this.http.get(`${this.API}/reservations/` + String(new_page), {params: params})
 				.subscribe((reservationsResp: any) => {
 					this.pagination = Array(reservationsResp.total_pages).fill(0).map((x,i)=>i+1)
-					this.reservations = reservationsResp.items;
+					this.reservations = reservationsResp.reservations;
 					this.page = reservationsResp.current_page;
 				})
 		});

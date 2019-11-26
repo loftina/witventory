@@ -1,4 +1,5 @@
-<h3>Sign In</h3>
+
+<!--
 <form>
 	<div class="form-group">
 		<label for="email">Email</label>
@@ -12,3 +13,23 @@
 	<br>
 	<a [routerLink]="'/signup'">Sign Up</a>
 </form>
+-->
+
+<div class="outter">
+<div class="login-page">
+	<div class="form">
+	  <form class="register-form">
+		<input type="text" placeholder="Email" id="new_email" #new_email/>
+		<input type="password" placeholder="Password" id="new_password" #new_password/>
+		<button (click)="createUser(new_email.value, new_password.value)">create</button>
+		<p class="message">Already registered? <button class="authbutton">Sign In</button></p>
+	  </form>
+	  <form class="login-form">
+		<input type="text" placeholder="Email" id="email" #email/>
+		<input type="password" placeholder="Password" id="password" #password/>
+		<button (click)="loginUser(email.value, password.value)">Login</button>
+		<p class="message">Not registered? <button class="authbutton">Create an account</button></p>
+	  </form>
+	</div>
+  </div>
+</div>

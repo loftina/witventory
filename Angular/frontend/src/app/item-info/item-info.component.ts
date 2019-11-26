@@ -1,7 +1,11 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CreateReservationFormComponent } from '../create-reservation-form/create-reservation-form.component';
+
 import * as moment from "moment";
 
 interface ReservationPostResponse
@@ -31,7 +35,7 @@ export class ItemInfoComponent implements OnInit {
 
 	API = 'http://localhost:3000';
 
-	constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
+	constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
 
 	ngOnInit() {
 		this.route.paramMap.subscribe(params => {
@@ -58,5 +62,11 @@ export class ItemInfoComponent implements OnInit {
 		const expiration = localStorage.getItem("expiration");
 		const expiresAt = JSON.parse(expiration);
 		return moment(expiresAt);
+	}
+
+	openReservationModal(itemId) {
+		console.log('trying to open reservation modal');
+	    const modalRef = this.modalService.open(CreateReservationFormComponent, { centered: true, windowClass: 'custom-class' });
+	    modalRef.componentInstance.itemId = itemId;
 	}
 }

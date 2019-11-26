@@ -5,18 +5,40 @@
 	</button>
 </div>
 <div class="modal-body">
-	<form>
-		<div class="form-group">
-			<label for="start">Start Date</label>
-			<input type="text" class="form-control" id="start" #start>
-		</div>
-		<div class="form-group">
-			<label for="end">End Date</label>
-			<input type="text" class="form-control" id="end" #end>
-		</div>
-	</form>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-	<button type="button" (click)="createReservation(start.value, end.value)" class="btn btn-primary">Reserve Item</button>
+	<input *ngIf="available_dates.length == 0" (click)="d.toggle()" type="text" placeholder="Pick Date" ngbDatepicker (dateSelect)="onDateSelect($event)" #d="ngbDatepicker"/>
+
+	<div *ngIf="available_dates.length > 0" id="accordion">
+	  
+	  <div *ngFor="let available_date of available_dates; let i = index;" class="card">
+	    <div class="card-header" [attr.id]="'heading-date-range-' + i">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#date-range-' + i" aria-expanded="true" [attr.aria-controls]="'date-range-' + i">
+	          {{ available_date.start.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' }) }} - {{ available_date.end.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' }) }}
+	        </button>
+	      </h5>
+	    </div>
+
+	    <div [attr.id]="'date-range-' + i" class="collapse show" [attr.aria-labelledby]="'heading-date-range-' + i" data-parent="#accordion">
+	      <div class="card-body">
+	        <div class="row">
+	            <div class="col-sm-5">
+	            	Start
+	                <ngb-timepicker class="ngb-timepicker" [(ngModel)]="start_times[i]"></ngb-timepicker>
+	                {{start_time | json}}
+	            </div>
+	            <div class="col-sm-5">
+	            	End
+	                <ngb-timepicker class="ngb-timepicker" [(ngModel)]="end_times[i]"></ngb-timepicker>
+	                {{end_time | json}}
+	            </div>
+	            <div class="col-sm-2">
+	                <button class="btn-primary" type="submit" (click)="createReservation((available_dates[i].start.getYear() + 1900) + '-' + pad(available_dates[i].start.getMonth() + 1, 2) + '-' + pad(available_dates[i].start.getDate(), 2) + 'T' + pad(start_times[i].hour, 2) + ':' + pad(start_times[i].minute, 2)+':00.000-05:00', (available_dates[i].start.getYear() + 1900) + '-' + pad(available_dates[i].start.getMonth() + 1, 2) + '-' + pad(available_dates[i].start.getDate(), 2) + 'T' + pad(end_times[i].hour, 2) + ':' + pad(end_times[i].minute, 2)+':00.000-05:00')">+</button>
+	            </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+	  <button (click)="available_dates = []">Pick Date</button>
+	</div>
 </div>

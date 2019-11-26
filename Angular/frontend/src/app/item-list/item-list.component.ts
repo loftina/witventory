@@ -1,9 +1,9 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CreateReservationFormComponent } from '../create-reservation-form/create-reservation-form.component';
-
+import { CreateItemFormComponent } from '../create-item-form/create-item-form.component';
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
@@ -56,5 +56,9 @@ export class ItemListComponent implements OnInit {
 		console.log('trying to open reservation modal');
 	    const modalRef = this.modalService.open(CreateReservationFormComponent, { centered: true, windowClass: 'custom-class' });
 	    modalRef.componentInstance.itemId = itemId;
+	}
+	
+	isAdmin() {
+		return localStorage.getItem("admin") === "true";
 	}
 }
