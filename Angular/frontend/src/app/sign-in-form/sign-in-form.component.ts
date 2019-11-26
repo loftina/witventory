@@ -29,7 +29,7 @@ export class SignInFormComponent implements OnInit {
 		this.http.post(`${this.API}/users/signup`, {email, password})
 		  .subscribe(res => {
 			console.log(res)
-			this.router.navigate(['/']);
+			this.loginUser(email, password);
 		  })
 	  }
 

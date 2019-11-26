@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 COPY ./frontend/package.json /usr/src/app
 
-RUN npm cache clean --force
+# RUN npm cache clean --force
 
 RUN npm install
 
