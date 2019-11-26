@@ -46,7 +46,7 @@ router.get('/:page', (req, res, next) => {
 		.populate('user', 'email _id')
 		.exec()
 		.then(reservations => {
-			Item.count(regexFilter(filter), function (err, count) {
+			Reservation.count(regexFilter(filter), function (err, count) {
 			    if (err) {
 			      	res.status(500).json({
 			          	error: err
