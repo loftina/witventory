@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -15,7 +15,7 @@ export class ReservationListComponent implements OnInit {
 
 	API = 'http://localhost:3000';
 
-	constructor(private http: HttpClient, private route: ActivatedRoute) { }
+	constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
 
 	ngOnInit() {
 		this.route.queryParams.subscribe(params => {
@@ -48,4 +48,11 @@ export class ReservationListComponent implements OnInit {
 		});
 	}
 
+	deleteReservation(id) {
+		this.http.delete(`${this.API}/reservations/reservation/` + id)
+			.subscribe(() => {
+				console.log('reservation deleted');
+				this.router.navigate(['/reservations'], {queryParams: {user: localStorage.getItem("id")}});
+			});
+	}
 }

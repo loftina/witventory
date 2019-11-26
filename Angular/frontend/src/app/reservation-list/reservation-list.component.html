@@ -1,22 +1,25 @@
-<div class="row">
-	<div *ngFor="let reservation of reservations" class="col-sm-6 col-lg-4 py-2">
-		<div class="card h-100">
-		  <img src="{{ reservation.item.image }}" class="card-img-top" alt="{{ reservation.item.name }}">
-		  <div class="text-center">
-			  <div class="card-body">
-				    <h5 class="card-title">{{ reservation.item.name }}</h5>
-			  </div>
-			  <ul class="list-group list-group-flush">
-			  	<li class="list-group-item">{{ reservation.item.location }}</li>
-			  	<li class="list-group-item">{{ reservation.start_date }}</li>
-			    <li class="list-group-item">{{ reservation.end_date }}</li>
-			  </ul>
-			  <div class="card-body">
-			    <a [routerLink]="['/reservation', reservation._id]" class="card-link">View</a>
-			  </div>
-		  </div>
-		</div>
-	</div>
+<div class="container">
+    <div class="row custyle">
+        <table class="table table-striped custab">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+        			<th>Item Location</th>
+        			<th>Start Date</th>
+                    <th>End Date</th>
+
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let reservation of reservations">
+				<td [routerLink]="['/item', reservation?.item._id]">{{ reservation?.item.name }}</td>
+				<td>{{ reservation?.item.location }}</td>
+				<td>{{ reservation?.start_date }}</td>
+				<td>{{ reservation?.end_date }}</td>
+                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 <nav *ngIf="pagination.length > 0" aria-label="Page navigation" class="text-center">
