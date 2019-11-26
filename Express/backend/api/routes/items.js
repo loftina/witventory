@@ -35,6 +35,9 @@ router.get('/:page', (req, res, next) => {
   var regexFilter = function(filter){
     return_filter = {}
     Object.keys(filter).map(function(key){ return_filter[key] =  new RegExp('.*'+filter[key]+'.*', "i")});
+    if (typeof filter.damaged_status != 'undefined'){
+      return_filter['damaged_status'] = filter.damaged_status;
+    }
     return return_filter;
   }
 
@@ -67,7 +70,7 @@ router.get('/:page', (req, res, next) => {
                 request: {
                   type: 'GET',
                   description: 'get item details',
-                  url: 'http://localhost:3000/items/' + item._id 
+                  url: 'http://localhost:3000/items/item/' + item._id 
                 }
               }
             })
@@ -103,7 +106,7 @@ router.get('/item/:id', (req, res, next) => {
             request: {
               type: 'GET',
               description: 'get all items',
-              url: 'http://localhost:3000/items'
+              url: 'http://localhost:3000/items/1'
             }
           })
         } else {
@@ -145,7 +148,7 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
               _id: result._id,
               request: {
                 type: 'GET',
-                url: 'http://localhost:3000/items/' + result._id
+                url: 'http://localhost:3000/items/item/' + result._id
               }
             }
         });
@@ -178,7 +181,7 @@ router.patch('/item/:id', checkAuth, (req, res, next) => {
           message: 'Item successfully updated',
           request: {
             type: 'GET',
-            url: 'http://localhost:3000/items/' + req.params.id
+            url: 'http://localhost:3000/items/item' + req.params.id
           }
         });
       })
