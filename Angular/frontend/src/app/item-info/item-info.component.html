@@ -3,25 +3,24 @@
 
 		<!-- Portfolio Item Heading -->
 		<h1 class="my-4">{{item?.name}}
-		  <small>Secondary Text</small>
+		  <small>{{ item?.location }}</small>
 		</h1>
 	  
 		<!-- Portfolio Item Row -->
 		<div class="row">
 	  
 		  <div class="col-md-8">
-			<img class="img-fluid" src="http://placehold.it/750x500" alt="">
+			<img class="img-fluid" src="{{ item?.image }}" alt="{{ item?.name }}">
 		  </div>
 	  
 		  <div class="col-md-4">
 			<h3 class="my-3">{{item?.name}}</h3>
 			<p>{{ item?.description }}</p>
+			<button class="btn btn-success" (click)="openReservationModal(item._id)">Reserve</button>
 			<h3 class="my-3">Item Details</h3>
 			<ul class="list-group">
-			  <li class="list-group-item">Lorem Ipsum</li>
-			  <li class="list-group-item">Dolor Sit Amet</li>
-			  <li class="list-group-item">Consectetur</li>
-			  <li class="list-group-item">Adipiscing Elit</li>
+			  <li class="list-group-item">Notes: {{ item?.notes }}</li>
+			  <li class="list-group-item">Damaged: {{ item?.damaged_status }}</li>
 			</ul>
 		  </div>
 	  

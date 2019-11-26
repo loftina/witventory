@@ -58,5 +58,7 @@ export class ItemListComponent implements OnInit {
 	    modalRef.componentInstance.itemId = itemId;
 	}
 	
-
+	isAdmin() {
+		return localStorage.getItem("admin") === "true";
+	}
 }

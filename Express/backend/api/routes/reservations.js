@@ -181,7 +181,7 @@ router.get('/reservation/:id', (req, res, next) => {
 		});
 })
 
-router.delete('reservation/:id', checkAuth, (req, res, next) => {
+router.delete('/reservation/:id', checkAuth, (req, res, next) => {
 	// can only delete if admin or owner of reservation
 	if (!req.userData.admin){
 		Reservation.findById(req.params.id)

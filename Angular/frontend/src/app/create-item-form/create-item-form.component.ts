@@ -52,6 +52,7 @@ export class CreateItemFormComponent implements OnInit {
 
 	    this.http.post<ItemPostResponse>(`${this.API}/items`, formData)
 			.subscribe(resp => {
+        this.hideModal();
 				console.log('item created', resp.created_item._id);
 				this.router.navigate(['/item/', resp.created_item._id]);
 			})

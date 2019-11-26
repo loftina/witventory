@@ -14,7 +14,6 @@
       <li class="nav-item"><a *ngIf="isLoggedOut()" [routerLink]="'/signin'" class="nav-link">Sign In</a></li>
       <li class="nav-item"><a [routerLink]="'/items'" class="nav-link">Items</a></li>
       <li class="nav-item"><a *ngIf="isLoggedIn()" (click)="userReservations()" class="nav-link">My Reservations</a></li>
-      <li *ngIf="isAdmin()" class="nav-item"><a [routerLink]="'/createitem'" class="nav-link">Create Item</a></li>
     </ul>
 
     <form class="form-inline my-2 my-lg-0">
