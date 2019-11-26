@@ -9,6 +9,9 @@ const itemSchema = new mongoose.Schema({
   damaged_status: { type: Boolean, required: true },
   notes: { type: String, required: false },
   image: { type: String, required: false }
+},
+{
+	timestamps: true
 });
 
 // export item model

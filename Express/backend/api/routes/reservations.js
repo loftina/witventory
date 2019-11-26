@@ -38,9 +38,10 @@ router.get('/:page', (req, res, next) => {
 
 	Reservation
 		.find(regexFilter(filter))
+		.sort({'createdAt': 'descending'})
 		.skip((resPerPage * page) - resPerPage)
 		.limit(resPerPage)
-		.select('user item start_date end_date _id')
+		.select('createdAt user item start_date end_date _id')
 		.populate('item', 'image name location _id')
 		.populate('user', 'email _id')
 		.exec()
@@ -63,6 +64,7 @@ router.get('/:page', (req, res, next) => {
 								item: reservation.item,
 								start_date: reservation.start_date,
 								end_date: reservation.end_date,
+								created: reservation.createdAt,
 								request: {
 									type: 'GET',
 									url: 'http://localhost:3000/reservations/' + reservation._id

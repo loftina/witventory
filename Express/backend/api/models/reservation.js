@@ -6,6 +6,9 @@ const reservationSchema = mongoose.Schema({
 	item: { type: mongoose.Schema.Types.ObjectId, ref: 'Item', required: true },
 	start_date: { type: Date, required: true },
 	end_date: { type: Date, required: true }
+},
+{
+	timestamps: true
 });
 
 module.exports = mongoose.model('Reservation', reservationSchema);
