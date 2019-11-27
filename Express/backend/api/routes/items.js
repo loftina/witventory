@@ -62,6 +62,7 @@ router.get('/:page', (req, res, next) => {
             items: items.map(item => {
               return {
                 name: item.name,
+                type: item.type,
                 location: item.location,
                 description: item.description,
                 notes: item.notes,
@@ -131,6 +132,7 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
     }
     let item = new Item({
         _id: new mongoose.Types.ObjectId(),
+        type: req.body.type,
         name: req.body.name,
         location: req.body.location,
         description: req.body.description,
@@ -146,6 +148,7 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
             created_item: {
               name: result.name,
               location: result.location,
+              type: result.type,
               _id: result._id,
               request: {
                 type: 'GET',
