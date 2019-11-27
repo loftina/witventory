@@ -9,23 +9,31 @@
 			<div class="img-event">
 				<img class="group list-group-image img-fluid" src="{{ item.image }}" alt="{{ item.name }}"/>
 			</div>
-			<div class="caption card-body">
-				<h4 class="group card-title inner list-group-item-heading">
-					{{ item.name }}</h4>
-				<p class="group inner list-group-item-text">
-					Product description...  {{ item.description }}</p>
-				<p class="group inner list-group-item-text">
-					Product type...  {{ item.type }}</p>
-				<div class="row">
-					<div class="col-xs-12 col-md-6">
-						Location:
-						<p class="lead">
-								{{ item.location }}</p>
-					</div>
-					<div class="col-xs-12 col-md-6">
-						<button class="btn btn-success" [routerLink]="['/item', item._id]" >View</button>
-						<button class="btn btn-primary" (click)="openReservationModal(item._id)" >Quick Reserve</button>
-					</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+					<h4 class="group card-title inner list-group-item-heading">
+				{{ item.name }}</h4>
+				</li>
+				<li class="list-group-item">
+					<p class="group inner list-group-item-text">
+				Type: {{ item.type }}</p>
+				</li>
+				<li class="list-group-item">
+					<p class="group inner list-group-item-text">
+				Description: {{ item.description }}</p>
+				</li>
+				<li class="list-group-item">
+					<p class="group inner list-group-item-text">
+						Location: {{ item.location }}
+					</p>
+				</li>
+			</ul>
+			<div class="row">
+				<div class="col">
+					<button class="btn btn-success btn-block" [routerLink]="['/item', item._id]" >View</button>
+				</div>
+				<div class="col">
+					<button class="btn btn-primary btn-block" (click)="openReservationModal(item._id)" >Quick Reserve</button>
 				</div>
 			</div>
 		</div>

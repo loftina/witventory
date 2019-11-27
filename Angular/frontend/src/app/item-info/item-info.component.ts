@@ -32,6 +32,7 @@ export class ItemInfoComponent implements OnInit {
 
 	item: {};
 	reservations = [];
+	similar_items = [];
 
 	API = 'http://localhost:3000';
 
@@ -41,14 +42,26 @@ export class ItemInfoComponent implements OnInit {
 		this.route.paramMap.subscribe(params => {
 		 		this.http.get(`${this.API}/items/item/` + params.get('id'))
 					.subscribe((itemResp: any) => {
-						console.log(itemResp.item)
 						this.item = itemResp.item
-					})
+
+						this.http.get(`${this.API}/items/1`, {params: {fields: '_id type name image location', type: this.item.type}})
+							.subscribe((itemsResp: any) => {
+								var filtered_items = itemsResp.items.filter(function(same_type) { 
+										return same_type._id !== itemResp.item._id;  
+									})
+								if (filtered_items.length > 4) {
+									this.similar_items = filtered_items.slice(0,4);
+								}
+								else {
+									this.similar_items = filtered_items;
+								}
+							});
+					});
+
 				// should move reservations to another component
 				// will not show reservations past first page
 				this.http.get(`${this.API}/reservations/1`, {params: {item: params.get('id')}})
 					.subscribe((reservationsResp: any) => {
-						console.log(reservationsResp.reservations)
 						this.reservations = reservationsResp.reservations;
 					})
 	    });
@@ -74,7 +87,7 @@ export class ItemInfoComponent implements OnInit {
 		this.http.delete(`${this.API}/items/item/` + itemId)
 			.subscribe(() => {
 				console.log('item deleted');
-				this.router.navigate(['/items'], {queryParams: {user: localStorage.getItem("id")}});
+				this.router.navigate(['/items']);
 			});
 	}
 }

@@ -55,7 +55,7 @@ export class CreateItemFormComponent implements OnInit {
 			.subscribe(resp => {
         this.hideModal();
 				console.log('item created', resp.created_item._id);
-				this.router.navigate(['/item/', resp.created_item._id]);
+				this.router.navigate(['/items']);
 			})
 	}
   }

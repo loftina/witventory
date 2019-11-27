@@ -22,7 +22,7 @@ export class ItemListComponent implements OnInit {
 	ngOnInit() {
 		this.route.queryParams.subscribe(params => {
 			let all_params = JSON.parse(JSON.stringify(params));
-			all_params.fields = "image name location description notes _id";
+			all_params.fields = "image type name location description notes _id";
 			this.http.get(`${this.API}/items/1`, {params: all_params})
 				.subscribe((itemsResp: any) => {
 					this.pagination = Array(itemsResp.total_pages).fill(0).map((x,i)=>i+1)
@@ -42,7 +42,7 @@ export class ItemListComponent implements OnInit {
 		}
 		this.route.queryParams.subscribe(params => {
 			let all_params = JSON.parse(JSON.stringify(params));
-			all_params.fields = "image name location description notes _id";
+			all_params.fields = "image type name location description notes _id";
 			this.http.get(`${this.API}/items/` + String(new_page), {params: all_params})
 				.subscribe((itemsResp: any) => {
 					this.pagination = Array(itemsResp.total_pages).fill(0).map((x,i)=>i+1)
