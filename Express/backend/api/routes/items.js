@@ -27,7 +27,7 @@ router.get('/:page', (req, res, next) => {
 
   filter = req.query
 
-  fields = "name location damaged_status _id"
+  fields = "name type location damaged_status _id"
   if (typeof filter.fields != 'undefined'){
     fields = filter.fields;
     delete filter.fields;
@@ -93,7 +93,7 @@ router.get('/item/:id', (req, res, next) => {
 
     filter = req.query
 
-    fields = "name location description damaged_status notes image _id"
+    fields = "name type location description damaged_status notes image _id"
     if (typeof filter.fields != 'undefined'){
       fields = filter.fields;
     }
