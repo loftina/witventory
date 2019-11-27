@@ -44,7 +44,7 @@ export class ItemInfoComponent implements OnInit {
 					.subscribe((itemResp: any) => {
 						this.item = itemResp.item
 
-						this.http.get(`${this.API}/items/1`, {params: {fields: '_id type name image location', type: this.item.type}})
+						this.http.get(`${this.API}/items/1`, {params: {fields: '_id type name image location', type: itemResp.item.type}})
 							.subscribe((itemsResp: any) => {
 								var filtered_items = itemsResp.items.filter(function(same_type) { 
 										return same_type._id !== itemResp.item._id;  
