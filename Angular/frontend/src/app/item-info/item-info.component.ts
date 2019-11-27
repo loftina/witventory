@@ -54,8 +54,8 @@ export class ItemInfoComponent implements OnInit {
 	    });
 	}
 
-	public isLoggedIn() {
-		return moment().isBefore(this.getExpiration());
+	public isAdmin() {
+		return localStorage.getItem("admin") === "true";
 	}
 
 	getExpiration() {
@@ -68,5 +68,13 @@ export class ItemInfoComponent implements OnInit {
 		console.log('trying to open reservation modal');
 	    const modalRef = this.modalService.open(CreateReservationFormComponent, { centered: true, windowClass: 'custom-class' });
 	    modalRef.componentInstance.itemId = itemId;
+	}
+
+	deleteItem(itemId) {
+		this.http.delete(`${this.API}/items/item/` + itemId)
+			.subscribe(() => {
+				console.log('item deleted');
+				this.router.navigate(['/items'], {queryParams: {user: localStorage.getItem("id")}});
+			});
 	}
 }

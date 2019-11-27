@@ -24,6 +24,12 @@ export class ReservationListComponent implements OnInit {
 				.subscribe((reservationsResp: any) => {
 					this.pagination = Array(reservationsResp.total_pages).fill(0).map((x,i)=>i+1)
 					this.reservations = reservationsResp.reservations;
+					this.reservations.forEach(reserv => {
+						var temp_start_date = new Date(reserv.start_date);
+						var temp_end_date = new Date(reserv.end_date);
+						reserv.start_date=temp_start_date.toISOString().split('T')[0] + ' ' + temp_start_date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
+						reserv.end_date=temp_end_date.toISOString().split('T')[0] + ' ' + temp_end_date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
+					});
 					this.page = reservationsResp.current_page;
 
 				})
@@ -43,6 +49,7 @@ export class ReservationListComponent implements OnInit {
 				.subscribe((reservationsResp: any) => {
 					this.pagination = Array(reservationsResp.total_pages).fill(0).map((x,i)=>i+1)
 					this.reservations = reservationsResp.reservations;
+					this.reservations.forEach(reserv => {reserv.start_date=(new Date(reserv.start_date)).toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' }); reserv.end_date=(new Date(reserv.end_date)).toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' })});
 					this.page = reservationsResp.current_page;
 				})
 		});
@@ -51,8 +58,7 @@ export class ReservationListComponent implements OnInit {
 	deleteReservation(id) {
 		this.http.delete(`${this.API}/reservations/reservation/` + id)
 			.subscribe(() => {
-				console.log('reservation deleted');
-				this.router.navigate(['/reservations'], {queryParams: {user: localStorage.getItem("id")}});
+				this.ngOnInit();
 			});
 	}
 }
