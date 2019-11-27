@@ -2,7 +2,7 @@
     <div class="row custyle">
         <div class="row">
             <div class="col-xl">
-                <a href="#" class="btn btn-primary btn-xs pull-right">Back to Items</a>
+                <a [routerLink]="['/reservations']" class="btn btn-primary btn-xs pull-right">Back to My Reservations</a>
             </div>
         </div>
         <table class="table table-striped custab">
@@ -23,7 +23,7 @@
 				<td>{{ reservation?.user.email }}</td>
 				<td>{{ reservation?.start_date }}</td>
 				<td>{{ reservation?.end_date }}</td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                <td class="text-center"><a (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
             </tr>
         </table>
     </div>

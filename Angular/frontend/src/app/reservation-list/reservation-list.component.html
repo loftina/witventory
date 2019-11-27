@@ -17,6 +17,9 @@
 				<td>{{ reservation?.start_date }}</td>
 				<td>{{ reservation?.end_date }}</td>
                 <td class="text-center">
+                	<a [routerLink]="['/reservation', reservation?._id]" class="btn btn-primary btn-xs">
+                		View
+                	</a>
                 	<a (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs">
                 		<span class="glyphicon glyphicon-remove"></span> Del
                 	</a>
