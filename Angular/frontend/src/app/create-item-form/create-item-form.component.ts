@@ -40,10 +40,11 @@ export class CreateItemFormComponent implements OnInit {
   }
 
   // Add one item to the API
-  addItem(name, location, description, damaged_status, notes, image) {
+  addItem(name, type, location, description, damaged_status, notes, image) {
   	if (this.isLoggedIn()){
 	    let formData: FormData = new FormData();
 	    formData.append('name', name);
+      formData.append('type', type);
 	    formData.append('location', location);
 	    formData.append('description', description);
 	    formData.append('damaged_status', damaged_status);
