@@ -54,8 +54,8 @@ export class ItemInfoComponent implements OnInit {
 	    });
 	}
 
-	public isLoggedIn() {
-		return moment().isBefore(this.getExpiration());
+	public isAdmin() {
+		return localStorage.getItem("admin") === "true";
 	}
 
 	getExpiration() {
