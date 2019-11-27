@@ -15,6 +15,7 @@
 	  
 		  <div class="col-md-4">
 			<h3 class="my-3">{{item?.name}}</h3>
+			<p>{{ item?.type }}</p>
 			<p>{{ item?.description }}</p>
 			<button class="btn btn-success" (click)="openReservationModal(item._id)">Reserve</button>
 			<button *ngIf="isAdmin()" class="btn btn-danger" (click)="deleteItem(item._id)">Delete Item</button>
