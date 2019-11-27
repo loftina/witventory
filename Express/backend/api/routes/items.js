@@ -17,6 +17,7 @@ const upload = multer({
 
 
 const Item = require('../models/item');
+const Reservation = require('../models/reservation');
 
 /_ GET all items. _/
 router.get('/:page', (req, res, next) => {
@@ -201,18 +202,27 @@ router.delete('/item/:id', checkAuth, (req, res, next) => {
       });
     }
 
-    Item.deleteOne({ _id: req.params.id })
+    Reservation.deleteMany({ item: req.params.id })
       .exec()
       .then(result => {
-        res.status(200).json({
-          message: 'Item successfully deleted'
-        });
+        Item.deleteOne({ _id: req.params.id })
+          .exec()
+          .then(result => {
+            res.status(200).json({
+              message: 'Item successfully deleted'
+            });
+          })
+          .catch(err => {
+            res.status(500).json({
+              error: err
+            })
+          });
       })
       .catch(err => {
         res.status(500).json({
           error: err
         })
-      })
+      });
 });
 
 module.exports = router;
