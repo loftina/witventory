@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="reservations.length > 0" class="container">
     <div class="row custyle">
         <table class="table table-striped custab">
             <thead>
@@ -16,13 +16,20 @@
 				<td>{{ reservation?.item.location }}</td>
 				<td>{{ reservation?.start_date }}</td>
 				<td>{{ reservation?.end_date }}</td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                <td class="text-center">
+                	<a class='btn btn-info btn-xs' href="#">
+                		<span class="glyphicon glyphicon-edit"></span> Edit
+                	</a>
+                	<a (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs">
+                		<span class="glyphicon glyphicon-remove"></span> Del
+                	</a>
+                </td>
             </tr>
         </table>
     </div>
 </div>
 
-<nav *ngIf="pagination.length > 0" aria-label="Page navigation" class="text-center">
+<nav *ngIf="pagination.length > 1" aria-label="Page navigation" class="text-center">
  	<ul class="pagination justify-content-center">
     	<li *ngIf="page == pagination[0]" class="page-item disabled">
     		<a class="page-link" (click)="newPage(page - 1)">Previous</a>

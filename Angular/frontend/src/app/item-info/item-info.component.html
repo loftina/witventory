@@ -17,6 +17,7 @@
 			<h3 class="my-3">{{item?.name}}</h3>
 			<p>{{ item?.description }}</p>
 			<button class="btn btn-success" (click)="openReservationModal(item._id)">Reserve</button>
+			<button class="btn btn-danger" (click)="deleteItem(item._id)">Delete Item</button>
 			<h3 class="my-3">Item Details</h3>
 			<ul class="list-group">
 			  <li class="list-group-item">Notes: {{ item?.notes }}</li>

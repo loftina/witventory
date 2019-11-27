@@ -69,4 +69,12 @@ export class ItemInfoComponent implements OnInit {
 	    const modalRef = this.modalService.open(CreateReservationFormComponent, { centered: true, windowClass: 'custom-class' });
 	    modalRef.componentInstance.itemId = itemId;
 	}
+
+	deleteItem(itemId) {
+		this.http.delete(`${this.API}/items/item/` + itemId)
+			.subscribe(() => {
+				console.log('item deleted');
+				this.router.navigate(['/items'], {queryParams: {user: localStorage.getItem("id")}});
+			});
+	}
 }

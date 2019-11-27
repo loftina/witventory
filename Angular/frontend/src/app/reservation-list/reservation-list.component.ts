@@ -58,8 +58,7 @@ export class ReservationListComponent implements OnInit {
 	deleteReservation(id) {
 		this.http.delete(`${this.API}/reservations/reservation/` + id)
 			.subscribe(() => {
-				console.log('reservation deleted');
-				this.router.navigate(['/reservations'], {queryParams: {user: localStorage.getItem("id")}});
+				this.ngOnInit();
 			});
 	}
 }
