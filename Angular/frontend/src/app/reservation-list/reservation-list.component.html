@@ -1,4 +1,8 @@
-<div *ngIf="reservations.length > 0" class="container">
+
+<div *ngIf="!reservations || reservations.length === 0" class="alert alert-info"> No reservations to display!</div>
+
+
+<div *ngIf="reservations.length > 0"  class="container">
     <div class="row custyle">
         <table class="table table-striped custab">
             <thead>
@@ -28,6 +32,7 @@
         </table>
     </div>
 </div>
+
 
 <nav *ngIf="pagination.length > 1" aria-label="Page navigation" class="text-center">
  	<ul class="pagination justify-content-center">

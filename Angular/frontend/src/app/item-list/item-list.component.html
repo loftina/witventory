@@ -3,14 +3,16 @@
 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ADD ITEM</button>				
 	</div>
 </div>
-<div class="row" >
-	<div *ngFor="let item of items" style="display: flex;
+
+<div *ngIf="!items || items.length === 0" class="alert alert-info"> No items to display! Click add to begin adding an item!</div>
+
+
+<div *ngFor="let item of items" >
+	<div class="row" style="display: flex;
 	align-items: stretch;" class="item col-xs-4 col-sm-4">
 		<div class="card">
 				<img class="card-img-top" src="{{ item.image }}" alt="{{ item.name }}"/>
-			<i class="glyphicon glyphicon-trash"></i>
-
-			<ul class="list-group list-group-flush">
+			<ul class="list-group">
 				<li class="list-group-item">
 					<h4 class="group card-title inner list-group-item-heading">
 				{{ item.name }}</h4>
