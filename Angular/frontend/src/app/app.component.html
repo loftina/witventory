@@ -8,7 +8,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse show" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item"><a *ngIf="isLoggedIn()" (click)="logout()" class="nav-link">Sign Out</a></li>
       <li class="nav-item"><a *ngIf="isLoggedOut()" [routerLink]="'/signin'" class="nav-link">Sign In</a></li>
