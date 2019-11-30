@@ -11,32 +11,35 @@
         <!-- Modal body -->
         <div class="modal-body" >
                 <div class="form-group">
-                  <label for="name">Item Name</label>
-                  <input type="text" class="form-control" id="name" #name>
+                  <label class="form-group-label" for="name">Name</label>
+                  <input type="text" class="form-control" placeholder="Item Name" id="name" #name>
                 </div>
                 <div class="form-group">
-                  <label for="type">Item Type</label>
-                  <input type="text" class="form-control" id="type" #type>
+                  <label class="form-group-label" for="type">Item Type</label>
+                  <input type="text" class="form-control" placeholder="Item Type" id="type" #type>
                 </div>
                 <div class="form-group">
-                  <label for="location">Location</label>
-                  <input type="text" class="form-control" id="location" #location>
+                  <label class="form-group-label" for="location">Location</label>
+                  <input type="text" class="form-control" placeholder="Location" id="location" #location>
                 </div>
                 <div class="form-group">
-                  <label for="description">Description</label>
-                  <input type="text" class="form-control" id="description" #description>
+                  <label class="form-group-label" for="description">Description</label>
+                  <input type="text" class="form-control" id="description" placeholder="Description" #description>
                 </div>
                 <div class="form-group">
-                  <label for="damaged_status">Damaged</label>
-                  <input type="text" class="form-control" id="damaged_status" #damaged_status>
+                  <label class="form-check-label" for="damaged_status">Damaged</label>
+                  <select class="form-control" id="damaged_status" #damaged_status>
+                    <option>false</option>
+                    <option>true</option>
+                  </select>
                 </div>
                 <div class="form-group">
-                  <label for="notes">Notes</label>
-                  <input type="text" class="form-control" id="notes" #notes>
+                  <label class="form-group-label" for="notes">Notes</label>
+                  <input type="text" class="form-control" placeholder="Notes" id="notes" #notes>
                 </div>
                 <div class="form-group">
-                  <label for="image">Image</label>
-                  <input type="file" class="form-control" id="image" accept="image/*" #image>
+                  <label class="form-group-label" for="image">Image</label>
+                  <input type="file" class="form-control-file-sm" placeholder="Image" id="image" accept="image/*" #image>
                 </div>
             </div>
             <div class="modal-footer">

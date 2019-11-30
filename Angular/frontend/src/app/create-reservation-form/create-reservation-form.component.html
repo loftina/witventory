@@ -31,7 +31,7 @@
 	                {{end_time | json}}
 	            </div>
 	            <div class="col-sm-2">
-	                <button class="btn-primary" type="submit" (click)="createReservation((available_dates[i].start.getYear() + 1900) + '-' + pad(available_dates[i].start.getMonth() + 1, 2) + '-' + pad(available_dates[i].start.getDate(), 2) + 'T' + pad(start_times[i].hour, 2) + ':' + pad(start_times[i].minute, 2)+':00.000-05:00', (available_dates[i].start.getYear() + 1900) + '-' + pad(available_dates[i].start.getMonth() + 1, 2) + '-' + pad(available_dates[i].start.getDate(), 2) + 'T' + pad(end_times[i].hour, 2) + ':' + pad(end_times[i].minute, 2)+':00.000-05:00')">+</button>
+	                <button class="btn-primary" type="submit" (click)="createReservation(available_dates[i], start_times[i], end_times[i])">+</button>
 	            </div>
 	        </div>
 	      </div>
