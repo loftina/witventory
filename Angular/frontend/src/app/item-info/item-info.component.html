@@ -1,30 +1,27 @@
 <!-- Page Content -->
 <div class="container">
-
+		<Label>
 		<!-- Portfolio Item Heading -->
 		<h1 class="my-4">{{item?.name}}
 		  <small>{{ item?.location }}</small>
 		</h1>
-	  
+	</Label>
 		<!-- Portfolio Item Row -->
 		<div class="row">
-	  
+
 		  <div class="col-md-8">
-			<img class="img-fluid" src="{{ item?.image }}" alt="{{ item?.name }}">
+			<img class="img-fluid" style="border:1px solid black" src="{{ item?.image }}" alt="{{ item?.name }}">
 		  </div>
-	  
-		  <div class="col-md-4">
-			<h3 class="my-3">{{item?.name}}</h3>
-			<p>{{ item?.type }}</p>
-			<p>{{ item?.description }}</p>
+		  <ul class="list-group">
+
 			<button class="btn btn-success" (click)="openReservationModal(item._id)">Reserve</button>
 			<button *ngIf="isAdmin()" class="btn btn-danger" (click)="deleteItem(item._id)">Delete Item</button>
 			<h3 class="my-3">Item Details</h3>
-			<ul class="list-group">
-			  <li class="list-group-item">Notes: {{ item?.notes }}</li>
-			  <li class="list-group-item">Damaged: {{ item?.damaged_status }}</li>
+			<li class="list-group-item">{{ item?.type }}</li>
+			<li class="list-group-item">{{ item?.description }}</li>
+			<li class="list-group-item">{{ item?.notes }}</li>
+			<li class="list-group-item">{{ item?.damaged_status }}</li>
 			</ul>
-		  </div>
 	  
 		</div>
 		<!-- /.row -->
@@ -39,56 +36,9 @@
 				<img class="img-fluid" src="{{ similar_item.image }}" alt="{{ similar_item.name }}"> {{ similar_item.name }} - {{ similar_item.location }}
 			</a>
 		  </div>
-	  
-		  <!-- <div class="col-md-3 col-sm-6 mb-4">
-			<a href="#">
-				  <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-				</a>
-		  </div>
-	  
-		  <div class="col-md-3 col-sm-6 mb-4">
-			<a href="#">
-				  <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-				</a>
-		  </div>
-	  
-		  <div class="col-md-3 col-sm-6 mb-4">
-			<a href="#">
-				  <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-				</a>
-		  </div> -->
-	  
+	
 		</div>
 
-		<!-- <div class="row">
-	  
-		  <div class="col-md-3 col-sm-6 mb-4">
-			<a href="#">
-				  <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-				</a>
-		  </div>
-	  
-		  <div class="col-md-3 col-sm-6 mb-4">
-			<a href="#">
-				  <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-				</a>
-		  </div>
-	  
-		  <div class="col-md-3 col-sm-6 mb-4">
-			<a href="#">
-				  <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-				</a>
-		  </div>
-	  
-		  <div class="col-md-3 col-sm-6 mb-4">
-			<a href="#">
-				  <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-				</a>
-		  </div>
-	  
-		</div> -->
-		<!-- /.row -->
-	  
 	  </div>
 
 	  <h3>Reservations</h3>

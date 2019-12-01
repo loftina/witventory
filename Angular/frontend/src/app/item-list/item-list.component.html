@@ -8,9 +8,12 @@
 
 
 <div *ngFor="let item of items" >
-	<div class="row" style="display: flex;
-	align-items: stretch;" class="item col-xs-4 col-sm-4">
+	
+		<div class="row" style="display: flex;
+		align-items: stretch;" class="item col-lg-4">		
+		
 		<div class="card">
+
 				<img class="card-img-top" src="{{ item.image }}" alt="{{ item.name }}"/>
 			<ul class="list-group">
 				<li class="list-group-item">
@@ -31,16 +34,11 @@
 					</p>
 				</li>
 			</ul>
-			<div class="row">
-				<div class="col">
 					<button class="btn btn-success btn-block" [routerLink]="['/item', item._id]" >View</button>
-				</div>
-				<div class="col">
 					<button class="btn btn-primary btn-block" (click)="openReservationModal(item._id)" >Quick Reserve</button>
-				</div>
 			</div>
 		</div>
-	</div>
+		
 </div>
 
 <nav *ngIf="pagination.length > 1" aria-label="Page navigation" class="text-center">
