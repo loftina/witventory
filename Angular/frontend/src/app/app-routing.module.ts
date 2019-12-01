@@ -10,9 +10,11 @@ import { ItemListComponent } from './item-list/item-list.component';
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
 import { ReservationListComponent } from './reservation-list/reservation-list.component';
 import { PageNotFoundComponent} from './pagenotfound/pagenotfound.component';
+import { AdminPageComponent} from './adminpage/adminpage.component';
 
 
 const routes: Routes = [
+	{ path: 'adminpage', pathMatch: 'full', component:  AdminPageComponent },
 	{ path: '', pathMatch: 'full', component: ItemListComponent },
 	{ path: 'signin', pathMatch: 'full', component: SignInFormComponent },
 	{ path: 'signup', pathMatch: 'full', component: CreateUserFormComponent },

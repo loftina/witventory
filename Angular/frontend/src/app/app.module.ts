@@ -16,6 +16,8 @@ import { ReservationInfoComponent } from './reservation-info/reservation-info.co
 import { ReservationListComponent } from './reservation-list/reservation-list.component';
 import { CreateReservationFormComponent } from './create-reservation-form/create-reservation-form.component';
 import { PageNotFoundComponent} from './pagenotfound/pagenotfound.component';
+import { AdminPageComponent} from './adminpage/adminpage.component';
+
 
 import {Injectable} from '@angular/core';
 import {
@@ -62,7 +64,8 @@ export class AuthInterceptor implements HttpInterceptor {
     ReservationInfoComponent,
     ReservationListComponent,
     CreateReservationFormComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,
