@@ -14,6 +14,7 @@
       <li class="nav-item"><a *ngIf="isLoggedOut()" [routerLink]="'/signin'" class="nav-link">Sign In</a></li>
       <li class="nav-item"><a [routerLink]="'/items'" class="nav-link">Items</a></li>
       <li class="nav-item"><a *ngIf="isLoggedIn()" (click)="userReservations()" class="nav-link">My Reservations</a></li>
+      <li class="nav-item"><a class="nav-link" [routerLink]="'/adminpage'" *ngIf="isLoggedIn() && isAdmin()">Admin</a></li>
     </ul>
 
     <form class="form-inline my-2 my-lg-0">
@@ -23,7 +24,11 @@
   </div>
 </nav>
 
+<br>
 
+<div class="page-top">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
 
-
-  <router-outlet></router-outlet>
+</div>

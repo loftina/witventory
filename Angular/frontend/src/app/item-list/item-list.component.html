@@ -1,45 +1,26 @@
-<div *ngIf="isAdmin()" class="row">
-	<div class="col-lg-12 my-3">
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ADD ITEM</button>				
-	</div>
-</div>
 
+
+<div class="container" *ngIf="isAdmin()" style="padding-bottom: 20px;">
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ADD ITEM</button>				
+</div>
 <div *ngIf="!items || items.length === 0" class="alert alert-info"> No items to display! Click add to begin adding an item!</div>
 
+<div class="row">
+	<div *ngFor="let item of items" style="padding-left: 1em;">		
 
-<div *ngFor="let item of items" >
-	
-		<div class="row" style="display: flex;
-		align-items: stretch;" class="item col-lg-4">		
-		
-		<div class="card">
-
-				<img class="card-img-top" src="{{ item.image }}" alt="{{ item.name }}"/>
-			<ul class="list-group">
-				<li class="list-group-item">
-					<h4 class="group card-title inner list-group-item-heading">
-				{{ item.name }}</h4>
-				</li>
-				<li class="list-group-item">
-					<p class="group inner list-group-item-text">
-				Type: {{ item.type }}</p>
-				</li>
-				<li class="list-group-item">
-					<p class="group inner list-group-item-text">
-				Description: {{ item.description }}</p>
-				</li>
-				<li class="list-group-item">
-					<p class="group inner list-group-item-text">
-						Location: {{ item.location }}
-					</p>
-				</li>
-			</ul>
-					<button class="btn btn-success btn-block" [routerLink]="['/item', item._id]" >View</button>
-					<button class="btn btn-primary btn-block" (click)="openReservationModal(item._id)" >Quick Reserve</button>
-			</div>
+		<div class="card" style="width: 18rem;">
+				<img class="card-img-top" src="{{ item.image }}" alt="{{ item.name }}">
+				<div class="card-body">
+				  <h5 class="card-title">{{ item.name }}</h5>
+				  <p style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;" class="card-text">{{ item.description }} aslndslfndsasffdsfdfdasfdsafadsilfnlsdndslfndsasffdsfdfdasfdsafadsilfnlsdndslfndsasffdsfdfdasfdsafadsilfnlsdndslfndsasffdsfdfdasfdsafadsilfnlsdn</p>
+				  <button class="btn btn-success btn-block" [routerLink]="['/item', item._id]" >View</button>
+				  <button class="btn btn-primary btn-block" (click)="openReservationModal(item._id)" >Quick Reserve</button>
+				</div>
 		</div>
+	</div>
+
+</div>	
 		
-</div>
 
 <nav *ngIf="pagination.length > 1" aria-label="Page navigation" class="text-center">
  	<ul class="pagination justify-content-center">
