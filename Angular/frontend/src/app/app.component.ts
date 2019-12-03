@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import * as moment from "moment";
 
 @Component({
@@ -12,7 +13,9 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   public isAdmin() {
     return localStorage.getItem("admin") === "true";

@@ -21,6 +21,7 @@ export class SignInFormComponent implements OnInit {
 		$('.authbutton').click(function(){
 			$('form').animate({height: "toggle", opacity: "toggle"}, "slow");
 		 });
+
 	}
 
 	// Add User

@@ -1,0 +1,14 @@
+.clear { clear: both; height: 60px; }
+
+.navbar {
+    min-height: 10px;
+  }
+
+.navbar-brand img{
+    height: 30px;
+ }
+
+ .footer{
+    height: 1px;
+ }
+

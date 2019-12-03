@@ -3,7 +3,11 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 
+.nav {margin-bottom: 20px;}
 
+.modal{
+  overflow: visible !important;
+}
 .modal-backdrop.fade
 {
   opacity: 0.5;
