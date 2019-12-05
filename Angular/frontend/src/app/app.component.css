@@ -8,7 +8,10 @@
     height: 30px;
  }
 
- .footer{
-    height: 1px;
+ footer {
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   height: 40px;
+   width: 100%;
  }
-

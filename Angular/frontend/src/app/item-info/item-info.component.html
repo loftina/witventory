@@ -40,36 +40,29 @@
 		</div>
 
 	  </div>
+	  
+	  <div style="margin-top: 20px; margin-bottom: 20px;" class="row custyle">
+			<h3>Reservations</h3>
+        <table class="table table-striped custab">
+            <thead>
+                <tr>
+        			<th>Start Date</th>
+                    <th>End Date</th>
 
-	  <h3>Reservations</h3>
-<ul *ngFor="let reservation of reservations">
-	<li [routerLink]="['/reservation', reservation._id]"> {{reservation.start_date}}, {{reservation.end_date}} </li>
-</ul>
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<img src="{{item?.image}}" height="100px" width="100px"/>
-<h1> {{item?.name}} </h1>
-<hr/>
-<ul>
-	<li> {{ item?.location }} </li>
-	<li> {{ item?.description }} </li>
-	<li> {{ item?.damaged_status }} </li>
-	<li> {{ item?.notes }} </li>
-</ul>
-
-<h3>Reservations</h3>
-<ul *ngFor="let reservation of reservations">
-	<li [routerLink]="['/reservation', reservation._id]"> {{reservation.start_date}}, {{reservation.end_date}} </li>
-</ul>
-
--->
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let reservation of reservations">
+				<td>{{ reservation?.start_date | date:'medium'}}</td>
+				<td>{{ reservation?.end_date | date:'medium'}}</td>
+                <td class="text-center">
+                	<a [routerLink]="['/reservation', reservation?._id]" class="btn btn-primary btn-xs">
+                		View
+                	</a>
+                	<button (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs">
+                		<span class="glyphicon glyphicon-remove"></span> Del
+					</button>
+                </td>
+            </tr>
+        </table>
+    </div>
