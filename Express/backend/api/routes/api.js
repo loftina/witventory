@@ -4,7 +4,7 @@ const router = express.Router();
 
 /_ GET api listing. _/
 router.get('/', (req, res) => {
-        res.redirect('http://localhost:4200');
+        res.redirect(process.env.FRONTEND_URL);
 });
 
 module.exports = router;

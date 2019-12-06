@@ -2,7 +2,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { ApiSettings } from '../ApiSettings';
 import * as moment from "moment";
 
 interface ReservationPostResponse
@@ -29,7 +29,7 @@ export class CreateReservationFormComponent implements OnInit {
 
 	@Input() itemId;
 
-	API = 'http://localhost:3000';
+	API = ApiSettings.API_ENDPOINT;
 
 	end_times = [];
 

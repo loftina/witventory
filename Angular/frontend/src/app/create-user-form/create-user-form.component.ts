@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
+import { ApiSettings } from '../ApiSettings';
 
 @Component({
   selector: 'app-create-user-form',
@@ -9,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class CreateUserFormComponent implements OnInit {
 
-  API = 'http://localhost:3000';
+  API = ApiSettings.API_ENDPOINT;
 
   constructor(private http: HttpClient, private router: Router) { }
 

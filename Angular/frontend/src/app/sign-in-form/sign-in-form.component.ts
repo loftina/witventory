@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
+import { ApiSettings } from '../ApiSettings';
 import * as moment from "moment";
 import * as $ from "jquery";
 
@@ -12,7 +13,7 @@ import * as $ from "jquery";
 })
 export class SignInFormComponent implements OnInit {
 
-	API = 'http://localhost:3000';
+	API = ApiSettings.API_ENDPOINT;
 
 	constructor(private http: HttpClient, private router: Router) { }
 
