@@ -1,14 +1,20 @@
-<h3>Sign In</h3>
-<form>
-	<div class="form-group">
-		<label for="email">Email</label>
-		<input type="text" class="form-control" id="email" #email>
+
+
+<div  class="outter">
+<div class="login-page">
+	<div class="form">
+	  <form class="register-form">
+		<input type="text" placeholder="Email" id="new_email" #new_email/>
+		<input type="password" placeholder="Password" id="new_password" #new_password/>
+		<button (click)="createUser(new_email.value, new_password.value)">create</button>
+		<p class="message">Already registered? <button class="authbutton">Sign In</button></p>
+	  </form>
+	  <form class="login-form">
+		<input type="text" placeholder="Email" id="email" #email/>
+		<input type="password" placeholder="Password" id="password" #password/>
+		<button (click)="loginUser(email.value, password.value)">Login</button>
+		<p class="message">Not registered? <button type="button" style="background-color: rgb(82, 82, 221);" class="btn btn-primary authbutton">Create an account</button></p>
+	  </form>
 	</div>
-	<div class="form-group">
-		<label for="password">Password</label>
-		<input type="password" class="form-control" id="password" #password>
-	</div>
-	<button type="button" (click)="loginUser(email.value, password.value)" class="btn btn-primary">Login User</button>
-	<br>
-	<a [routerLink]="'/signup'">Sign Up</a>
-</form>
+  </div>
+</div>

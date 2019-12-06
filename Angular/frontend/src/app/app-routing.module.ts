@@ -9,9 +9,12 @@ import { ItemInfoComponent } from './item-info/item-info.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
 import { ReservationListComponent } from './reservation-list/reservation-list.component';
+import { PageNotFoundComponent} from './pagenotfound/pagenotfound.component';
+import { AdminPageComponent} from './adminpage/adminpage.component';
 
 
 const routes: Routes = [
+	{ path: 'adminpage', pathMatch: 'full', component:  AdminPageComponent },
 	{ path: '', pathMatch: 'full', component: ItemListComponent },
 	{ path: 'signin', pathMatch: 'full', component: SignInFormComponent },
 	{ path: 'signup', pathMatch: 'full', component: CreateUserFormComponent },
@@ -20,7 +23,9 @@ const routes: Routes = [
 	{ path: 'items', pathMatch: 'prefix', component: ItemListComponent },
 	{ path: 'reservation/:id', pathMatch: 'full', component: ReservationInfoComponent },
 	{ path: 'reservations', pathMatch: 'prefix', component:  ReservationListComponent },
-	{ path: 'createreservation/:id', pathMatch: 'full', component:  CreateReservationFormComponent }
+	{ path: 'createreservation/:id', pathMatch: 'full', component:  CreateReservationFormComponent },
+	{ path: '**', pathMatch: 'full', component:  PageNotFoundComponent }
+
 ];
 
 @NgModule({

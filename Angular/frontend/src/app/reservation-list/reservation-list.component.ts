@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -15,7 +15,7 @@ export class ReservationListComponent implements OnInit {
 
 	API = 'http://localhost:3000';
 
-	constructor(private http: HttpClient, private route: ActivatedRoute) { }
+	constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
 
 	ngOnInit() {
 		this.route.queryParams.subscribe(params => {
@@ -24,6 +24,12 @@ export class ReservationListComponent implements OnInit {
 				.subscribe((reservationsResp: any) => {
 					this.pagination = Array(reservationsResp.total_pages).fill(0).map((x,i)=>i+1)
 					this.reservations = reservationsResp.reservations;
+					this.reservations.forEach(reserv => {
+						var temp_start_date = new Date(reserv.start_date);
+						var temp_end_date = new Date(reserv.end_date);
+						reserv.start_date=temp_start_date.toISOString().split('T')[0] + ' ' + temp_start_date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
+						reserv.end_date=temp_end_date.toISOString().split('T')[0] + ' ' + temp_end_date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
+					});
 					this.page = reservationsResp.current_page;
 
 				})
@@ -42,10 +48,17 @@ export class ReservationListComponent implements OnInit {
 			this.http.get(`${this.API}/reservations/` + String(new_page), {params: params})
 				.subscribe((reservationsResp: any) => {
 					this.pagination = Array(reservationsResp.total_pages).fill(0).map((x,i)=>i+1)
-					this.reservations = reservationsResp.items;
+					this.reservations = reservationsResp.reservations;
+					this.reservations.forEach(reserv => {reserv.start_date=(new Date(reserv.start_date)).toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' }); reserv.end_date=(new Date(reserv.end_date)).toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' })});
 					this.page = reservationsResp.current_page;
 				})
 		});
 	}
 
+	deleteReservation(id) {
+		this.http.delete(`${this.API}/reservations/reservation/` + id)
+			.subscribe(() => {
+				this.ngOnInit();
+			});
+	}
 }

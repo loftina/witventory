@@ -1,28 +1,57 @@
-<h3>Add new item</h3>
-<form>
-  <div class="form-group">
-    <label for="name">Item Name</label>
-    <input type="text" class="form-control" id="name" #name>
-  </div>
-  <div class="form-group">
-    <label for="location">Location</label>
-    <input type="text" class="form-control" id="location" #location>
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-    <input type="text" class="form-control" id="description" #description>
-  </div>
-  <div class="form-group">
-    <label for="damaged_status">Damaged</label>
-    <input type="text" class="form-control" id="damaged_status" #damaged_status>
-  </div>
-  <div class="form-group">
-    <label for="notes">Notes</label>
-    <input type="text" class="form-control" id="notes" #notes>
-  </div>
-  <div class="form-group">
-    <label for="image">Image</label>
-    <input type="file" class="form-control" id="image" accept="image/*" #image>
-  </div>
-  <button type="button" (click)="addItem(name.value, location.value, description.value, damaged_status.value, notes.value, image.files)" class="btn btn-primary">Add Item</button>
-</form>
+
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content form">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" style="text-align: center; ">Add item</h4>        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+                <div class="form-group">
+                  <label class="form-group-label" for="name">Name</label>
+                  <input type="text" class="form-control" placeholder="Item Name" id="name" #name>
+                </div>
+                <div class="form-group">
+                  <label class="form-group-label" for="type">Item Type</label>
+                  <input type="text" class="form-control" placeholder="Item Type" id="type" #type>
+                </div>
+                <div class="form-group">
+                  <label class="form-group-label" for="location">Location</label>
+                  <input type="text" class="form-control" placeholder="Location" id="location" #location>
+                </div>
+                <div class="form-group">
+                  <label class="form-group-label" for="description">Description</label>
+                  <input type="text" class="form-control" id="description" placeholder="Description" #description>
+                </div>
+                <div class="form-group">
+                  <label class="form-check-label" for="damaged_status">Damaged</label>
+                  <select class="form-control" id="damaged_status" #damaged_status>
+                    <option>false</option>
+                    <option>true</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-group-label" for="notes">Notes</label>
+                  <input type="text" class="form-control" placeholder="Notes" id="notes" #notes>
+                </div>
+                <div class="form-group">
+                  <label class="form-group-label" for="image">Image</label>
+                  <input type="file" class="form-control-file-sm" placeholder="Image" id="image" accept="image/*" #image>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" (click)="addItem(name.value, type.value, location.value, description.value, damaged_status.value, notes.value, image.files)" data-dismiss="modal" data-backdrop="false" class="btn btn-primary">Add Item</button>
+              <button type="button" class="btn btn-success" style="background-color: orange !important;" aria-label="Close" data-dismiss="modal" data-backdrop="false" (click)="hideModal()">Close</button>
+    
+              <!-- this button is hidden, used to close from typescript -->
+              <button type="button" id="close-modal" data-dismiss="modal" style="display: none">Close</button>
+          </div>
+      </div>
+    </div>
+    </div>
+  
+

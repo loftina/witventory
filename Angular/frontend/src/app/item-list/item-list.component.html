@@ -1,24 +1,26 @@
+
+
+<div class="container" *ngIf="isAdmin()" style="padding-bottom: 20px; padding-top: 20px;">
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ADD ITEM</button>				
+</div>
+<div *ngIf="!items || items.length === 0" class="alert alert-info"> No items to display! Click add to begin adding an item!</div>
+
 <div class="row">
-	<div *ngFor="let item of items" class="col-sm-6 col-lg-4 py-2">
-		<div class="card h-100">
-		  <img src="{{ item.image }}" class="card-img-top" alt="{{ item.name }}">
-		  <div class="text-center">
-			  <div class="card-body">
-				    <h5 class="card-title">{{ item.name }}</h5>
-			  </div>
-			  <ul class="list-group list-group-flush">
-			  	<li class="list-group-item">{{ item.description }}</li>
-			    <li class="list-group-item">{{ item.location }}</li>
-			    <li class="list-group-item">{{ item.notes }}</li>
-			  </ul>
-			  <div class="card-body">
-			    <a [routerLink]="['/item', item._id]" class="card-link">View</a>
-			    <a (click)="openReservationModal(item._id)" class="card-link">Quick Reserve</a>
-			  </div>
-		  </div>
+	<div *ngFor="let item of items" style="padding-left: 1em;">		
+
+		<div class="card" style="width: 18rem;">
+				<img class="card-img-top" src="{{ item.image }}" alt="{{ item.name }}">
+				<div class="card-body">
+				  <h5 class="card-title">{{ item.name }}</h5>
+				  <p style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;" class="card-text">{{ item.description }} aslndslfndsasffdsfdfdasfdsafadsilfnlsdndslfndsasffdsfdfdasfdsafadsilfnlsdndslfndsasffdsfdfdasfdsafadsilfnlsdndslfndsasffdsfdfdasfdsafadsilfnlsdn</p>
+				  <button class="btn btn-success btn-block" [routerLink]="['/item', item._id]" >View</button>
+				  <button class="btn btn-primary btn-block" (click)="openReservationModal(item._id)" >Quick Reserve</button>
+				</div>
 		</div>
 	</div>
-</div>
+
+</div>	
+		
 
 <nav *ngIf="pagination.length > 1" aria-label="Page navigation" class="text-center">
  	<ul class="pagination justify-content-center">
@@ -39,3 +41,4 @@
     	</li>
   	</ul>
 </nav>
+<app-create-item-form></app-create-item-form>

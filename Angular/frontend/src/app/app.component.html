@@ -1,20 +1,28 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav  *ngIf="router.url !== '/signin'" class="navbar navbar-expand-lg navbar-dark bg-dark navbar-full">
+  
+  <div class="container">
+  <div class="navbar-header">
+      <a class="navbar-brand">
+        <img src="../assets/images/wit-logo.jpg" alt="logo">
+      </a>
+    </div>
+
   <ul class="navbar-nav mr-auto">
-    <li class="nav-item"><li class="navbar-brand">WITventory</li>
+    <li class="nav-item"><li [routerLink]="'/items'" class="navbar-brand">WITventory</li>
   </ul>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse show" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item"><a *ngIf="isLoggedIn()" (click)="logout()" class="nav-link">Sign Out</a></li>
       <li class="nav-item"><a *ngIf="isLoggedOut()" [routerLink]="'/signin'" class="nav-link">Sign In</a></li>
       <li class="nav-item"><a [routerLink]="'/items'" class="nav-link">Items</a></li>
       <li class="nav-item"><a *ngIf="isLoggedIn()" (click)="userReservations()" class="nav-link">My Reservations</a></li>
-      <li *ngIf="isAdmin()" class="nav-item"><a [routerLink]="'/createitem'" class="nav-link">Create Item</a></li>
+      <li class="nav-item"><a class="nav-link" [routerLink]="'/adminpage'" *ngIf="isLoggedIn() && isAdmin()">Admin</a></li>
     </ul>
 
     <form class="form-inline my-2 my-lg-0">
@@ -22,8 +30,21 @@
       <button type="submit" class="btn btn-outline-primary my-2 my-sm-0" (click)="searchItems(term.value)">Search</button>
     </form>
   </div>
+
+</div>
 </nav>
 
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+
+    <!-- adds space between content and footer. Footer overlaps content without it-->
+  <div class="clear"></div>
+
+
+<footer class="footer"  *ngIf="router.url !== '/signin'" class="py-4 bg-dark text-white-50 navbar-fixed-bottom">
+    <div class="text-center">
+      Copyright &copy; WITventory
+    </div>
+  </footer>
+

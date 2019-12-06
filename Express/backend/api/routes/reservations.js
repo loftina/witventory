@@ -38,14 +38,15 @@ router.get('/:page', (req, res, next) => {
 
 	Reservation
 		.find(regexFilter(filter))
+		.sort({'createdAt': 'descending'})
 		.skip((resPerPage * page) - resPerPage)
 		.limit(resPerPage)
-		.select('user item start_date end_date _id')
+		.select('createdAt user item start_date end_date _id')
 		.populate('item', 'image name location _id')
 		.populate('user', 'email _id')
 		.exec()
 		.then(reservations => {
-			Item.count(regexFilter(filter), function (err, count) {
+			Reservation.count(regexFilter(filter), function (err, count) {
 			    if (err) {
 			      	res.status(500).json({
 			          	error: err
@@ -63,6 +64,7 @@ router.get('/:page', (req, res, next) => {
 								item: reservation.item,
 								start_date: reservation.start_date,
 								end_date: reservation.end_date,
+								created: reservation.createdAt,
 								request: {
 									type: 'GET',
 									url: 'http://localhost:3000/reservations/' + reservation._id
@@ -181,7 +183,7 @@ router.get('/reservation/:id', (req, res, next) => {
 		});
 })
 
-router.delete('reservation/:id', checkAuth, (req, res, next) => {
+router.delete('/reservation/:id', checkAuth, (req, res, next) => {
 	// can only delete if admin or owner of reservation
 	if (!req.userData.admin){
 		Reservation.findById(req.params.id)

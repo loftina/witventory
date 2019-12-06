@@ -8,6 +8,8 @@ services:
     restart: always
     ports:
       - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
 
   mongo-express:
     image: mongo-express
@@ -21,6 +23,8 @@ services:
       - 3000:3000
     links:
       - mongo
+    volumes:
+      - express_images:/usr/src/app/images/item_images
 
   angular:
     build: ./Angular
@@ -28,6 +32,8 @@ services:
       - 4200:4200
     depends_on:
       - express
+    volumes:
+      - ./Angular/frontend/src:/usr/src/app/src
 
   portainer:
     image: portainer/portainer
@@ -41,3 +47,5 @@ services:
 
 volumes:
   portainer_data:
+  express_images:
+  mongo_data:

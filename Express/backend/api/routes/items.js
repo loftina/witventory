@@ -17,6 +17,7 @@ const upload = multer({
 
 
 const Item = require('../models/item');
+const Reservation = require('../models/reservation');
 
 /_ GET all items. _/
 router.get('/:page', (req, res, next) => {
@@ -26,7 +27,7 @@ router.get('/:page', (req, res, next) => {
 
   filter = req.query
 
-  fields = "name location damaged_status _id"
+  fields = "name type location damaged_status _id"
   if (typeof filter.fields != 'undefined'){
     fields = filter.fields;
     delete filter.fields;
@@ -35,6 +36,9 @@ router.get('/:page', (req, res, next) => {
   var regexFilter = function(filter){
     return_filter = {}
     Object.keys(filter).map(function(key){ return_filter[key] =  new RegExp('.*'+filter[key]+'.*', "i")});
+    if (typeof filter.damaged_status != 'undefined'){
+      return_filter['damaged_status'] = filter.damaged_status;
+    }
     return return_filter;
   }
 
@@ -58,6 +62,7 @@ router.get('/:page', (req, res, next) => {
             items: items.map(item => {
               return {
                 name: item.name,
+                type: item.type,
                 location: item.location,
                 description: item.description,
                 notes: item.notes,
@@ -67,7 +72,7 @@ router.get('/:page', (req, res, next) => {
                 request: {
                   type: 'GET',
                   description: 'get item details',
-                  url: 'http://localhost:3000/items/' + item._id 
+                  url: 'http://localhost:3000/items/item/' + item._id 
                 }
               }
             })
@@ -88,7 +93,7 @@ router.get('/item/:id', (req, res, next) => {
 
     filter = req.query
 
-    fields = "name location description damaged_status notes image _id"
+    fields = "name type location description damaged_status notes image _id"
     if (typeof filter.fields != 'undefined'){
       fields = filter.fields;
     }
@@ -103,7 +108,7 @@ router.get('/item/:id', (req, res, next) => {
             request: {
               type: 'GET',
               description: 'get all items',
-              url: 'http://localhost:3000/items'
+              url: 'http://localhost:3000/items/1'
             }
           })
         } else {
@@ -127,6 +132,7 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
     }
     let item = new Item({
         _id: new mongoose.Types.ObjectId(),
+        type: req.body.type,
         name: req.body.name,
         location: req.body.location,
         description: req.body.description,
@@ -142,10 +148,11 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
             created_item: {
               name: result.name,
               location: result.location,
+              type: result.type,
               _id: result._id,
               request: {
                 type: 'GET',
-                url: 'http://localhost:3000/items/' + result._id
+                url: 'http://localhost:3000/items/item/' + result._id
               }
             }
         });
@@ -178,7 +185,7 @@ router.patch('/item/:id', checkAuth, (req, res, next) => {
           message: 'Item successfully updated',
           request: {
             type: 'GET',
-            url: 'http://localhost:3000/items/' + req.params.id
+            url: 'http://localhost:3000/items/item' + req.params.id
           }
         });
       })
@@ -198,18 +205,27 @@ router.delete('/item/:id', checkAuth, (req, res, next) => {
       });
     }
 
-    Item.deleteOne({ _id: req.params.id })
+    Reservation.deleteMany({ item: req.params.id })
       .exec()
       .then(result => {
-        res.status(200).json({
-          message: 'Item successfully deleted'
-        });
+        Item.deleteOne({ _id: req.params.id })
+          .exec()
+          .then(result => {
+            res.status(200).json({
+              message: 'Item successfully deleted'
+            });
+          })
+          .catch(err => {
+            res.status(500).json({
+              error: err
+            })
+          });
       })
       .catch(err => {
         res.status(500).json({
           error: err
         })
-      })
+      });
 });
 
 module.exports = router;

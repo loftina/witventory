@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import * as moment from "moment";
 
 @Component({
   selector: 'app-reservation-info',
@@ -9,11 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ReservationInfoComponent implements OnInit {
 
+	end_times = [];
+
+	start_times = [];
+
 	reservation: {};
+	existing_reservations = {};
+	available_dates = [];
 
 	API = 'http://localhost:3000';
 
-	constructor(private http: HttpClient, private route: ActivatedRoute) { }
+	constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
 	ngOnInit() {
 		this.route.paramMap.subscribe(params => {
@@ -24,4 +32,17 @@ export class ReservationInfoComponent implements OnInit {
 					});
 	    });
 	}
+
+	deleteReservation(id) {
+		this.http.delete(`${this.API}/reservations/reservation/` + id)
+			.subscribe(() => {
+				console.log('reservation deleted');
+				this.router.navigate(['/reservations'], {queryParams: {user: localStorage.getItem("id")}});
+			});
+	}
+
+	isAdmin() {
+		return localStorage.getItem("admin") === "true";
+	}
+
 }

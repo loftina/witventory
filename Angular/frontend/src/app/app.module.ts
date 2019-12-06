@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
 import { HttpClientModule } from '@angular/common/http'; // add http client module
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +15,8 @@ import { ItemListComponent } from './item-list/item-list.component';
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
 import { ReservationListComponent } from './reservation-list/reservation-list.component';
 import { CreateReservationFormComponent } from './create-reservation-form/create-reservation-form.component';
+import { PageNotFoundComponent} from './pagenotfound/pagenotfound.component';
+import { AdminPageComponent} from './adminpage/adminpage.component';
 
 
 import {Injectable} from '@angular/core';
@@ -28,6 +29,7 @@ import {
   HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -61,7 +63,9 @@ export class AuthInterceptor implements HttpInterceptor {
     ItemListComponent,
     ReservationInfoComponent,
     ReservationListComponent,
-    CreateReservationFormComponent
+    CreateReservationFormComponent,
+    PageNotFoundComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,8 @@ export class AuthInterceptor implements HttpInterceptor {
     NgbModule
   ],
   entryComponents: [
-    CreateReservationFormComponent
+    CreateReservationFormComponent,
+    CreateItemFormComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

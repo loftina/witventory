@@ -5,18 +5,40 @@
 	</button>
 </div>
 <div class="modal-body">
-	<form>
+	<input *ngIf="available_dates.length == 0" (click)="d.toggle()" type="text" placeholder="Pick Date" ngbDatepicker (dateSelect)="onDateSelect($event)" #d="ngbDatepicker"/>
+
+	<div *ngIf="available_dates.length > 0" id="accordion">
+	  
+	  <div *ngFor="let available_date of available_dates; let i = index;" class="card">
+	    <div class="card-header" [attr.id]="'heading-date-range-' + i">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#date-range-' + i" aria-expanded="true" [attr.aria-controls]="'date-range-' + i">
+	          {{ available_date.start.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' }) }} - {{ available_date.end.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' }) }}
+	        </button>
+	      </h5>
+	    </div>
 		<div class="form-group">
-			<label for="start">Start Date</label>
-			<input type="text" class="form-control" id="start" #start>
+	    <div [attr.id]="'date-range-' + i" class="collapse show" [attr.aria-labelledby]="'heading-date-range-' + i" data-parent="#accordion">
+	      <div class="card-body">
+	        <div class="row">
+	            <div class="col-sm-5">
+	            	Start {{ start_times[i].hour % 12 ? start_times[i].hour < 12 ? start_times[i].hour : start_times[i].hour-12 : 12 }}:{{ start_times[i].minute < 12 ? '0'+start_times[i].minute : start_times[i].minute }} {{ start_times[i].hour <= 11 ? 'AM':'PM' }}
+	                <ngb-timepicker class="ngb-timepicker" [(ngModel)]="start_times[i]"></ngb-timepicker>
+	            </div>
+	            <div class="col-sm-5">
+	            	End {{ end_times[i].hour % 12 ? end_times[i].hour < 12 ? end_times[i].hour : end_times[i].hour-12 : 12 }}:{{ end_times[i].minute < 12 ? '0'+end_times[i].minute : end_times[i].minute }} {{ end_times[i].hour <= 11 ? 'AM':'PM' }}
+	                <ngb-timepicker class="ngb-timepicker" [(ngModel)]="end_times[i]"></ngb-timepicker>
+	                {{end_time | json}}
+	            </div>
+	            <div class="col-sm-2">
+	                <button class="btn-primary" type="submit" (click)="createReservation(available_dates[i], start_times[i], end_times[i])">+</button>
+	            </div>
+	        </div>
+	      </div>
 		</div>
-		<div class="form-group">
-			<label for="end">End Date</label>
-			<input type="text" class="form-control" id="end" #end>
-		</div>
-	</form>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-	<button type="button" (click)="createReservation(start.value, end.value)" class="btn btn-primary">Reserve Item</button>
+	  </div>
+	  </div>
+
+	  <button (click)="available_dates = []">Pick Date</button>
+	</div>
 </div>
