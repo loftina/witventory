@@ -72,7 +72,7 @@ router.get('/:page', (req, res, next) => {
                 request: {
                   type: 'GET',
                   description: 'get item details',
-                  url: 'http://localhost:3000/items/item/' + item._id 
+                  url: process.env.API_URL+ '/items/item/' + item._id 
                 }
               }
             })
