@@ -72,7 +72,7 @@ router.get('/:page', (req, res, next) => {
                 request: {
                   type: 'GET',
                   description: 'get item details',
-                  url: process.env.API_URL+ '/items/item/' + item._id 
+                  url: 'http://localhost:3000/items/item/' + item._id 
                 }
               }
             })
@@ -138,7 +138,7 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
         description: req.body.description,
         damaged_status: req.body.damaged_status,
         notes: req.body.notes,
-        image: 'http://localhost:3000/images/item_images/' + req.file.filename
+        image: process.env.API_URL + '/images/item_images/' + req.file.filename
     });
 
     item.save()
