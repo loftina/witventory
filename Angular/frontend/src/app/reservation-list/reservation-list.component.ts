@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ApiSettings } from '../ApiSettings';
+
 
 @Component({
   selector: 'app-reservation-list',
@@ -13,7 +15,7 @@ export class ReservationListComponent implements OnInit {
  	pagination = [];
 	page = 1;
 
-	API = 'http://localhost:3000';
+	API = ApiSettings.API_ENDPOINT;
 
 	constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
 

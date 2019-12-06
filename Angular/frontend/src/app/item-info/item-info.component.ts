@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CreateReservationFormComponent } from '../create-reservation-form/create-reservation-form.component';
+import { ApiSettings } from '../ApiSettings';
+
 
 import * as moment from "moment";
 
@@ -34,7 +36,7 @@ export class ItemInfoComponent implements OnInit {
 	reservations = [];
 	similar_items = [];
 
-	API = 'http://localhost:3000';
+	API = ApiSettings.API_ENDPOINT;
 
 	constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
 

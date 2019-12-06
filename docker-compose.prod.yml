@@ -21,12 +21,11 @@ services:
     build: ./Express
     ports:
       - 3000:3000
-      - 80:3000
     links:
       - mongo
     volumes:
       - express_images:/usr/src/app/images/item_images
-    env_file: .env-dev
+    env_file: .env-prod
     environment:
       - FRONTEND_URL=${FRONTEND_URL}
 

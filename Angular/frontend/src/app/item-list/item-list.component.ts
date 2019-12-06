@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CreateReservationFormComponent } from '../create-reservation-form/create-reservation-form.component';
 import { CreateItemFormComponent } from '../create-item-form/create-item-form.component';
+import { ApiSettings } from '../ApiSettings';
 import * as $ from 'jquery';
 
 @Component({
@@ -19,7 +20,7 @@ export class ItemListComponent implements OnInit {
 	page = 1;
 	
 
-	API = 'http://localhost:3000';
+	API = ApiSettings.API_ENDPOINT;
 
 	constructor(private http: HttpClient, private route: ActivatedRoute, private modalService: NgbModal) { }
 

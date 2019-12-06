@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ApiSettings } from '../ApiSettings';
+
 
 import * as moment from "moment";
 
@@ -19,7 +21,7 @@ export class ReservationInfoComponent implements OnInit {
 	existing_reservations = {};
 	available_dates = [];
 
-	API = 'http://localhost:3000';
+	API = ApiSettings.API_ENDPOINT;
 
 	constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 

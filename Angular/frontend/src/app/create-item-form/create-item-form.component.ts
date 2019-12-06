@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Router} from '@angular/router';
 import { map } from 'rxjs/operators';
+import { ApiSettings } from '../ApiSettings';
 import * as moment from "moment";
 declare var $: any;
 
@@ -28,7 +29,7 @@ interface ItemPostResponse
 export class CreateItemFormComponent implements OnInit {
 
     // Link to our api, pointing to localhost
-  API = 'http://localhost:3000';
+  API = ApiSettings.API_ENDPOINT;
 
   // Declare empty list of people
   items: any[] = [];
