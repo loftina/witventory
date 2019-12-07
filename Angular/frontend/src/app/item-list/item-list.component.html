@@ -6,7 +6,7 @@
 <div *ngIf="!items || items.length === 0" class="alert alert-info"> No items to display! Click add to begin adding an item!</div>
 
 <div class="row">
-	<div *ngFor="let item of items" style="padding-left: 1em;">		
+	<div *ngFor="let item of items" style="padding-left: 1em; margin-top: 20px;">		
 
 		<div class="card" style="width: 18rem;">
 				<img class="card-img-top" src="{{ item.image }}" alt="{{ item.name }}">

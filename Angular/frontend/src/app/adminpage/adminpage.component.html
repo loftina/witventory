@@ -8,9 +8,6 @@
   
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-          <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-          </div>
           <div class="sidebar-brand-text mx-3">WITventory Admin</div>
         </a>
   
@@ -116,7 +113,7 @@
                   </div>
                   <!-- Card Body -->
                   <div>
-                    <div class="chart-area">
+                    <div style="overflow-y:auto; height: 300px;">
                         <table class="table table-striped custab">
                             <thead>
                                 <tr>
@@ -126,7 +123,7 @@
                                 </tr>
                             </thead>
                             <tr *ngFor="let item of items">
-                        <td>{{ item.name }}</td>
+                        <td><a>{{ item.name }}</a></td>
                         <td>{{ item.location }}</td>
                             </tr>
                         </table>
