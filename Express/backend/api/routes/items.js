@@ -22,7 +22,7 @@ const Reservation = require('../models/reservation');
 /_ GET all items. _/
 router.get('/:page', (req, res, next) => {
 
-  const resPerPage = 9;
+  const resPerPage = 6;
   const page = req.params.page || 1;
 
   filter = req.query
@@ -48,7 +48,7 @@ router.get('/:page', (req, res, next) => {
     .select(fields)
     .exec()
     .then(items => {
-      Item.count(regexFilter(filter), function (err, count) {
+      Item.countDocuments(regexFilter(filter), function (err, count) {
         if (err) {
           res.status(500).json({
               error: err

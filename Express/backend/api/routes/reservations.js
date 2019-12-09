@@ -46,7 +46,7 @@ router.get('/:page', (req, res, next) => {
 		.populate('user', 'email _id')
 		.exec()
 		.then(reservations => {
-			Reservation.count(regexFilter(filter), function (err, count) {
+			Reservation.countDocuments(regexFilter(filter), function (err, count) {
 			    if (err) {
 			      	res.status(500).json({
 			          	error: err
@@ -67,7 +67,7 @@ router.get('/:page', (req, res, next) => {
 								created: reservation.createdAt,
 								request: {
 									type: 'GET',
-									url: 'http://localhost:3000/reservations/' + reservation._id
+									url: process.env.API_URL + '/reservations/' + reservation._id
 								}
 							}
 						}),
@@ -133,7 +133,7 @@ router.post('/', checkAuth, (req, res, next) => {
 									},
 									request: {
 										type: 'GET',
-										url: 'http://localhost:3000/reservations/' + result._id
+										url: process.env.API_URL + '/reservations/' + result._id
 									}
 								})
 							})
@@ -172,7 +172,7 @@ router.get('/reservation/:id', (req, res, next) => {
 				reservation: reservation,
 				request: {
 					type: 'GET',
-					url: 'http://localhost:3000/reservations'
+					url: process.env.API_URL + '/reservations'
 				}
 			});
 		})
@@ -205,7 +205,7 @@ router.delete('/reservation/:id', checkAuth, (req, res, next) => {
 								message: 'Order successfully deleted',
 								request: {
 									type: 'GET',
-									url: 'http://localhost:3000/reservations'
+									url: process.env.API_URL + '/reservations'
 								}
 							});
 						})
@@ -229,7 +229,7 @@ router.delete('/reservation/:id', checkAuth, (req, res, next) => {
 					message: 'Order successfully deleted',
 					request: {
 						type: 'GET',
-						url: 'http://localhost:3000/reservations'
+						url: process.env.API_URL + '/reservations'
 					}
 				});
 			})
