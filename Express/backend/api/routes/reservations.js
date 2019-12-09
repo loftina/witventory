@@ -67,7 +67,7 @@ router.get('/:page', (req, res, next) => {
 								created: reservation.createdAt,
 								request: {
 									type: 'GET',
-									url: process.env.API_URL + '/reservations/' + reservation._id
+									url: process.env.API_URL + '/reservations/reservation/' + reservation._id
 								}
 							}
 						}),
@@ -83,6 +83,32 @@ router.get('/:page', (req, res, next) => {
 });
 
 router.post('/', checkAuth, (req, res, next) => {
+
+	console.log(req.body.start_date);
+	console.log(new Date(req.body.start_date));
+	console.log((new Date(req.body.start_date)).getHours());
+
+	dt_start = new Date(req.body.start_date);
+	dt_end = new Date(req.body.end_date);
+
+	if (dt_start.getHours() < 10 || dt_end.getHours() > 21) {
+		return res.status(400).json({
+			message: 'Invalid start/end times. Reservations must occur between 5am to 5pm'
+		});
+	}
+
+	if (dt_start > dt_end) {
+		return res.status(400).json({
+			message: 'Invalid start/end times. Start time must be before end time'
+		});
+	}
+
+	if (dt_start.getFullYear() + "/" + (dt_start.getMonth() + 1) + "/" + dt_start.getDate() !== dt_end.getFullYear() + "/" + (dt_end.getMonth() + 1) + "/" + dt_end.getDate()) {
+		return res.status(400).json({
+			message: 'Invalid start/end times. Reservations can not be longer than a day'
+		});
+	}
+
 	// checking if item is already reserved
 	Reservation
 		.find({
@@ -133,7 +159,7 @@ router.post('/', checkAuth, (req, res, next) => {
 									},
 									request: {
 										type: 'GET',
-										url: process.env.API_URL + '/reservations/' + result._id
+										url: process.env.API_URL + '/reservations/reservation/' + result._id
 									}
 								})
 							})
