@@ -83,11 +83,6 @@ router.get('/:page', (req, res, next) => {
 });
 
 router.post('/', checkAuth, (req, res, next) => {
-
-	console.log(req.body.start_date);
-	console.log(new Date(req.body.start_date));
-	console.log((new Date(req.body.start_date)).getHours());
-
 	dt_start = new Date(req.body.start_date);
 	dt_end = new Date(req.body.end_date);
 
