@@ -32,7 +32,7 @@ router.get('/:page', checkAuth, (req, res, next) => {
 
   filter = req.query
 
-  fields = "email admin _id"
+  fields = "email admin createdAt _id"
   if (typeof filter.fields != 'undefined'){
     fields = filter.fields;
     delete filter.fields;
@@ -69,6 +69,7 @@ router.get('/:page', checkAuth, (req, res, next) => {
               return {
                 email: user.email,
                 admin: user.admin,
+                created: user.createdAt,
                 _id: user._id,
                 request: {
                   type: 'GET',
@@ -100,7 +101,7 @@ router.get('/user/:id', checkAuth, (req, res, next) => {
 
     filter = req.query
 
-    fields = "email admin _id"
+    fields = "email admin createdAt _id"
     if (typeof filter.fields != 'undefined'){
       fields = filter.fields;
     }
@@ -113,6 +114,7 @@ router.get('/user/:id', checkAuth, (req, res, next) => {
           res.status(200).json({
             email: user.email,
             admin: user.admin,
+            created: user.createdAt,
             request: {
               type: 'GET',
               description: 'get all users',

@@ -12,8 +12,10 @@ import { HttpClient } from '@angular/common/http';
 export class AdminPageComponent implements OnInit {
 
   items = [];
-	pagination = [];
-	page = 1;
+	items_pagination = [];
+	items_page = 1;
+
+  users = [];
 	
 
 	API = 'http://localhost:3000';
@@ -26,9 +28,17 @@ ngOnInit() {
     all_params.fields = "image type name location description notes _id";
     this.http.get(`${this.API}/items/1`, {params: all_params})
       .subscribe((itemsResp: any) => {
-        this.pagination = Array(itemsResp.total_pages).fill(0).map((x,i)=>i+1)
+        this.items_pagination = Array(itemsResp.total_pages).fill(0).map((x,i)=>i+1)
         this.items = itemsResp.items;
-        this.page = itemsResp.current_page;
+        this.items_page = itemsResp.current_page;
+      })
+    this.http.get(`${this.API}/users/1`)
+      .subscribe((usersResp: any)=> {
+        this.users = usersResp.users;
+        this.users.forEach(user => {
+            var temp_created_date = new Date(user.created);
+            user.created = temp_created_date.toISOString().split('T')[0] + ' ' + temp_created_date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
+          });
       })
   });
 
