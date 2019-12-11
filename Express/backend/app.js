@@ -16,7 +16,8 @@ const api = require('./api/routes/api');
 const items = require('./api/routes/items');
 const reservations = require('./api/routes/reservations');
 const users = require('./api/routes/users');
-
+const item_comments = require('./api/routes/item-comments');
+const item_damages = require('./api/routes/item-damages');
 
 const app = express();
 
@@ -46,5 +47,9 @@ app.use('/items', items);
 app.use('/reservations', reservations);
 
 app.use('/users', users);
+
+app.use('/item_comments', item_comments);
+
+app.use('/item_damages', item_damages)
 
 module.exports = app;

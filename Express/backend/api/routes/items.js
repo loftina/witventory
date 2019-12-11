@@ -108,7 +108,7 @@ router.get('/item/:id', (req, res, next) => {
             request: {
               type: 'GET',
               description: 'get all items',
-              url: 'http://localhost:3000/items/1'
+              url: process.env.API_URL + '/items/1'
             }
           })
         } else {
@@ -138,7 +138,7 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
         description: req.body.description,
         damaged_status: req.body.damaged_status,
         notes: req.body.notes,
-        image: 'http://localhost:3000/images/item_images/' + req.file.filename
+        image: process.env.API_URL + '/images/item_images/' + req.file.filename
     });
 
     item.save()
@@ -152,7 +152,7 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
               _id: result._id,
               request: {
                 type: 'GET',
-                url: 'http://localhost:3000/items/item/' + result._id
+                url: process.env.API_URL + '/items/item/' + result._id
               }
             }
         });
@@ -185,7 +185,7 @@ router.patch('/item/:id', checkAuth, (req, res, next) => {
           message: 'Item successfully updated',
           request: {
             type: 'GET',
-            url: 'http://localhost:3000/items/item' + req.params.id
+            url: process.env.API_URL + '/items/item' + req.params.id
           }
         });
       })

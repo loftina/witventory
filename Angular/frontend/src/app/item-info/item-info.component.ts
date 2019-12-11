@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CreateReservationFormComponent } from '../create-reservation-form/create-reservation-form.component';
+import { ItemCommentModalComponent } from '../item-comment-modal/item-comment-modal.component'
 import { ApiSettings } from '../ApiSettings';
 
 
@@ -35,6 +36,11 @@ export class ItemInfoComponent implements OnInit {
 	item: {};
 	reservations = [];
 	similar_items = [];
+	damages = [];
+
+	pagination = [];
+	item_comments = [];
+	page = 1;
 
 	API = ApiSettings.API_ENDPOINT;
 
@@ -42,35 +48,59 @@ export class ItemInfoComponent implements OnInit {
 
 	ngOnInit() {
 		this.route.paramMap.subscribe(params => {
-		 		this.http.get(`${this.API}/items/item/` + params.get('id'))
-					.subscribe((itemResp: any) => {
-						this.item = itemResp.item
+	 		this.http.get(`${this.API}/items/item/` + params.get('id'))
+				.subscribe((itemResp: any) => {
+					this.item = itemResp.item
 
-						this.http.get(`${this.API}/items/1`, {params: {fields: '_id type name image location', type: itemResp.item.type}})
-							.subscribe((itemsResp: any) => {
-								var filtered_items = itemsResp.items.filter(function(same_type) { 
-										return same_type._id !== itemResp.item._id;  
-									})
-								if (filtered_items.length > 4) {
-									this.similar_items = filtered_items.slice(0,4);
-								}
-								else {
-									this.similar_items = filtered_items;
-								}
-							});
-					});
+					this.http.get(`${this.API}/items/1`, {params: {fields: '_id type name image location', type: itemResp.item.type}})
+						.subscribe((itemsResp: any) => {
+							var filtered_items = itemsResp.items.filter(function(same_type) { 
+									return same_type._id !== itemResp.item._id;  
+								})
+							if (filtered_items.length > 4) {
+								this.similar_items = filtered_items.slice(0,4);
+							}
+							else {
+								this.similar_items = filtered_items;
+							}
+						});
+				});
 
-				// should move reservations to another component
-				// will not show reservations past first page
-				this.http.get(`${this.API}/reservations/1`, {params: {item: params.get('id')}})
-					.subscribe((reservationsResp: any) => {
-						this.reservations = reservationsResp.reservations;
-					})
+			// should move reservations to another component
+			// will not show reservations past first page
+			this.http.get(`${this.API}/reservations/1`, {params: {item: params.get('id')}})
+				.subscribe((reservationsResp: any) => {
+					this.reservations = reservationsResp.reservations;
+				})
+			this.http.get(`${this.API}/item_comments/1`, {params: {item: params.get('id')}})
+				.subscribe((itemCommentsResp: any) => {
+					this.pagination = Array(itemCommentsResp.total_pages).fill(0).map((x,i)=>i+1)
+					this.item_comments = itemCommentsResp.item_comments;
+					this.page = itemCommentsResp.current_page;
+
+				})
+			this.http.get(`${this.API}/item_damages/1`, {params: {item: params.get('id')}})
+				.subscribe((damages: any) => {
+					this.damages = damages.item_damages;
+				})
 	    });
 	}
 
+	// isDamaged() {
+	// 	this.route.paramMap.subscribe(params => {
+	// 		this.http.get(`${this.API}/item_damages/1`, {params: {item: params.get('id')}})
+	// 			.subscribe((damages: any) => {
+	// 				this.damages = damages.item_damages;
+	// 			})
+	// 	});
+	// }
+
 	public isAdmin() {
 		return localStorage.getItem("admin") === "true";
+	}
+
+	public isLoggedIn() {
+	    return moment().isBefore(this.getExpiration());
 	}
 
 	getExpiration() {
@@ -80,9 +110,13 @@ export class ItemInfoComponent implements OnInit {
 	}
 
 	openReservationModal(itemId) {
-		console.log('trying to open reservation modal');
 	    const modalRef = this.modalService.open(CreateReservationFormComponent, { centered: true, windowClass: 'custom-class' });
 	    modalRef.componentInstance.itemId = itemId;
+	}
+
+	openCommentModal(itemId) {
+	    const modalRef = this.modalService.open(ItemCommentModalComponent, { centered: true, windowClass: 'custom-class' });
+	    modalRef.componentInstance.item_id = itemId;
 	}
 
 	deleteItem(itemId) {
@@ -90,6 +124,32 @@ export class ItemInfoComponent implements OnInit {
 			.subscribe(() => {
 				console.log('item deleted');
 				this.router.navigate(['/items']);
+			});
+	}
+
+	newPage(new_page) {
+		if (this.pagination[0] > new_page) {
+			new_page = this.pagination[this.pagination.length-1]
+		}
+		else if (this.pagination[this.pagination.length-1] < new_page) {
+			new_page = this.pagination[0];
+		}
+		this.route.queryParams.subscribe(params => {
+			this.http.get(`${this.API}/item_comments/` + String(new_page), {params: {item: params.get('id')}})
+				.subscribe((itemCommentsResp: any) => {
+					this.pagination = Array(itemCommentsResp.total_pages).fill(0).map((x,i)=>i+1)
+					this.item_comments = itemCommentsResp.item_comments;
+					this.page = itemCommentsResp.current_page;
+				})
+		});
+	}
+
+	postDamagedItem(item_id) {
+		this.http.post(`${this.API}/item_damages/`, {item: item_id})
+			.subscribe(() => {
+				this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+				    this.router.navigate(['/item/', item_id]);
+				});
 			});
 	}
 }

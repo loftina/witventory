@@ -1,68 +1,113 @@
+<div *ngIf="damages.length > 0" class="alert alert-warning" role="alert">
+	This item has been reported as damaged!
+</div>
+<div *ngIf="item?.damaged_status == true" class="alert alert-danger" role="alert">
+	This item is damaged!
+</div>
+
+
 <!-- Page Content -->
 <div>
 	<Label>
 		<!-- Portfolio Item Heading -->
 		<h1 class="my-4">{{item?.name}}
-		  <small>{{ item?.location }}</small>
+			<small>{{ item?.location }}</small>
 		</h1>
 	</Label>
-		<!-- Portfolio Item Row -->
-		<div class="row">
+	<!-- Portfolio Item Row -->
+	<div class="row">
 
-		  <div class="col-md-8">
+		<div class="col-md-8">
 			<img class="img-fluid" src="{{ item?.image }}" alt="{{ item?.name }}">
-		  </div>
-		  <ul class="list-group">
+		</div>
+		<ul class="list-group">
 
 			<button class="btn btn-success" (click)="openReservationModal(item._id)">Reserve</button>
 			<button *ngIf="isAdmin()" class="btn btn-danger" (click)="deleteItem(item._id)">Delete Item</button>
+			<button *ngIf="isLoggedIn()" class="btn btn-warning" (click)="postDamagedItem(item._id)">Report Damage</button>
 			<h3 class="my-3">Item Details</h3>
 			<li class="list-group-item">{{ item?.type }}</li>
 			<li class="list-group-item">{{ item?.description }}</li>
 			<li class="list-group-item">{{ item?.notes }}</li>
-			<li class="list-group-item">{{ item?.damaged_status }}</li>
-			</ul>
-	  
+		</ul>
+  
+	</div>
+	<!-- /.row -->
+	<br>
+	<h3>Comments  <button class="btn btn-primary btn-xs" (click)="openCommentModal(item._id)">+</button></h3>
+
+	<div class="row">
+		<div *ngIf="item_comments.length > 0"  class="container">
+		    <div class="row custyle">
+		        <table class="table table-striped custab">
+		            <thead>
+		                <tr>
+		                    <th class="text-center">User</th>
+		        			<th class="text-center">Comment</th>
+		                </tr>
+		            </thead>
+		            <tr *ngFor="let item_comment of item_comments">
+						<td class="text-center">{{ item_comment?.user.email }}</td>
+						<td class="text-center">{{ item_comment?.comment }}</td>
+		            </tr>
+		        </table>
+		    </div>
 		</div>
-		<!-- /.row -->
+
+
+		<nav *ngIf="pagination.length > 1" aria-label="Page navigation" class="text-center">
+		 	<ul class="pagination justify-content-center">
+		    	<li *ngIf="page == pagination[0]" class="page-item disabled">
+		    		<a class="page-link" (click)="newPage(page - 1)">Previous</a>
+		    	</li>
+		    	<li *ngIf="page != pagination[0]" class="page-item">
+		    		<a class="page-link" (click)="newPage(page - 1)">Previous</a>
+		    	</li>
+		    	<li *ngFor="let page_num of pagination" class="page-item">
+		    		<a class="page-link" (click)="newPage(page_num)">{{ page_num }}</a>
+		    	</li>
+		    	<li *ngIf="page == pagination[pagination?.length-1]" class="page-item disabled">
+		      		<a class="page-link" (click)="newPage(page + 1)">Next</a>
+		    	</li>
+		    	<li *ngIf="page != pagination[pagination?.length-1]" class="page-item">
+		      		<a class="page-link" (click)="newPage(page + 1)">Next</a>
+		    	</li>
+		  	</ul>
+		</nav>
+	</div>
+
+	<h3 *ngIf="similar_items.length > 0" class="my-4">Related Items</h3>
+	<div class="row">
 	  
-		<!-- Related Projects Row -->
-		<h3 *ngIf="similar_items.length > 0" class="my-4">Related Items</h3>
-	  
-		<div class="row">
-	  
-		  <div *ngFor="let similar_item of similar_items" class="col-md-3 col-sm-6 mb-4">
-			<a [routerLink]="['/item', similar_item._id]">
-				<img class="img-fluid" src="{{ similar_item.image }}" alt="{{ similar_item.name }}"> {{ similar_item.name }} - {{ similar_item.location }}
+	    <div *ngFor="let similar_item of similar_items" class="col-md-3 col-sm-6 mb-4">
+		    <a [routerLink]="['/item', similar_item._id]">
+			<img class="img-fluid" src="{{ similar_item.image }}" alt="{{ similar_item.name }}"> {{ similar_item.name }} - {{ similar_item.location }}
 			</a>
-		  </div>
-	
 		</div>
-
-	  </div>
+	</div>
+</div>
 	  
-	  <div style="margin-top: 20px; margin-bottom: 20px;" class="row custyle">
-			<h3>Reservations</h3>
-        <table class="table table-striped custab">
-            <thead>
-                <tr>
-        			<th>Start Date</th>
-                    <th>End Date</th>
-
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tr *ngFor="let reservation of reservations">
-				<td>{{ reservation?.start_date | date:'medium'}}</td>
-				<td>{{ reservation?.end_date | date:'medium'}}</td>
-                <td class="text-center">
-                	<a [routerLink]="['/reservation', reservation?._id]" class="btn btn-primary btn-xs">
-                		View
-                	</a>
-                	<button (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs">
-                		<span class="glyphicon glyphicon-remove"></span> Del
-					</button>
-                </td>
+<div style="margin-top: 20px; margin-bottom: 20px;" class="row custyle">
+	<h3>Reservations</h3>
+    <table class="table table-striped custab">
+        <thead>
+            <tr>
+    			<th class="text-center">Start Date</th>
+                <th class="text-center">End Date</th>
+                <th class="text-center">Action</th>
             </tr>
-        </table>
-    </div>
+        </thead>
+        <tr *ngFor="let reservation of reservations">
+			<td class="text-center">{{ reservation?.start_date | date:'medium'}}</td>
+			<td class="text-center">{{ reservation?.end_date | date:'medium'}}</td>
+            <td class="text-center">
+            	<a [routerLink]="['/reservation', reservation?._id]" class="btn btn-primary btn-xs">
+            		View
+            	</a>
+            	<button (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs">
+            		<span class="glyphicon glyphicon-remove"></span> Del
+				</button>
+            </td>
+        </tr>
+    </table>
+</div>

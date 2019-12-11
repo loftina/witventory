@@ -1,0 +1,17 @@
+<!-- Modal Header -->
+<div class="modal-header">
+  	<h4 class="modal-title" style="text-align: center; ">Add Comment</h4>
+  	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+    <div class="form-group">
+      	<label class="form-group-label" for="comment">Comment</label>
+      	<input type="text" class="form-control" id="comment" placeholder="Comment" #comment>
+    </div>
+</div>
+
+<div class="modal-footer">
+	<button type="button" (click)="postComment(comment.value)" data-dismiss="modal" data-backdrop="false" class="btn btn-primary">Submit</button>
+</div>
