@@ -30,7 +30,6 @@ export class ItemCommentModalComponent implements OnInit {
 					this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
 					    this.router.navigate(['/item/', this.item_id]);
 					});
-					// this.router.navigate(['/item/', this.item_id]);
 				});
 			this.activeModal.close('Comment Created');
 		}
