@@ -1,0 +1,50 @@
+
+<div style="margin-top: 20px;" *ngIf="!items || items.length === 0" class="alert alert-info"> No reports of damaged items to display!</div>
+
+
+<div *ngIf="items.length > 0"  class="container">
+    <div class="row custyle">
+        <table class="table table-striped custab">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Item Location</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let item of items">
+				<td [routerLink]="['/item', item?._id]">{{ item?.name }}</td>
+				<td>{{ item?.location }}</td>
+                <td class="text-center">
+                	<a (click)="markFixed(item._id)" class="btn btn-success btn-xs">
+                		Fixed
+                	</a>
+                	<a (click)="deleteItem(item._id)" class="btn btn-danger btn-xs">
+                		<span class="glyphicon glyphicon-remove"></span> Delete
+                	</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<nav *ngIf="pagination.length > 1" aria-label="Page navigation" class="text-center">
+ 	<ul class="pagination justify-content-center">
+    	<li *ngIf="page == pagination[0]" class="page-item disabled">
+    		<a class="page-link" (click)="newPage(page - 1)">Previous</a>
+    	</li>
+    	<li *ngIf="page != pagination[0]" class="page-item">
+    		<a class="page-link" (click)="newPage(page - 1)">Previous</a>
+    	</li>
+    	<li *ngFor="let page_num of pagination" class="page-item">
+    		<a class="page-link" (click)="newPage(page_num)">{{ page_num }}</a>
+    	</li>
+    	<li *ngIf="page == pagination[pagination?.length-1]" class="page-item disabled">
+      		<a class="page-link" (click)="newPage(page + 1)">Next</a>
+    	</li>
+    	<li *ngIf="page != pagination[pagination?.length-1]" class="page-item">
+      		<a class="page-link" (click)="newPage(page + 1)">Next</a>
+    	</li>
+  	</ul>
+</nav>

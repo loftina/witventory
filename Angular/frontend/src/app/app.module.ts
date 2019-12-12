@@ -32,6 +32,7 @@ import { Observable } from 'rxjs';
 import { ItemDamageListComponent } from './item-damage-list/item-damage-list.component';
 import { ItemNoteListComponent } from './item-note-list/item-note-list.component';
 import { ItemCommentModalComponent } from './item-comment-modal/item-comment-modal.component';
+import { ItemListDamagedComponent } from './item-list-damaged/item-list-damaged.component';
 
 
 @Injectable()
@@ -71,7 +72,8 @@ export class AuthInterceptor implements HttpInterceptor {
     AdminPageComponent,
     ItemDamageListComponent,
     ItemNoteListComponent,
-    ItemCommentModalComponent
+    ItemCommentModalComponent,
+    ItemListDamagedComponent
   ],
   imports: [
     BrowserModule,
