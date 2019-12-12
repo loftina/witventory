@@ -24,9 +24,9 @@
                 	<a [routerLink]="['/reservation', reservation?._id]" class="btn btn-primary btn-xs">
                 		View
                 	</a>
-                	<a (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs">
-                		<span class="glyphicon glyphicon-remove"></span> Del
-                	</a>
+                	<button (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs">
+                		 Del
+					</button>
                 </td>
             </tr>
         </table>

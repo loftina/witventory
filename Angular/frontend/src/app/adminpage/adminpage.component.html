@@ -38,14 +38,14 @@
           <div id="collapseUsers" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Custom Utilities:</h6>
-              <a class="collapse-item" href="utilities-color.html">View all users</a>
+              <a class="collapse-item" (click)="hideUserShow=(hideUserShow ? false : true)">View all users</a>
               <a class="collapse-item" href="utilities-border.html">View recent registrations</a>
             </div>
           </div>
         </li>
   
 
-        <li class="nav-item">               <!--this disables href for testing-->
+        <li class="nav-item">              
             <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseItems" aria-expanded="true" aria-controls="collapseUtilities">
               <i class="fas fa-fw fa-wrench"></i>
             <span>Items</span>
@@ -53,7 +53,7 @@
             <div id="collapseItems" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">View all items</a>
+                <a class="collapse-item" (click)="hideItemShow=(hideItemShow ? false : true)">View all items</a>
                 <a class="collapse-item" href="utilities-border.html">View recently added items</a>
                 <a class="collapse-item" href="utilities-border.html">View damaged items</a>
               </div>
@@ -78,10 +78,6 @@
   
         <hr class="sidebar-divider d-none d-md-block">
   
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
   
       </ul>
       <!-- End of Sidebar -->
@@ -105,11 +101,11 @@
             <div class="row">
   
               <!-- Area Chart -->
-              <div class="col-xl-8 col-lg-7">
+              <div *ngIf="hideItemShow" class="col-xl-8 col-lg-7">
                 <div class="card shadow mb-4">
                   <!-- Card Header - Dropdown -->
                   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Items over time</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">All Items</h6>
                   </div>
                   <!-- Card Body -->
                   <div>
@@ -134,7 +130,7 @@
   
             
                <!-- Area Chart -->
-               <div class="col-xl-8 col-lg-7">
+               <div *ngIf="hideUserShow" class="col-xl-8 col-lg-7">
                   <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -166,7 +162,7 @@
                 </div>
   
               <!-- Pie Chart -->
-              <div class="col-xl-4 col-lg-5">
+              <div *ngIf="hideUserShow" class="col-xl-4 col-lg-5">
                 <div class="card shadow mb-4">
                   <!-- Card Header - Dropdown -->
                   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">

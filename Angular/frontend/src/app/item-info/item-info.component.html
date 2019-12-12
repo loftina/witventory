@@ -1,7 +1,7 @@
-<div *ngIf="damages.length > 0" class="alert alert-warning" role="alert">
+<div style="margin-top: 20px;" *ngIf="damages.length > 0" class="alert alert-warning" role="alert">
 	This item has been reported as damaged!
 </div>
-<div *ngIf="item?.damaged_status == true" class="alert alert-danger" role="alert">
+<div style="margin-top: 20px;" *ngIf="item?.damaged_status == true" class="alert alert-danger" role="alert">
 	This item is damaged!
 </div>
 
@@ -98,8 +98,8 @@
             </tr>
         </thead>
         <tr *ngFor="let reservation of reservations">
-			<td class="text-center">{{ reservation?.start_date | date:'medium'}}</td>
-			<td class="text-center">{{ reservation?.end_date | date:'medium'}}</td>
+			<td class="text-center">{{ reservation?.start_date | date : "dd/MM/yy HH:mm a"}}</td>
+			<td class="text-center">{{ reservation?.end_date | date : "dd/MM/yy HH:mm a"}}</td>
             <td class="text-center">
             	<a [routerLink]="['/reservation', reservation?._id]" class="btn btn-primary btn-xs">
             		View
