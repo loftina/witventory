@@ -90,7 +90,7 @@
   
   
           <!-- Begin Page Content -->
-          <div class="container-fluid">
+          <div>
   
             <!-- Content Row -->
             <div class="row">
@@ -98,19 +98,18 @@
   
             <!-- Content Row -->
   
-            <div class="row">
   
               <!-- Area Chart -->
-              <div *ngIf="hideItemShow" class="col-xl-8 col-lg-7">
-                <div class="card shadow mb-4">
+              <div class="content-card" *ngIf="hideItemShow">
+                <div  class=" shadow mb-4">
                   <!-- Card Header - Dropdown -->
                   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">All Items</h6>
                   </div>
                   <!-- Card Body -->
                   <div>
-                    <div style="overflow-y:auto; height: 300px;">
-                        <table class="table table-striped custab">
+                    <div>
+                        <table class="table">
                             <thead>
                                 <tr>
                               <th>Name</th>
@@ -130,7 +129,7 @@
   
             
                <!-- Area Chart -->
-               <div *ngIf="hideUserShow" class="col-xl-8 col-lg-7">
+               <div class="content-card" *ngIf="hideUserShow">
                   <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -143,8 +142,8 @@
                       </div>
                     </div> -->
                     <div>
-                      <div style="overflow-y:auto; height: 300px;">
-                        <table class="table table-striped custab">
+                      <div>
+                        <table class="table">
                           <thead>
                             <tr>
                               <th>Date Created</th>
@@ -160,39 +159,10 @@
                     </div>
                   </div>
                 </div>
-  
-              <!-- Pie Chart -->
-              <div *ngIf="hideUserShow" class="col-xl-4 col-lg-5">
-                <div class="card shadow mb-4">
-                  <!-- Card Header - Dropdown -->
-                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">User Info</h6>
-  
-                  </div>
-                  <!-- Card Body -->
-                  <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                      <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                      <span class="mr-2">
-                        <i class="fas fa-circle text-primary">Category 1</i> 
-                      </span>
-                      <span class="mr-2">
-                        <i class="fas fa-circle text-success">Category 2</i>
-                      </span>
-                      <span class="mr-2">
-                        <i class="fas fa-circle text-info">Category 3</i>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
   
           <!-- /.container-fluid -->
   
-        </div>
         <!-- End of Main Content -->
   
       </div>
