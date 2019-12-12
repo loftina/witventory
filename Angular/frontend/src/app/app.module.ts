@@ -29,6 +29,10 @@ import {
   HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ItemDamageListComponent } from './item-damage-list/item-damage-list.component';
+import { ItemNoteListComponent } from './item-note-list/item-note-list.component';
+import { ItemCommentModalComponent } from './item-comment-modal/item-comment-modal.component';
+import { ItemListDamagedComponent } from './item-list-damaged/item-list-damaged.component';
 
 
 @Injectable()
@@ -65,7 +69,11 @@ export class AuthInterceptor implements HttpInterceptor {
     ReservationListComponent,
     CreateReservationFormComponent,
     PageNotFoundComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    ItemDamageListComponent,
+    ItemNoteListComponent,
+    ItemCommentModalComponent,
+    ItemListDamagedComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +85,8 @@ export class AuthInterceptor implements HttpInterceptor {
   ],
   entryComponents: [
     CreateReservationFormComponent,
-    CreateItemFormComponent
+    CreateItemFormComponent,
+    ItemCommentModalComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

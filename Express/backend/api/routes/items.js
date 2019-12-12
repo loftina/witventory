@@ -22,7 +22,7 @@ const Reservation = require('../models/reservation');
 /_ GET all items. _/
 router.get('/:page', (req, res, next) => {
 
-  const resPerPage = 9;
+  const resPerPage = 6;
   const page = req.params.page || 1;
 
   filter = req.query
@@ -48,7 +48,7 @@ router.get('/:page', (req, res, next) => {
     .select(fields)
     .exec()
     .then(items => {
-      Item.count(regexFilter(filter), function (err, count) {
+      Item.countDocuments(regexFilter(filter), function (err, count) {
         if (err) {
           res.status(500).json({
               error: err
@@ -108,7 +108,7 @@ router.get('/item/:id', (req, res, next) => {
             request: {
               type: 'GET',
               description: 'get all items',
-              url: 'http://localhost:3000/items/1'
+              url: process.env.API_URL + '/items/1'
             }
           })
         } else {
@@ -152,7 +152,7 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
               _id: result._id,
               request: {
                 type: 'GET',
-                url: 'http://localhost:3000/items/item/' + result._id
+                url: process.env.API_URL + '/items/item/' + result._id
               }
             }
         });
@@ -185,7 +185,7 @@ router.patch('/item/:id', checkAuth, (req, res, next) => {
           message: 'Item successfully updated',
           request: {
             type: 'GET',
-            url: 'http://localhost:3000/items/item' + req.params.id
+            url: process.env.API_URL + '/items/item' + req.params.id
           }
         });
       })

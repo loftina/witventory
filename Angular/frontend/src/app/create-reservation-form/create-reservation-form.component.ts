@@ -21,9 +21,9 @@ interface ReservationPostResponse
 }
 
 @Component({
-  selector: 'app-create-reservation-form',
-  templateUrl: './create-reservation-form.component.html',
-  styleUrls: ['./create-reservation-form.component.css']
+	selector: 'app-create-reservation-form',
+	templateUrl: './create-reservation-form.component.html',
+	styleUrls: ['./create-reservation-form.component.css']
 })
 export class CreateReservationFormComponent implements OnInit {
 
