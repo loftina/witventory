@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const checkAuth = require('../middleware/check-auth');
 
-const ItemShortage = require('../models/item-damage');
+const ItemShortage = require('../models/item-shortage');
 const Item = require('../models/item');
 const User = require('../models/user');
 
