@@ -5,18 +5,6 @@
 
 .nav {margin-bottom: 20px;}
 
-.modal{
-  overflow: visible !important;
-}
-.modal-backdrop.fade
-{
-  opacity: 0.5;
-}
-.modal-open .modal
-{
-  opacity: 1;
-}
-
 .form{
   background: #FFFFFF;
   max-width: 100%;

@@ -3,7 +3,7 @@
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
     <div class="modal-dialog">
-      <div class="modal-content form">
+      <div class="modal-content">
   
         <!-- Modal Header -->
         <div class="modal-header">
@@ -39,13 +39,14 @@
                   <input type="text" class="form-control" placeholder="Notes" id="notes" #notes>
                 </div>
                 <div class="form-group">
-                  <label class="form-group-label" for="image">Image</label>
+                  <label class="form-group-label" for="image">Image</label><br>
                   <input type="file" class="form-control-file-sm" placeholder="Image" id="image" accept="image/*" #image>
                 </div>
+
+                <button type="button" (click)="addItem(name.value, type.value, location.value, description.value, damaged_status.value, notes.value, image.files)" data-dismiss="modal" data-backdrop="false" class="btn btn-primary">Add Item</button>
+              <button type="button" class="btn btn-success" style="background-color: orange !important;" aria-label="Close" data-dismiss="modal" data-backdrop="false" (click)="hideModal()">Close</button>
             </div>
             <div class="modal-footer">
-              <button type="button" (click)="addItem(name.value, type.value, location.value, description.value, damaged_status.value, notes.value, image.files)" data-dismiss="modal" data-backdrop="false" class="btn btn-primary">Add Item</button>
-              <button type="button" class="btn btn-success" style="background-color: orange !important;" aria-label="Close" data-dismiss="modal" data-backdrop="false" (click)="hideModal()">Close</button>
     
               <!-- this button is hidden, used to close from typescript -->
               <button type="button" id="close-modal" data-dismiss="modal" style="display: none">Close</button>

@@ -1,7 +1,13 @@
-<div *ngIf="damages.length > 0" class="alert alert-warning" role="alert">
+
+<div class="container">
+
+<div style="margin-top: 20px;" *ngIf="damages.length > 0" class="alert alert-warning" role="alert">
 	This item has been reported as damaged!
 </div>
-<div *ngIf="item?.damaged_status == true" class="alert alert-danger" role="alert">
+<div style="margin-top: 20px;" *ngIf="shortages.length > 0" class="alert alert-warning" role="alert">
+	This item may need replacement!
+</div>
+<div style="margin-top: 20px;" *ngIf="item?.damaged_status == true" class="alert alert-danger" role="alert">
 	This item is damaged!
 </div>
 
@@ -18,13 +24,17 @@
 	<div class="row">
 
 		<div class="col-md-8">
-			<img class="img-fluid" src="{{ item?.image }}" alt="{{ item?.name }}">
+			<img class="img-fluid" style="width: 400px; height: 400px;" src="{{ item?.image }}" alt="{{ item?.name }}">
 		</div>
 		<ul class="list-group">
 
-			<button class="btn btn-success" (click)="openReservationModal(item._id)">Reserve</button>
 			<button *ngIf="isAdmin()" class="btn btn-danger" (click)="deleteItem(item._id)">Delete Item</button>
-			<button *ngIf="isLoggedIn()" class="btn btn-warning" (click)="postDamagedItem(item._id)">Report Damage</button>
+
+			<br>
+
+			<button class="btn btn-success" (click)="openReservationModal(item._id)">Reserve</button>
+			<button *ngIf="isLoggedIn()" class="btn btn-warning" (click)="postShortageItem(item._id)">Replace Soon</button>
+			<button *ngIf="isLoggedIn()" class="btn btn-danger" (click)="postDamagedItem(item._id)">Report Damage</button>
 			<h3 class="my-3">Item Details</h3>
 			<li class="list-group-item">{{ item?.type }}</li>
 			<li class="list-group-item">{{ item?.description }}</li>
@@ -98,8 +108,8 @@
             </tr>
         </thead>
         <tr *ngFor="let reservation of reservations">
-			<td class="text-center">{{ reservation?.start_date | date:'medium'}}</td>
-			<td class="text-center">{{ reservation?.end_date | date:'medium'}}</td>
+			<td class="text-center">{{ reservation?.start_date | date : "dd/MM/yy HH:mm a"}}</td>
+			<td class="text-center">{{ reservation?.end_date | date : "dd/MM/yy HH:mm a"}}</td>
             <td class="text-center">
             	<a [routerLink]="['/reservation', reservation?._id]" class="btn btn-primary btn-xs">
             		View
@@ -110,4 +120,5 @@
             </td>
         </tr>
     </table>
+</div>
 </div>

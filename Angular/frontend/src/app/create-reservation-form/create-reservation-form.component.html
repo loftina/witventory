@@ -22,11 +22,11 @@
 	      <div class="card-body">
 	        <div class="row">
 	            <div class="col-sm-5">
-	            	Start {{ start_times[i].hour % 12 ? start_times[i].hour < 12 ? start_times[i].hour : start_times[i].hour-12 : 12 }}:{{ start_times[i].minute < 12 ? '0'+start_times[i].minute : start_times[i].minute }} {{ start_times[i].hour <= 11 ? 'AM':'PM' }}
+	            	Start {{ start_times[i].hour % 12 ? start_times[i].hour < 12 ? start_times[i].hour : start_times[i].hour-12 : 12 }}:{{ start_times[i].minute < 10 ? '0'+start_times[i].minute : start_times[i].minute }} {{ start_times[i].hour <= 11 ? 'AM':'PM' }}
 	                <ngb-timepicker class="ngb-timepicker" [(ngModel)]="start_times[i]"></ngb-timepicker>
 	            </div>
 	            <div class="col-sm-5">
-	            	End {{ end_times[i].hour % 12 ? end_times[i].hour < 12 ? end_times[i].hour : end_times[i].hour-12 : 12 }}:{{ end_times[i].minute < 12 ? '0'+end_times[i].minute : end_times[i].minute }} {{ end_times[i].hour <= 11 ? 'AM':'PM' }}
+	            	End {{ end_times[i].hour % 12 ? end_times[i].hour < 12 ? end_times[i].hour : end_times[i].hour-12 : 12 }}:{{ end_times[i].minute < 10 ? '0'+end_times[i].minute : end_times[i].minute }} {{ end_times[i].hour <= 11 ? 'AM':'PM' }}
 	                <ngb-timepicker class="ngb-timepicker" [(ngModel)]="end_times[i]"></ngb-timepicker>
 	                {{end_time | json}}
 	            </div>

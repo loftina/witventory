@@ -79,14 +79,14 @@ export class CreateReservationFormComponent implements OnInit {
 		// console.log(date);
 
 		if (starting_dates.length == 0) {
-			return [{ 'start': new Date(`${date.getYear() + 1900}-${this.pad(date.getMonth()+1, 2)}-${this.pad(date.getDate(), 2)}T00:00:00.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`), 'end': new Date(`${date.getYear() + 1900}-${this.pad(date.getMonth()+1, 2)}-${this.pad(date.getDate(), 2)}T23:59:59.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`), 'isCollapsed': false }]
+			return [{ 'start': new Date(`${date.getYear() + 1900}-${this.pad(date.getMonth()+1, 2)}-${this.pad(date.getDate(), 2)}T05:00:00.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`), 'end': new Date(`${date.getYear() + 1900}-${this.pad(date.getMonth()+1, 2)}-${this.pad(date.getDate(), 2)}T16:59:59.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`), 'isCollapsed': false }]
 		}
 
 		var first_start = starting_dates.shift()
 		var last_end = ending_dates.pop()
 
-		if (first_start > new Date(`${first_start.getYear() + 1900}-${this.pad(first_start.getMonth()+1, 2)}-${this.pad(first_start.getDate(), 2)}T00:00:00.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`)) {
-			available_dates.push({ 'start': new Date(`${first_start.getYear() + 1900}-${this.pad(first_start.getMonth()+1, 2)}-${this.pad(first_start.getDate(), 2)}T00:00:00.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`), 'end': first_start, 'isCollapsed': false })
+		if (first_start > new Date(`${first_start.getYear() + 1900}-${this.pad(first_start.getMonth()+1, 2)}-${this.pad(first_start.getDate(), 2)}T05:00:00.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`)) {
+			available_dates.push({ 'start': new Date(`${first_start.getYear() + 1900}-${this.pad(first_start.getMonth()+1, 2)}-${this.pad(first_start.getDate(), 2)}T05:00:00.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`), 'end': first_start, 'isCollapsed': false })
 		}
 
 		for (var i = 0; i < starting_dates.length; i++) {
@@ -95,8 +95,8 @@ export class CreateReservationFormComponent implements OnInit {
 			}
 		}
 
-		if (last_end < new Date(`${first_start.getYear() + 1900}-${this.pad(first_start.getMonth()+1, 2)}-${this.pad(first_start.getDate(), 2)}T23:59:59.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`)) {
-			available_dates.push({ 'start': last_end, 'end': new Date(`${first_start.getYear() + 1900}-${this.pad(first_start.getMonth()+1, 2)}-${this.pad(first_start.getDate(), 2)}T23:59:59.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`), 'isCollapsed': false })
+		if (last_end < new Date(`${first_start.getYear() + 1900}-${this.pad(first_start.getMonth()+1, 2)}-${this.pad(first_start.getDate(), 2)}T16:59:59.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`)) {
+			available_dates.push({ 'start': last_end, 'end': new Date(`${first_start.getYear() + 1900}-${this.pad(first_start.getMonth()+1, 2)}-${this.pad(first_start.getDate(), 2)}T16:59:59.000-${this.pad((new Date()).getTimezoneOffset()/60, 2)}:00`), 'isCollapsed': false })
 		}
 
 		// console.log(available_dates)

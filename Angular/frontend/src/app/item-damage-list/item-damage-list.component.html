@@ -1,53 +1,55 @@
+<div class="content-card">
+    <div  class=" shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Reports of Damage</h6>
+        </div>
+        <!-- Card Body -->
+        <div style="margin-top: 20px;" *ngIf="!damaged_item_reports || damaged_item_reports.length === 0" class="alert alert-info"> No reports of damaged items to display!</div>
+        <div>
+            <table class="table" *ngIf="damaged_item_reports.length > 0">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Item Location</th>
+                        <th>Reporting User</th>
 
-<div style="margin-top: 20px;" *ngIf="!damaged_items || damaged_items.length === 0" class="alert alert-info"> No reports of damaged items to display!</div>
-
-
-<div *ngIf="damaged_items.length > 0"  class="container">
-    <div class="row custyle">
-        <table class="table table-striped custab">
-            <thead>
-                <tr>
-                    <th>Item Name</th>
-                    <th>Item Location</th>
-        			<th>Reporting User</th>
-
-                    <th class="text-center">Action</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tr *ngFor="let damaged_item_report of damaged_item_reports">
+                    <td [routerLink]="['/item', damaged_item_report?.item._id]">{{ damaged_item_report?.item.name }}</td>
+                    <td>{{ damaged_item_report?.item.location }}</td>
+                    <td>{{ damaged_item_report?.user.email }}</td>
+                    <td class="text-center">
+                        <a (click)="deleteAndUpdateDamaged(damaged_item_report._id, damaged_item_report.item._id)" class="btn btn-success btn-xs">
+                            Confirm
+                        </a>
+                        <a (click)="deleteDamagedRequest(damaged_item_report._id)" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span> Deny
+                        </a>
+                    </td>
                 </tr>
-            </thead>
-            <tr *ngFor="let damaged_item of damaged_items">
-				<td [routerLink]="['/item', damaged_item?.item._id]">{{ damaged_item?.item.name }}</td>
-				<td>{{ damaged_item?.item.location }}</td>
-				<td>{{ damaged_item?.user.email }}</td>
-                <td class="text-center">
-                	<a (click)="deleteAndUpdateDamaged(damaged_item._id, damaged_item.item._id)" class="btn btn-success btn-xs">
-                		Confirm
-                	</a>
-                	<a (click)="deleteDamagedRequest(damaged_item._id)" class="btn btn-danger btn-xs">
-                		<span class="glyphicon glyphicon-remove"></span> Deny
-                	</a>
-                </td>
-            </tr>
-        </table>
+            </table>
+        </div>
+        <nav *ngIf="damaged_item_reports_pagination.length > 1" aria-label="Page navigation" class="text-center">
+            <ul class="pagination justify-content-center">
+                <li *ngIf="damaged_item_reports_page == damaged_item_reports_pagination[0]" class="page-item disabled">
+                    <a class="page-link" (click)="newPage(damaged_item_reports_page - 1)">Previous</a>
+                </li>
+                <li *ngIf="damaged_item_reports_page != damaged_item_reports_pagination[0]" class="page-item">
+                    <a class="page-link" (click)="newPage(damaged_item_reports_page - 1)">Previous</a>
+                </li>
+                <li *ngFor="let page_num of damaged_item_reports_pagination" class="page-item">
+                    <a class="page-link" (click)="newPage(page_num)">{{ page_num }}</a>
+                </li>
+                <li *ngIf="damaged_item_reports_page == damaged_item_reports_pagination[damaged_item_reports_pagination?.length-1]" class="page-item disabled">
+                    <a class="page-link" (click)="newPage(damaged_item_reports_page + 1)">Next</a>
+                </li>
+                <li *ngIf="damaged_item_reports_page != damaged_item_reports_pagination[damaged_item_reports_pagination?.length-1]" class="page-item">
+                    <a class="page-link" (click)="newPage(damaged_item_reports_page + 1)">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
-
-
-<nav *ngIf="pagination.length > 1" aria-label="Page navigation" class="text-center">
- 	<ul class="pagination justify-content-center">
-    	<li *ngIf="page == pagination[0]" class="page-item disabled">
-    		<a class="page-link" (click)="newPage(page - 1)">Previous</a>
-    	</li>
-    	<li *ngIf="page != pagination[0]" class="page-item">
-    		<a class="page-link" (click)="newPage(page - 1)">Previous</a>
-    	</li>
-    	<li *ngFor="let page_num of pagination" class="page-item">
-    		<a class="page-link" (click)="newPage(page_num)">{{ page_num }}</a>
-    	</li>
-    	<li *ngIf="page == pagination[pagination?.length-1]" class="page-item disabled">
-      		<a class="page-link" (click)="newPage(page + 1)">Next</a>
-    	</li>
-    	<li *ngIf="page != pagination[pagination?.length-1]" class="page-item">
-      		<a class="page-link" (click)="newPage(page + 1)">Next</a>
-    	</li>
-  	</ul>
-</nav>

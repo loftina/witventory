@@ -18,6 +18,7 @@ const reservations = require('./api/routes/reservations');
 const users = require('./api/routes/users');
 const item_comments = require('./api/routes/item-comments');
 const item_damages = require('./api/routes/item-damages');
+const item_shortages = require('./api/routes/item-shortages');
 
 const app = express();
 
@@ -50,6 +51,8 @@ app.use('/users', users);
 
 app.use('/item_comments', item_comments);
 
-app.use('/item_damages', item_damages)
+app.use('/item_damages', item_damages);
+
+app.use('/item_shortages', item_shortages);
 
 module.exports = app;

@@ -10,9 +10,9 @@ import { ApiSettings } from '../ApiSettings';
 })
 export class ItemDamageListComponent implements OnInit {
 
- 	damaged_items = [];
- 	pagination = [];
-	page = 1;
+ 	damaged_item_reports = [];
+ 	damaged_item_reports_pagination = [];
+	damaged_item_reports_page = 1;
 
 	API = ApiSettings.API_ENDPOINT;
 
@@ -25,28 +25,28 @@ export class ItemDamageListComponent implements OnInit {
 			let all_params = JSON.parse(JSON.stringify(params));
 			this.http.get(`${this.API}/item_damages/1`, {params: params})
 				.subscribe((itemDamagesResp: any) => {
-					this.pagination = Array(itemDamagesResp.total_pages).fill(0).map((x,i)=>i+1)
-					this.damaged_items = itemDamagesResp.item_damages;
-					this.page = itemDamagesResp.current_page;
+					this.damaged_item_reports_pagination = Array(itemDamagesResp.total_pages).fill(0).map((x,i)=>i+1)
+					this.damaged_item_reports = itemDamagesResp.item_damages;
+					this.damaged_item_reports_page = itemDamagesResp.current_page;
 
 				})
 		});
 	}
 
 	newPage(new_page) {
-		if (this.pagination[0] > new_page) {
-			new_page = this.pagination[this.pagination.length-1]
+		if (this.damaged_item_reports_pagination[0] > new_page) {
+			new_page = this.damaged_item_reports_pagination[this.damaged_item_reports_pagination.length-1]
 		}
-		else if (this.pagination[this.pagination.length-1] < new_page) {
-			new_page = this.pagination[0];
+		else if (this.damaged_item_reports_pagination[this.damaged_item_reports_pagination.length-1] < new_page) {
+			new_page = this.damaged_item_reports_pagination[0];
 		}
 		this.route.queryParams.subscribe(params => {
 			let all_params = JSON.parse(JSON.stringify(params));
 			this.http.get(`${this.API}/item_damages/` + String(new_page), {params: params})
 				.subscribe((itemDamagesResp: any) => {
-					this.pagination = Array(itemDamagesResp.total_pages).fill(0).map((x,i)=>i+1)
-					this.damaged_items = itemDamagesResp.item_damages;
-					this.page = itemDamagesResp.current_page;
+					this.damaged_item_reports_pagination = Array(itemDamagesResp.total_pages).fill(0).map((x,i)=>i+1)
+					this.damaged_item_reports = itemDamagesResp.item_damages;
+					this.damaged_item_reports_page = itemDamagesResp.current_page;
 				})
 		});
 	}
@@ -63,7 +63,6 @@ export class ItemDamageListComponent implements OnInit {
 			.set("Content-Type", "application/json");
 		this.http.patch(`${this.API}/items/item/` + item_id, [{"propName": "damaged_status", "value": "true"}])
 			.subscribe(res => {
-				console.log(res);
 				this.deleteDamagedRequest(req_id);
 			});
 	}

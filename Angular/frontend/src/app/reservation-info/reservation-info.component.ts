@@ -17,7 +17,7 @@ export class ReservationInfoComponent implements OnInit {
 
 	start_times = [];
 
-	reservation: {};
+	reservation: {start_date: String, end_date: String};
 	existing_reservations = {};
 	available_dates = [];
 
@@ -29,8 +29,12 @@ export class ReservationInfoComponent implements OnInit {
 		this.route.paramMap.subscribe(params => {
 		 		this.http.get(`${this.API}/reservations/reservation/` + params.get('id'))
 					.subscribe((reservationResp: any) => {
-						console.log(reservationResp.reservation)
-						this.reservation = reservationResp.reservation;
+						var reservation = reservationResp.reservation;
+						var temp_start_date = new Date(reservation.start_date);
+						var temp_end_date = new Date(reservation.end_date);
+						reservation.start_date = temp_start_date.toISOString().split('T')[0] + ' ' + temp_start_date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
+						reservation.end_date = temp_end_date.toISOString().split('T')[0] + ' ' + temp_end_date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
+						this.reservation = reservation;
 					});
 	    });
 	}
@@ -38,7 +42,6 @@ export class ReservationInfoComponent implements OnInit {
 	deleteReservation(id) {
 		this.http.delete(`${this.API}/reservations/reservation/` + id)
 			.subscribe(() => {
-				console.log('reservation deleted');
 				this.router.navigate(['/reservations'], {queryParams: {user: localStorage.getItem("id")}});
 			});
 	}

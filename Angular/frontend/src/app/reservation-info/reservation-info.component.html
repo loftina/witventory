@@ -23,7 +23,7 @@
 				<td>{{ reservation?.user.email }}</td>
 				<td>{{ reservation?.start_date }}</td>
 				<td>{{ reservation?.end_date }}</td>
-                <td class="text-center"><a (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                <td class="text-center"><button (click)="deleteReservation(reservation._id)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</button></td>
             </tr>
         </table>
     </div>

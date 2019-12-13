@@ -33,6 +33,7 @@ import { ItemDamageListComponent } from './item-damage-list/item-damage-list.com
 import { ItemNoteListComponent } from './item-note-list/item-note-list.component';
 import { ItemCommentModalComponent } from './item-comment-modal/item-comment-modal.component';
 import { ItemListDamagedComponent } from './item-list-damaged/item-list-damaged.component';
+import { ItemShortageListComponent } from './item-shortage-list/item-shortage-list.component';
 
 
 @Injectable()
@@ -73,7 +74,8 @@ export class AuthInterceptor implements HttpInterceptor {
     ItemDamageListComponent,
     ItemNoteListComponent,
     ItemCommentModalComponent,
-    ItemListDamagedComponent
+    ItemListDamagedComponent,
+    ItemShortageListComponent
   ],
   imports: [
     BrowserModule,

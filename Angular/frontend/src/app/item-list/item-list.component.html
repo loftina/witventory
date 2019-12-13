@@ -1,10 +1,14 @@
 
-
-<div class="container" *ngIf="isAdmin()" style="padding-bottom: 20px; padding-top: 20px;">
+<div class="container">
+<div *ngIf="isAdmin()" style="padding-bottom: 20px; padding-top: 20px;">
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ADD ITEM</button>				
 </div>
 <div *ngIf="!items || items.length === 0" class="alert alert-info"> No items to display! Click add to begin adding an item!</div>
 
+</div>
+
+
+<div class="container">
 <div class="row">
 	<div *ngFor="let item of items" style="padding-left: 1em; margin-top: 20px;">		
 
@@ -18,9 +22,8 @@
 				</div>
 		</div>
 	</div>
-
 </div>	
-
+</div>
 <br>		
 
 <nav *ngIf="pagination.length > 1" aria-label="Page navigation" class="text-center">

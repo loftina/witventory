@@ -37,6 +37,7 @@ export class ItemInfoComponent implements OnInit {
 	reservations = [];
 	similar_items = [];
 	damages = [];
+	shortages = [];
 
 	pagination = [];
 	item_comments = [];
@@ -83,17 +84,12 @@ export class ItemInfoComponent implements OnInit {
 				.subscribe((damages: any) => {
 					this.damages = damages.item_damages;
 				})
+			this.http.get(`${this.API}/item_shortages/1`, {params: {item: params.get('id')}})
+				.subscribe((shortages: any) => {
+					this.shortages = shortages.item_shortages;
+				})
 	    });
 	}
-
-	// isDamaged() {
-	// 	this.route.paramMap.subscribe(params => {
-	// 		this.http.get(`${this.API}/item_damages/1`, {params: {item: params.get('id')}})
-	// 			.subscribe((damages: any) => {
-	// 				this.damages = damages.item_damages;
-	// 			})
-	// 	});
-	// }
 
 	public isAdmin() {
 		return localStorage.getItem("admin") === "true";
@@ -146,6 +142,15 @@ export class ItemInfoComponent implements OnInit {
 
 	postDamagedItem(item_id) {
 		this.http.post(`${this.API}/item_damages/`, {item: item_id})
+			.subscribe(() => {
+				this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+				    this.router.navigate(['/item/', item_id]);
+				});
+			});
+	}
+
+	postShortageItem(item_id) {
+		this.http.post(`${this.API}/item_shortages/`, {item: item_id})
 			.subscribe(() => {
 				this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
 				    this.router.navigate(['/item/', item_id]);
