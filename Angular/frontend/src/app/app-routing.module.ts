@@ -21,6 +21,7 @@ const routes: Routes = [
 	{ path: 'damaged', pathMatch: 'full', component: ItemDamageListComponent },
 	{ path: 'shortages', pathMatch: 'full', component: ItemShortageListComponent },
 	{ path: 'items/damaged', pathMatch: 'full', component: ItemListDamagedComponent },
+	{ path: '', pathMatch: 'full', component: SignInFormComponent },
 	{ path: 'signin', pathMatch: 'full', component: SignInFormComponent },
 	{ path: 'signup', pathMatch: 'full', component: CreateUserFormComponent },
 	{ path: 'createitem', pathMatch: 'full', component: CreateItemFormComponent },
