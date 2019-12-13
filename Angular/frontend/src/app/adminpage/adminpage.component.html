@@ -1,82 +1,6 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">WITventory Admin</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Interface
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">              
-          <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseItems" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-          <span>Items</span>
-          </a>
-          <div id="collapseItems" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Custom Utilities:</h6>
-              <a class="collapse-item" (click)="hideItemShow=(hideItemShow ? false : true)">View all items</a>
-              <a class="collapse-item" href="utilities-border.html">View recently added items</a>
-              <a class="collapse-item" href="utilities-border.html">View damaged items</a>
-            </div>
-          </div>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseReservations" aria-expanded="true" aria-controls="collapseUtilities">
-              <i class="fas fa-fw fa-wrench"></i>
-            <span>Reservations</span>
-            </a>
-            <div id="collapseReservations" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">View all Reservations</a>
-              </div>
-            </div>
-          </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-          <a class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Users</span>
-          </a>
-          <div id="collapseUsers" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Custom Utilities:</h6>
-              <a class="collapse-item" (click)="hideUserShow=(hideUserShow ? false : true)">View all users</a>
-              <a class="collapse-item" href="utilities-border.html">View recent registrations</a>
-            </div>
-          </div>
-        </li>
-
-    </ul>
-    <!-- End of Sidebar -->
-
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -97,7 +21,6 @@
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">All Items</h6>
                   </div>
-                  <div class="card-body">
                     <div class="table-responsive">
                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
@@ -119,34 +42,59 @@
                         </tbody>
                       </table>
                     </div>
-                  </div>
+                    
+                    
                 </div>
 
-              <div class="card shadow mb-4">
-                  <!-- Card Header - Dropdown -->
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Users</h6>
-                  </div>
-                  <!-- Card Body -->
-                  <div class="card-body">
-                    <div class="chart-pie pt-4">
-                        <table class="table">
+                <div class="content-card">
+                    <div  class=" shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+                        </div>
+                        <!-- Card Body -->
+                        <div style="margin-top: 20px;" *ngIf="!users || users.length === 0" class="alert alert-info container">No users to display!</div>
+                        <div>
+                            <table class="table" *ngIf="users.length > 0">
                             <thead>
-                              <tr>
-                                <th>Date Created</th>
-                                <th>Email</th>
-                              </tr>
+                                <tr>
+                                    <th>Date Created</th>
+                                    <th>Email</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
                             </thead>
                             <tr *ngFor="let user of users">
-                              <td><a>{{ user.created }}</a></td>
-                              <td>{{ user.email }}</td>
+                        <td>{{ user?.created }}</td>
+                        <td>{{ user?.email }}</td>
+                                <td class="text-center">
+                                  <a (click)="deleteUser(user?._id)" class="btn btn-success btn-xs">
+                                    Delete
+                                  </a>
+                                </td>
                             </tr>
-                          </table>
+                        </table>
+                        </div>
+      <nav *ngIf="users_pagination.length > 1" aria-label="Page navigation" class="text-center">
+                            <ul class="pagination justify-content-center">
+                                <li *ngIf="users_page == users_pagination[0]" class="page-item disabled">
+                                    <a class="page-link" (click)="newUsersPage(users_page - 1)">Previous</a>
+                                </li>
+                                <li *ngIf="users_page != users_pagination[0]" class="page-item">
+                                    <a class="page-link" (click)="newUsersPage(users_page - 1)">Previous</a>
+                                </li>
+                                <li *ngFor="let page_num of users_pagination" class="page-item">
+                                    <a class="page-link" (click)="newUsersPage(page_num)">{{ page_num }}</a>
+                                </li>
+                                <li *ngIf="users_page == users_pagination[users_pagination?.length-1]" class="page-item disabled">
+                                    <a class="page-link" (click)="newUsersPage(users_page + 1)">Next</a>
+                                </li>
+                                <li *ngIf="users_page != users_pagination[users_pagination?.length-1]" class="page-item">
+                                    <a class="page-link" (click)="newUsersPage(users_page + 1)">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                    <hr>
-                  </div>
                 </div>
-              </div>
 
             <div class="col">
                 <div class="card shadow mb-4">
@@ -180,17 +128,36 @@
                           </tbody>
                         </table>
                       </div>
+
+                      <nav *ngIf="dmgItemsPagination.length > 1" aria-label="Page navigation" class="text-center">
+                          <ul class="pagination justify-content-center">
+                              <li *ngIf="dmgPage == dmgItemsPagination[0]" class="page-item disabled">
+                                  <a class="page-link" (click)="newDmgPage(dmgPage - 1)">Previous</a>
+                              </li>
+                              <li *ngIf="dmgPage != dmgItemPagination[0]" class="page-item">
+                                  <a class="page-link" (click)="newDmgPage(dmgPage - 1)">Previous</a>
+                              </li>
+                              <li *ngFor="let page_num of dmgItemPagination" class="page-item">
+                                  <a class="page-link" (click)="newDmgPage(page_num)">{{ page_num }}</a>
+                              </li>
+                              <li *ngIf="dmgPage == dmgItemPagination[pagination?.length-1]" class="page-item disabled">
+                                  <a class="page-link" (click)="newDmgPage(dmgPage + 1)">Next</a>
+                              </li>
+                              <li *ngIf="dmgPage != dmgItemPagination[pagination?.length-1]" class="page-item">
+                                  <a class="page-link" (click)="newDmgPage(dmgPage + 1)">Next</a>
+                              </li>
+                          </ul>
+                      </nav>
                     </div>
                   </div>
 
-              <div  class="card shadow mb-4">
+              <div class="card shadow mb-4">
                   <!-- Card Header - Dropdown -->
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Reservations</h6>
                   </div>
                   <!-- Card Body -->
-                  <div class="card-body">
-                    <div class="chart-pie pt-4">
+                  
                     <div>
                         <table class="table table-striped custab">
                             <thead>
@@ -218,12 +185,139 @@
                                 </td>
                             </tr>
                         </table>
-                    
-                    <hr>
-                  </div>
+                  <nav *ngIf="resPagination.length > 1" aria-label="Page navigation" class="text-center">
+                      <ul class="pagination justify-content-center">
+                         <li *ngIf="resPage == resPagination[0]" class="page-item disabled">
+                           <a class="page-link" (click)="newResListPage(resPage - 1)">Previous</a>
+                         </li>
+                         <li *ngIf="resPage != resPagination[0]" class="Page-item">
+                           <a class="page-link" (click)="newResListPage(resPage - 1)">Previous</a>
+                         </li>
+                         <li *ngFor="let page_num of resPagination" class="page-item">
+                           <a class="page-link" (click)="newResListPage(page_num)">{{ page_num }}</a>
+                         </li>
+                         <li *ngIf="resPage == resPagination[resPagination?.length-1]" class="page-item disabled">
+                             <a class="page-link" (click)="newResListPage(resPage + 1)">Next</a>
+                         </li>
+                         <li *ngIf="resPage != resPagination[resPagination?.length-1]" class="page-item">
+                             <a class="page-link" (click)="newResListPage(resPage + 1)">Next</a>
+                         </li>
+                       </ul>
+                   </nav>
                 </div>
             </div>
+
           </div>
+
+          <div class="content-card">
+              <div  class=" shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Reports of Damage</h6>
+                  </div>
+                  <!-- Card Body -->
+                  <div style="margin-top: 20px;" *ngIf="!damaged_item_reports || damaged_item_reports.length === 0" class="alert alert-info container"> No reports of damaged items to display!</div>
+                  <div>
+                      <table class="table" *ngIf="damaged_item_reports.length > 0">
+                          <thead>
+                              <tr>
+                                  <th>Item Name</th>
+                                  <th>Item Location</th>
+                                  <th>Reporting User</th>
+          
+                                  <th class="text-center">Action</th>
+                              </tr>
+                          </thead>
+                          <tr *ngFor="let damaged_item_report of damaged_item_reports">
+                              <td [routerLink]="['/item', damaged_item_report?.item._id]">{{ damaged_item_report?.item.name }}</td>
+                              <td>{{ damaged_item_report?.item.location }}</td>
+                              <td>{{ damaged_item_report?.user.email }}</td>
+                              <td class="text-center">
+                                  <button (click)="deleteAndUpdateDamaged(damaged_item_report?._id, damaged_item_report.item._id)" class="btn btn-success btn-xs">
+                                      Confirm
+                                  </button>
+                                  <button (click)="deleteDamagedRequest(damaged_item_report?._id)" class="btn btn-danger btn-xs">
+                                      <span class="glyphicon glyphicon-remove"></span> Deny
+                                  </button>
+                              </td>
+                          </tr>
+                      </table>
+                  </div>
+                  <nav *ngIf="damaged_item_reports_pagination.length > 1" aria-label="Page navigation" class="text-center">
+                      <ul class="pagination justify-content-center">
+                          <li *ngIf="damaged_item_reports_page == damaged_item_reports_pagination[0]" class="page-item disabled">
+                              <a class="page-link" (click)="newPage(damaged_item_reports_page - 1)">Previous</a>
+                          </li>
+                          <li *ngIf="damaged_item_reports_page != damaged_item_reports_pagination[0]" class="page-item">
+                              <a class="page-link" (click)="newPage(damaged_item_reports_page - 1)">Previous</a>
+                          </li>
+                          <li *ngFor="let page_num of damaged_item_reports_pagination" class="page-item">
+                              <a class="page-link" (click)="newPage(page_num)">{{ page_num }}</a>
+                          </li>
+                          <li *ngIf="damaged_item_reports_page == damaged_item_reports_pagination[damaged_item_reports_pagination?.length-1]" class="page-item disabled">
+                              <a class="page-link" (click)="newPage(damaged_item_reports_page + 1)">Next</a>
+                          </li>
+                          <li *ngIf="damaged_item_reports_page != damaged_item_reports_pagination[damaged_item_reports_pagination?.length-1]" class="page-item">
+                              <a class="page-link" (click)="newPage(damaged_item_reports_page + 1)">Next</a>
+                          </li>
+                      </ul>
+                  </nav>
+              </div>
+          </div>
+
+
+          <div class="content-card">
+              <div  class=" shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Need Replacement</h6>
+                  </div>
+                  <!-- Card Body -->
+                  <div style="margin-top: 20px;" *ngIf="!shortage_items || shortage_items.length === 0" class="alert alert-info container">No items need replacement!</div>
+                  <div>
+                      <table class="table" *ngIf="shortage_items.length > 0">
+                      <thead>
+                          <tr>
+                              <th>User</th>
+                              <th>Item</th>
+                              <th class="text-center">Action</th>
+                          </tr>
+                      </thead>
+                      <tr *ngFor="let shortage_item of shortage_items">
+                  <td [routerLink]="['/item', shortage_item?._id]">{{ shortage_item?.user.email }}</td>
+                  <td>{{ shortage_item?.item.name }}</td>
+                          <td class="text-center">
+                            <a (click)="markResolved(shortage_item._id)" class="btn btn-success btn-xs">
+                              Resolved
+                            </a>
+                          </td>
+                      </tr>
+                  </table>
+                  </div>
+                  <nav *ngIf="shortage_pagination.length > 1" aria-label="Page navigation" class="text-center">
+                      <ul class="pagination justify-content-center">
+                          <li *ngIf="shortage_page == shortage_pagination[0]" class="page-item disabled">
+                              <a class="page-link" (click)="newItemShortagePage(shortage_page - 1)">Previous</a>
+                          </li>
+                          <li *ngIf="shortage_page != shortage_pagination[0]" class="page-item">
+                              <a class="page-link" (click)="newItemShortagePage(shortage_page - 1)">Previous</a>
+                          </li>
+                          <li *ngFor="let page_num of shortage_pagination" class="page-item">
+                              <a class="page-link" (click)="newItemShortagePage(page_num)">{{ page_num }}</a>
+                          </li>
+                          <li *ngIf="shortage_page == shortage_pagination[shortage_pagination?.length-1]" class="page-item disabled">
+                              <a class="page-link" (click)="newItemShortagePage(shortage_page + 1)">Next</a>
+                          </li>
+                          <li *ngIf="shortage_page != shortage_pagination[shortage_pagination?.length-1]" class="page-item">
+                              <a class="page-link" (click)="newItemShortagePage(shortage_page + 1)">Next</a>
+                          </li>
+                      </ul>
+                  </nav>
+              </div>
+          </div>
+
+
+
 
           </div>
 
@@ -232,17 +326,6 @@
 
       </div>
       <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; WITventory</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
     </div>
     <!-- End of Content Wrapper -->
 
