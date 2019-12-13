@@ -17,6 +17,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class AdminPageComponent implements OnInit {
 
+  users_pagination = [];
+  users_page = 1;
+
   items = [];
 	items_pagination = [];
   items_page = 1;
@@ -26,7 +29,6 @@ export class AdminPageComponent implements OnInit {
   resPage = 1;
 
   dmgItemsPagination = []
-  dmgItemsPage = 1
   dmgItems = []
   dmgPage = 1
 
@@ -136,6 +138,28 @@ deleteReservation(id) {
     });
 }
 
+newDmgPage(new_page) {
+  if (this.dmgItemsPagination[0] > new_page) {
+    new_page = this.dmgItemsPagination[this.dmgItemsPagination.length-1]
+  }
+  else if (this.dmgItemsPagination[this.dmgItemsPagination.length-1] < new_page) {
+    new_page = this.dmgItemsPagination[0];
+  }
+  this.route.queryParams.subscribe(params => {
+    let all_params = JSON.parse(JSON.stringify(params));
+    all_params.fields = "image type name location description notes _id";
+    all_params.damaged_status = true;
+    this.http.get(`${this.API}/items/` + String(new_page), {params: all_params})
+      .subscribe((itemsResp: any) => {
+        this.dmgItemsPagination = Array(itemsResp.total_pages).fill(0).map((x,i)=>i+1)
+        this.dmgItems = itemsResp.items;
+        this.dmgPage = itemsResp.current_page;
+      })
+  });
+}
+
+
+
 newDmgReportsPage(new_page) {
   if (this.damaged_item_reports_pagination[0] > new_page) {
     new_page = this.damaged_item_reports_pagination[this.damaged_item_reports_pagination.length-1]
@@ -153,6 +177,8 @@ newDmgReportsPage(new_page) {
       })
   });
 }
+
+
 
 deleteDamagedRequest(id) {
   this.http.delete(`${this.API}/item_damages/item_damage/` + id)
@@ -187,6 +213,29 @@ newItemShortagePage(new_page) {
       })
   });
 }
+
+
+newUsersPage(new_page) {
+  this.http.get(`${this.API}/users/` + String(new_page))
+        .subscribe((usersResp: any)=> {
+          this.users = usersResp.users;
+          this.users.forEach(user => {
+              var temp_created_date = new Date(user.created);
+              user.created = temp_created_date.toISOString().split('T')[0] + ' ' + temp_created_date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
+            });
+          this.users_pagination = Array(usersResp.total_pages).fill(0).map((x,i)=>i+1);
+          this.users_page = usersResp.current_page;
+        })
+  }
+  
+  deleteUser(id) {
+    this.http.delete(`${this.API}/users/user/` + id)
+      .subscribe(() => {
+        this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/shortages']);
+        });
+      });
+  }
 
 newResListPage(new_page) {
   if (this.resPagination[0] > new_page) {

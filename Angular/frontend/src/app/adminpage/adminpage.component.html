@@ -42,35 +42,59 @@
                         </tbody>
                       </table>
                     </div>
-
+                    
                     
                 </div>
 
-              <div class="card shadow mb-4">
-                  <!-- Card Header - Dropdown -->
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Users</h6>
-                  </div>
-                  <!-- Card Body -->
-                  <div class="card-body">
-                    <div class="chart-pie pt-4">
-                        <table class="table">
+                <div class="content-card">
+                    <div  class=" shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+                        </div>
+                        <!-- Card Body -->
+                        <div style="margin-top: 20px;" *ngIf="!users || users.length === 0" class="alert alert-info container">No users to display!</div>
+                        <div>
+                            <table class="table" *ngIf="users.length > 0">
                             <thead>
-                              <tr>
-                                <th>Date Created</th>
-                                <th>Email</th>
-                              </tr>
+                                <tr>
+                                    <th>Date Created</th>
+                                    <th>Email</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
                             </thead>
                             <tr *ngFor="let user of users">
-                              <td><a>{{ user.created }}</a></td>
-                              <td>{{ user.email }}</td>
+                        <td>{{ user?.created }}</td>
+                        <td>{{ user?.email }}</td>
+                                <td class="text-center">
+                                  <a (click)="deleteUser(user?._id)" class="btn btn-success btn-xs">
+                                    Delete
+                                  </a>
+                                </td>
                             </tr>
-                          </table>
+                        </table>
+                        </div>
+      <nav *ngIf="users_pagination.length > 1" aria-label="Page navigation" class="text-center">
+                            <ul class="pagination justify-content-center">
+                                <li *ngIf="users_page == users_pagination[0]" class="page-item disabled">
+                                    <a class="page-link" (click)="newUsersPage(users_page - 1)">Previous</a>
+                                </li>
+                                <li *ngIf="users_page != users_pagination[0]" class="page-item">
+                                    <a class="page-link" (click)="newUsersPage(users_page - 1)">Previous</a>
+                                </li>
+                                <li *ngFor="let page_num of users_pagination" class="page-item">
+                                    <a class="page-link" (click)="newUsersPage(page_num)">{{ page_num }}</a>
+                                </li>
+                                <li *ngIf="users_page == users_pagination[users_pagination?.length-1]" class="page-item disabled">
+                                    <a class="page-link" (click)="newUsersPage(users_page + 1)">Next</a>
+                                </li>
+                                <li *ngIf="users_page != users_pagination[users_pagination?.length-1]" class="page-item">
+                                    <a class="page-link" (click)="newUsersPage(users_page + 1)">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                    <hr>
-                  </div>
                 </div>
-              </div>
 
             <div class="col">
                 <div class="card shadow mb-4">
@@ -104,17 +128,36 @@
                           </tbody>
                         </table>
                       </div>
+
+                      <nav *ngIf="dmgItemsPagination.length > 1" aria-label="Page navigation" class="text-center">
+                          <ul class="pagination justify-content-center">
+                              <li *ngIf="dmgPage == dmgItemsPagination[0]" class="page-item disabled">
+                                  <a class="page-link" (click)="newDmgPage(dmgPage - 1)">Previous</a>
+                              </li>
+                              <li *ngIf="dmgPage != dmgItemPagination[0]" class="page-item">
+                                  <a class="page-link" (click)="newDmgPage(dmgPage - 1)">Previous</a>
+                              </li>
+                              <li *ngFor="let page_num of dmgItemPagination" class="page-item">
+                                  <a class="page-link" (click)="newDmgPage(page_num)">{{ page_num }}</a>
+                              </li>
+                              <li *ngIf="dmgPage == dmgItemPagination[pagination?.length-1]" class="page-item disabled">
+                                  <a class="page-link" (click)="newDmgPage(dmgPage + 1)">Next</a>
+                              </li>
+                              <li *ngIf="dmgPage != dmgItemPagination[pagination?.length-1]" class="page-item">
+                                  <a class="page-link" (click)="newDmgPage(dmgPage + 1)">Next</a>
+                              </li>
+                          </ul>
+                      </nav>
                     </div>
                   </div>
 
-              <div style="overflow: auto !important;"  class="card shadow mb-4">
+              <div class="card shadow mb-4">
                   <!-- Card Header - Dropdown -->
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Reservations</h6>
                   </div>
                   <!-- Card Body -->
-                  <div class="card-body">
-                    <div class="chart-pie pt-4">
+                  
                     <div>
                         <table class="table table-striped custab">
                             <thead>
@@ -142,20 +185,16 @@
                                 </td>
                             </tr>
                         </table>
-                    
-                    <hr>
-                  </div>
-
                   <nav *ngIf="resPagination.length > 1" aria-label="Page navigation" class="text-center">
                       <ul class="pagination justify-content-center">
                          <li *ngIf="resPage == resPagination[0]" class="page-item disabled">
                            <a class="page-link" (click)="newResListPage(resPage - 1)">Previous</a>
                          </li>
-                         <li *ngIf="resPage != resPagination[0]" class="resPage-item">
+                         <li *ngIf="resPage != resPagination[0]" class="Page-item">
                            <a class="page-link" (click)="newResListPage(resPage - 1)">Previous</a>
                          </li>
                          <li *ngFor="let page_num of resPagination" class="page-item">
-                           <a class="page-link" (click)="newResListPage(resPage_num)">{{ page_num }}</a>
+                           <a class="page-link" (click)="newResListPage(page_num)">{{ page_num }}</a>
                          </li>
                          <li *ngIf="resPage == resPagination[resPagination?.length-1]" class="page-item disabled">
                              <a class="page-link" (click)="newResListPage(resPage + 1)">Next</a>
