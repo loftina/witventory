@@ -14,9 +14,9 @@ import * as $ from 'jquery';
 })
 export class ItemShortageListComponent implements OnInit {
 
-	items = [];
-	pagination = [];
-	page = 1;
+	shortage_items = [];
+	shortage_pagination = [];
+	shortage_page = 1;
 
   	API = ApiSettings.API_ENDPOINT;
 
@@ -26,28 +26,26 @@ export class ItemShortageListComponent implements OnInit {
 		this.route.queryParams.subscribe(params => {
 			this.http.get(`${this.API}/item_shortages/1`)
 				.subscribe((itemsResp: any) => {
-					this.pagination = Array(itemsResp.total_pages).fill(0).map((x,i)=>i+1)
-					this.items = itemsResp.item_shortages;
-					this.page = itemsResp.current_page;
+					this.shortage_pagination = Array(itemsResp.total_pages).fill(0).map((x,i)=>i+1)
+					this.shortage_items = itemsResp.item_shortages;
+					this.shortage_page = itemsResp.current_page;
 				})
 		});
-
-		
 	}
 
 	newPage(new_page) {
-		if (this.pagination[0] > new_page) {
-			new_page = this.pagination[this.pagination.length-1]
+		if (this.shortage_pagination[0] > new_page) {
+			new_page = this.shortage_pagination[this.shortage_pagination.length-1]
 		}
-		else if (this.pagination[this.pagination.length-1] < new_page) {
-			new_page = this.pagination[0];
+		else if (this.shortage_pagination[this.shortage_pagination.length-1] < new_page) {
+			new_page = this.shortage_pagination[0];
 		}
 		this.route.queryParams.subscribe(params => {
 			this.http.get(`${this.API}/item_shortages/` + String(new_page))
 				.subscribe((itemsResp: any) => {
-					this.pagination = Array(itemsResp.total_pages).fill(0).map((x,i)=>i+1)
-					this.items = itemsResp.item_shortages;
-					this.page = itemsResp.current_page;
+					this.shortage_pagination = Array(itemsResp.total_pages).fill(0).map((x,i)=>i+1)
+					this.shortage_items = itemsResp.item_shortages;
+					this.shortage_page = itemsResp.current_page;
 				})
 		});
 	}
@@ -60,15 +58,6 @@ export class ItemShortageListComponent implements OnInit {
 	
 	isAdmin() {
 		return localStorage.getItem("admin") === "true";
-	}
-
-	mark(item_id) {
-		this.http.patch(`${this.API}/items/item/` + item_id, [{"propName": "damaged_status", "value": "false"}])
-			.subscribe(res => {
-				this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-					this.router.navigate(['/items/damaged']);
-				});
-			});
 	}
 
 	markResolved(item_id) {

@@ -1,3 +1,5 @@
+{{ shortage | json }}
+
 <div class="content-card">
     <div  class=" shadow mb-4">
         <!-- Card Header - Dropdown -->
@@ -5,9 +7,9 @@
         <h6 class="m-0 font-weight-bold text-primary">Need Replacement</h6>
         </div>
         <!-- Card Body -->
-        <div style="margin-top: 20px;" *ngIf="!items || items.length === 0" class="alert alert-info"> No items need replacement!</div>
+        <div style="margin-top: 20px;" *ngIf="!shortage_items || shortage_items.length === 0" class="alert alert-info">No items need replacement!</div>
         <div>
-            <table class="table" *ngIf="items.length > 0">
+            <table class="table" *ngIf="shortage_items.length > 0">
             <thead>
                 <tr>
                     <th>User</th>
@@ -15,33 +17,33 @@
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
-            <tr *ngFor="let item of items">
-				<td [routerLink]="['/item', item?._id]">{{ item?.user.email }}</td>
-				<td>{{ item?.item.name }}</td>
+            <tr *ngFor="let shortage_item of shortage_items">
+				<td [routerLink]="['/item', shortage_item?._id]">{{ shortage_item?.user.email }}</td>
+				<td>{{ shortage_item?.item.name }}</td>
                 <td class="text-center">
-                	<a (click)="markResolved(item._id)" class="btn btn-success btn-xs">
+                	<a (click)="markResolved(shortage_item._id)" class="btn btn-success btn-xs">
                 		Resolved
                 	</a>
                 </td>
             </tr>
         </table>
         </div>
-        <nav *ngIf="pagination.length > 1" aria-label="Page navigation" class="text-center">
+        <nav *ngIf="shortage_pagination.length > 1" aria-label="Page navigation" class="text-center">
             <ul class="pagination justify-content-center">
-                <li *ngIf="page == pagination[0]" class="page-item disabled">
-                    <a class="page-link" (click)="newPage(page - 1)">Previous</a>
+                <li *ngIf="shortage_page == shortage_pagination[0]" class="page-item disabled">
+                    <a class="page-link" (click)="newPage(shortage_page - 1)">Previous</a>
                 </li>
-                <li *ngIf="page != pagination[0]" class="page-item">
-                    <a class="page-link" (click)="newPage(page - 1)">Previous</a>
+                <li *ngIf="shortage_page != shortage_pagination[0]" class="page-item">
+                    <a class="page-link" (click)="newPage(shortage_page - 1)">Previous</a>
                 </li>
-                <li *ngFor="let page_num of pagination" class="page-item">
+                <li *ngFor="let page_num of shortage_pagination" class="page-item">
                     <a class="page-link" (click)="newPage(page_num)">{{ page_num }}</a>
                 </li>
-                <li *ngIf="page == pagination[pagination?.length-1]" class="page-item disabled">
-                    <a class="page-link" (click)="newPage(page + 1)">Next</a>
+                <li *ngIf="shortage_page == shortage_pagination[shortage_pagination?.length-1]" class="page-item disabled">
+                    <a class="page-link" (click)="newPage(shortage_page + 1)">Next</a>
                 </li>
-                <li *ngIf="page != pagination[pagination?.length-1]" class="page-item">
-                    <a class="page-link" (click)="newPage(page + 1)">Next</a>
+                <li *ngIf="shortage_page != shortage_pagination[shortage_pagination?.length-1]" class="page-item">
+                    <a class="page-link" (click)="newPage(shortage_page + 1)">Next</a>
                 </li>
             </ul>
         </nav>
