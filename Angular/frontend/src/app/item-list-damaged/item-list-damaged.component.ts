@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { CreateReservationFormComponent } from '../create-reservation-form/create-reservation-form.component';
 import { CreateItemFormComponent } from '../create-item-form/create-item-form.component';
 import { ApiSettings } from '../ApiSettings';
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-item-list-damaged',

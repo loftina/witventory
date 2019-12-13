@@ -104,13 +104,17 @@
                           <tr>
                             <th>Name</th>
                             <th>Location</th>
-                            
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let item of items">
                             <td> {{ item.name }} </td>
                             <td> {{ item.location }} </td>
+                            <td> 
+                              <button class="btn btn-success btn-xs" [routerLink]="['/item', item._id]" >View</button>
+                              <button class="btn btn-danger btn-xs" (click)="deleteItem(item._id)">Del</button> 
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -156,12 +160,22 @@
                             <tr>
                               <th>Name</th>
                               <th>Location</th>
+                              <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let item of items">
-                              <td> {{ item.name }} </td>
-                              <td> {{ item.location }} </td>
+                            <tr *ngFor="let dmgItem of dmgItems">
+                              <td> {{ dmgItem.name }} </td>
+                              <td> {{ dmgItem.location }} </td>
+                              <td> 
+                                  <button (click)="markFixed(item._id)" class="btn btn-success btn-xs">
+                                      Fixed
+                                  </button>
+                                    <button (click)="deleteItem(item._id)" class="btn btn-danger btn-xs">
+                                       Del
+                                    </button>
+
+                              </td>
                             </tr>
                           </tbody>
                         </table>
