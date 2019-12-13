@@ -30,7 +30,7 @@
 			<br>
 
 			<button class="btn btn-success" (click)="openReservationModal(item._id)">Reserve</button>
-			<button *ngIf="isLoggedIn()" class="btn btn-warning" (click)="postDamagedItem(item._id)">Replace Soon</button>
+			<button *ngIf="isLoggedIn()" class="btn btn-warning" (click)="postShortageItem(item._id)">Replace Soon</button>
 			<button *ngIf="isLoggedIn()" class="btn btn-danger" (click)="postDamagedItem(item._id)">Report Damage</button>
 			<h3 class="my-3">Item Details</h3>
 			<li class="list-group-item">{{ item?.type }}</li>

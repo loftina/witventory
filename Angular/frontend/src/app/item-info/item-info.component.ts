@@ -85,8 +85,8 @@ export class ItemInfoComponent implements OnInit {
 					this.damages = damages.item_damages;
 				})
 			this.http.get(`${this.API}/item_shortages/1`, {params: {item: params.get('id')}})
-				.subscribe((damages: any) => {
-					this.shortages = damages.item_shortages;
+				.subscribe((shortages: any) => {
+					this.shortages = shortages.item_shortages;
 				})
 	    });
 	}

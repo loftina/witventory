@@ -63,7 +63,6 @@ export class ItemDamageListComponent implements OnInit {
 			.set("Content-Type", "application/json");
 		this.http.patch(`${this.API}/items/item/` + item_id, [{"propName": "damaged_status", "value": "true"}])
 			.subscribe(res => {
-				console.log(res);
 				this.deleteDamagedRequest(req_id);
 			});
 	}
