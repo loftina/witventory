@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
- import { ItemInfoComponent} from '../item-info/item-info.component';
- import { ItemListComponent} from '../item-list/item-list.component';
- import {ReservationListComponent} from '../reservation-list/reservation-list.component';
+import { ItemInfoComponent} from '../item-info/item-info.component';
+import { ItemListComponent} from '../item-list/item-list.component';
+import {ReservationListComponent} from '../reservation-list/reservation-list.component';
+import { ApiSettings } from '../ApiSettings';
 
 
 
@@ -43,7 +44,7 @@ export class AdminPageComponent implements OnInit {
   users = [];
 	
 
-	API = 'http://localhost:3000';
+	API = ApiSettings.API_ENDPOINT;
 	
 constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router,){}  
 
