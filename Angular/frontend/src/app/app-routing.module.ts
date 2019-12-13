@@ -13,11 +13,13 @@ import { PageNotFoundComponent} from './pagenotfound/pagenotfound.component';
 import { AdminPageComponent} from './adminpage/adminpage.component';
 import { ItemDamageListComponent } from './item-damage-list/item-damage-list.component';
 import { ItemListDamagedComponent } from './item-list-damaged/item-list-damaged.component';
+import { ItemShortageListComponent } from './item-shortage-list/item-shortage-list.component'
 
 
 const routes: Routes = [
 	{ path: 'adminpage', pathMatch: 'full', component:  AdminPageComponent },
 	{ path: 'damaged', pathMatch: 'full', component: ItemDamageListComponent },
+	{ path: 'shortages', pathMatch: 'full', component: ItemShortageListComponent },
 	{ path: 'items/damaged', pathMatch: 'full', component: ItemListDamagedComponent },
 	{ path: 'signin', pathMatch: 'full', component: SignInFormComponent },
 	{ path: 'signup', pathMatch: 'full', component: CreateUserFormComponent },
