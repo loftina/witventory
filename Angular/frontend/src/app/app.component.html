@@ -23,6 +23,9 @@
       <li class="nav-item"><a [routerLink]="'/items'" class="nav-link">Items</a></li>
       <li class="nav-item"><a *ngIf="isLoggedIn()" (click)="userReservations()" class="nav-link">My Reservations</a></li>
       <li class="nav-item"><a class="nav-link" [routerLink]="'/adminpage'" *ngIf="isLoggedIn() && isAdmin()">Admin</a></li>
+      <li class="nav-item"><a class="nav-link" [routerLink]="'/shortages'" *ngIf="isLoggedIn() && isAdmin()">Replace</a></li>
+      <li class="nav-item"><a class="nav-link" [routerLink]="'/damaged'" *ngIf="isLoggedIn() && isAdmin()">Damage Report</a></li>
+      <li class="nav-item"><a class="nav-link" [routerLink]="'/items/damaged'" *ngIf="isLoggedIn() && isAdmin()">Damaged</a></li>
     </ul>
 
     <form class="form-inline my-2 my-lg-0">
