@@ -1,5 +1,5 @@
 
-<div style="margin-top: 20px;" *ngIf="!items || items.length === 0" class="alert alert-info"> No reports of damaged items to display!</div>
+<div style="margin-top: 20px;" *ngIf="!items || items.length === 0" class="alert alert-info"> No damaged items to display!</div>
 
 
 <div *ngIf="items.length > 0"  class="container">
@@ -20,7 +20,7 @@
                 		Fixed
                 	</a>
                 	<a (click)="deleteItem(item._id)" class="btn btn-danger btn-xs">
-                		<span class="glyphicon glyphicon-remove"></span> Delete
+                		<span class="glyphicon glyphicon-remove"></span> Delete Item
                 	</a>
                 </td>
             </tr>
