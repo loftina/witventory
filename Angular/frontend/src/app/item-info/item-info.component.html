@@ -1,3 +1,6 @@
+
+<div class="container">
+
 <div style="margin-top: 20px;" *ngIf="damages.length > 0" class="alert alert-warning" role="alert">
 	This item has been reported as damaged!
 </div>
@@ -18,7 +21,7 @@
 	<div class="row">
 
 		<div class="col-md-8">
-			<img class="img-fluid" src="{{ item?.image }}" alt="{{ item?.name }}">
+			<img class="img-fluid" style="width: 400px; height: 400px;" src="{{ item?.image }}" alt="{{ item?.name }}">
 		</div>
 		<ul class="list-group">
 
@@ -110,4 +113,5 @@
             </td>
         </tr>
     </table>
+</div>
 </div>

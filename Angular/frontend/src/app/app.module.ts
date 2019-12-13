@@ -73,7 +73,7 @@ export class AuthInterceptor implements HttpInterceptor {
     ItemDamageListComponent,
     ItemNoteListComponent,
     ItemCommentModalComponent,
-    ItemListDamagedComponent
+    ItemListDamagedComponent,
   ],
   imports: [
     BrowserModule,
