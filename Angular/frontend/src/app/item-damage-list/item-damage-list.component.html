@@ -5,7 +5,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Reports of Damage</h6>
         </div>
         <!-- Card Body -->
-        <div style="margin-top: 20px;" *ngIf="!damaged_item_reports || damaged_item_reports.length === 0" class="alert alert-info"> No reports of damaged items to display!</div>
+        <div style="margin-top: 20px;" *ngIf="!damaged_item_reports || damaged_item_reports.length === 0" class="alert alert-info container"> No reports of damaged items to display!</div>
         <div>
             <table class="table" *ngIf="damaged_item_reports.length > 0">
                 <thead>

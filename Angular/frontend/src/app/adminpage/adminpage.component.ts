@@ -89,6 +89,10 @@ ngOnInit() {
           reserv.start_date=temp_start_date.toISOString().split('T')[0] + ' ' + temp_start_date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
           reserv.end_date=temp_end_date.toISOString().split('T')[0] + ' ' + temp_end_date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
         });
+        this.resPagination = Array(reservationsResp.total_pages).fill(0).map((x,i)=>i+1)
+        this.resPage = reservationsResp.current_page;
+
+
       })
   });
 

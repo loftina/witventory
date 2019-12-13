@@ -1,82 +1,6 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">WITventory Admin</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Interface
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">              
-          <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseItems" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-          <span>Items</span>
-          </a>
-          <div id="collapseItems" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Custom Utilities:</h6>
-              <a class="collapse-item" (click)="hideItemShow=(hideItemShow ? false : true)">View all items</a>
-              <a class="collapse-item" href="utilities-border.html">View recently added items</a>
-              <a class="collapse-item" href="utilities-border.html">View damaged items</a>
-            </div>
-          </div>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseReservations" aria-expanded="true" aria-controls="collapseUtilities">
-              <i class="fas fa-fw fa-wrench"></i>
-            <span>Reservations</span>
-            </a>
-            <div id="collapseReservations" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">View all Reservations</a>
-              </div>
-            </div>
-          </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-          <a class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Users</span>
-          </a>
-          <div id="collapseUsers" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Custom Utilities:</h6>
-              <a class="collapse-item" (click)="hideUserShow=(hideUserShow ? false : true)">View all users</a>
-              <a class="collapse-item" href="utilities-border.html">View recent registrations</a>
-            </div>
-          </div>
-        </li>
-
-    </ul>
-    <!-- End of Sidebar -->
-
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -97,7 +21,6 @@
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">All Items</h6>
                   </div>
-                  <div class="card-body">
                     <div class="table-responsive">
                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
@@ -119,7 +42,8 @@
                         </tbody>
                       </table>
                     </div>
-                  </div>
+
+                    
                 </div>
 
               <div class="card shadow mb-4">
@@ -221,27 +145,27 @@
                     
                     <hr>
                   </div>
-                </div>
 
-                <nav *ngIf="resPagination.length > 1" aria-label="Page navigation" class="text-center">
-                    <ul class="pagination justify-content-center">
-                       <li *ngIf="resPage == resPagination[0]" class="page-item disabled">
-                         <a class="page-link" (click)="newResListPage(page - 1)">Previous</a>
-                       </li>
-                       <li *ngIf="resPage != resPagination[0]" class="page-item">
-                         <a class="page-link" (click)="newResListPage(page - 1)">Previous</a>
-                       </li>
-                       <li *ngFor="let page_num of resPagination" class="page-item">
-                         <a class="page-link" (click)="newResListPage(page_num)">{{ page_num }}</a>
-                       </li>
-                       <li *ngIf="resPage == resPagination[resPagination?.length-1]" class="page-item disabled">
-                           <a class="page-link" (click)="newResListPage(page + 1)">Next</a>
-                       </li>
-                       <li *ngIf="resPage != resPagination[resPagination?.length-1]" class="page-item">
-                           <a class="page-link" (click)="newResListPage(page + 1)">Next</a>
-                       </li>
-                     </ul>
-                 </nav>
+                  <nav *ngIf="resPagination.length > 1" aria-label="Page navigation" class="text-center">
+                      <ul class="pagination justify-content-center">
+                         <li *ngIf="resPage == resPagination[0]" class="page-item disabled">
+                           <a class="page-link" (click)="newResListPage(resPage - 1)">Previous</a>
+                         </li>
+                         <li *ngIf="resPage != resPagination[0]" class="resPage-item">
+                           <a class="page-link" (click)="newResListPage(resPage - 1)">Previous</a>
+                         </li>
+                         <li *ngFor="let page_num of resPagination" class="page-item">
+                           <a class="page-link" (click)="newResListPage(resPage_num)">{{ page_num }}</a>
+                         </li>
+                         <li *ngIf="resPage == resPagination[resPagination?.length-1]" class="page-item disabled">
+                             <a class="page-link" (click)="newResListPage(resPage + 1)">Next</a>
+                         </li>
+                         <li *ngIf="resPage != resPagination[resPagination?.length-1]" class="page-item">
+                             <a class="page-link" (click)="newResListPage(resPage + 1)">Next</a>
+                         </li>
+                       </ul>
+                   </nav>
+                </div>
             </div>
 
           </div>
@@ -253,7 +177,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Reports of Damage</h6>
                   </div>
                   <!-- Card Body -->
-                  <div style="margin-top: 20px;" *ngIf="!damaged_item_reports || damaged_item_reports.length === 0" class="alert alert-info"> No reports of damaged items to display!</div>
+                  <div style="margin-top: 20px;" *ngIf="!damaged_item_reports || damaged_item_reports.length === 0" class="alert alert-info container"> No reports of damaged items to display!</div>
                   <div>
                       <table class="table" *ngIf="damaged_item_reports.length > 0">
                           <thead>
@@ -310,7 +234,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Need Replacement</h6>
                   </div>
                   <!-- Card Body -->
-                  <div style="margin-top: 20px;" *ngIf="!shortage_items || shortage_items.length === 0" class="alert alert-info">No items need replacement!</div>
+                  <div style="margin-top: 20px;" *ngIf="!shortage_items || shortage_items.length === 0" class="alert alert-info container">No items need replacement!</div>
                   <div>
                       <table class="table" *ngIf="shortage_items.length > 0">
                       <thead>
@@ -363,17 +287,6 @@
 
       </div>
       <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; WITventory</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
     </div>
     <!-- End of Content Wrapper -->
 
